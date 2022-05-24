@@ -17,6 +17,10 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2017",
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules/@types/node"
+    ],
     "module": "es2020",
     "lib": [
       "es2020",
