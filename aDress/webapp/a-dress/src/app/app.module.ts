@@ -11,13 +11,22 @@ import { ProductDialogComponent } from './product-dialog/product-dialog.componen
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
+import { NavbarComponent } from './navbar/navbar.component';
+import { HomeComponent } from './home/home.component';
+import { CarouselComponent } from './carousel/carousel.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     StoreComponent,
     ProductComponent,
-    ProductDialogComponent
+    ProductDialogComponent,
+    NavbarComponent,
+    HomeComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +36,9 @@ import {MatIconModule} from '@angular/material/icon';
     MatFormFieldModule,
     MatMenuModule,
     MatIconModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

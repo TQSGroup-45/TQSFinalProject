@@ -1,0 +1,12 @@
+.button-position{
+    margin-top: 5%;
+    margin-left: 25%;
+    width: 50%;
+    height: 100px;
+    min-width: unset;
+}
+
+.go-shop{
+    font-size:x-large;
+    font-weight: bold;
+}
