@@ -1,7 +1,7 @@
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_app/map.dart';
 import 'package:mobile_app/profile.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'home.dart';
 
@@ -10,6 +10,10 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  Future main() async {
+    await dotenv.load(fileName: ".env");
+  }
 
   @override
   Widget build(BuildContext context) {

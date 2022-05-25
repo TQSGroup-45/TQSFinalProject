@@ -1,14 +1,13 @@
-import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:mobile_app/secrets.dart';
 
 
 class MapView extends StatefulWidget {
+
   const MapView({Key? key}) : super(key: key);
 
   @override
@@ -126,10 +125,11 @@ class _MapViewState extends State<MapView> {
     // Initializing PolylinePoints
     polylinePoints = PolylinePoints();
 
+    dotenv.env['VAR_NAME'];
     // Generating the list of coordinates to be used for
     // drawing the polylines
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      Secrets.apiKey, // Google Maps API Key
+      dotenv.get('GOOGLE_MAPS_API'), // Google Maps API Key
       PointLatLng(startLatitude, startLongitude),
       PointLatLng(destinationLatitude, destinationLongitude),
       travelMode: TravelMode.transit,
@@ -143,7 +143,7 @@ class _MapViewState extends State<MapView> {
     }
 
     // Defining an ID
-    PolylineId id = PolylineId('poly');
+    PolylineId id = const PolylineId('poly');
 
     // Initializing Polyline
     Polyline polyline = Polyline(
