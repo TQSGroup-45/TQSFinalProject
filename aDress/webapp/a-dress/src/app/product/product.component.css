@@ -24,6 +24,9 @@ nav ul{
 nav ul li{
     display: inline-block;
     margin-right: 20px;
+    color: var(--main-orange);
+    font-size: large;
+    font-weight: bold;
 
 }
 nav ul li button{
@@ -34,6 +37,7 @@ nav ul li button{
     background-color: white;
     border: white;
 }
+
 
 .top {
     margin-left: 30px;

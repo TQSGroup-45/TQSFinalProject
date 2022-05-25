@@ -17,6 +17,8 @@
         </button>
       </li>
       <li><button routerLink="/profile-component">Profile</button></li>
+      <li>|</li>
+      <li routerLink="/cart-component"><i class="fa fa-shopping-cart"></i></li>
     </ul>
   </nav>
 </div>
@@ -24,6 +26,112 @@
 <h1 style="text-align: center; font-weight: bolder; color: rgb(209, 101, 0)">
   Products
 </h1>
+<div class="order">
+  <label for="orderby">Sort by: </label>
+  <select (change)="changeOrder($event)" name="orderby" id="orderby">
+    <option value="Name">Name</option>
+    <option value="Plh">Price low to high</option>
+    <option value="Phl">Price high to low</option>
+  </select>
+</div>
+<div class="filter">
+  <h3>Gender</h3>
+  <input
+    type="checkbox"
+    id="M"
+    name="M"
+    value="Male"
+    checked
+    (click)="changeFilter()"
+  />
+  <label for="M"> Male</label><br />
+  <input
+    type="checkbox"
+    id="F"
+    name="F"
+    value="Female"
+    checked
+    (click)="changeFilter()"
+  />
+  <label for="F"> Female</label><br />
+  <input
+    type="checkbox"
+    id="U"
+    name="U"
+    value="Undefined"
+    checked
+    (click)="changeFilter()"
+  />
+  <label for="U"> Undefined</label><br />
+  <h3>Color</h3>
+  <ul class="colors">
+    <li class="color">
+      <button
+        style="background-color: blue; border: 1px solid blue"
+        id="Blue"
+        (click)="[changeC($event), changeFilter()]"
+      ></button>
+    </li>
+    <li class="color">
+      <button
+        style="background-color: Red; border: 1px solid red"
+        id="Red"
+        (click)="[changeC($event), changeFilter()]"
+      ></button>
+    </li>
+    <li class="color">
+      <button
+        style="background-color: green; border: 1px solid green"
+        id="Green"
+        (click)="[changeC($event), changeFilter()]"
+      ></button>
+    </li>
+    <li class="color">
+      <button
+        style="background-color: yellow; border: 1px solid yellow"
+        id="Yellow"
+        (click)="[changeC($event), changeFilter()]"
+      ></button>
+    </li>
+    <li class="color">
+      <button
+        style="background-color: black; border: 1px solid black"
+        id="Black"
+        (click)="[changeC($event), changeFilter()]"
+      ></button>
+    </li>
+    <li class="color">
+      <button
+        style="background-color: white; border: 1px solid black"
+        id="White"
+        (click)="[changeC($event), changeFilter()]"
+      ></button>
+    </li>
+    <li class="color">
+      <button
+        style="background-color: pink; border: 1px solid pink"
+        id="Pink"
+        (click)="[changeC($event), changeFilter()]"
+      ></button>
+    </li>
+    <li class="color">
+      <button
+        style="background-color: brown; border: 1px solid brown"
+        id="Brown"
+        (click)="[changeC($event), changeFilter()]"
+      ></button>
+    </li>
+  </ul>
+  <hr />
+  <h3>Price</h3>
+  <div class="pricerange">
+    From
+    <input type="number" id="pricefrom" />
+    to
+    <input type="number" id="priceto" />
+    <button (click)="changeFilter()">Ok</button>
+  </div>
+</div>
 <div class="clothes">
   <div class="col-4" *ngFor="let pd of prods">
     <img

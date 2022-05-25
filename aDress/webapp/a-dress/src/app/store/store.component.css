@@ -24,6 +24,9 @@ nav ul{
 nav ul li{
     display: inline-block;
     margin-right: 20px;
+    color: var(--main-orange);
+    font-size: large;
+    font-weight: bold;
 
 }
 nav ul li button{
@@ -38,8 +41,12 @@ nav ul li button{
     width: 250px;
     height: 250px;
 }
-.clothes{margin:70px;
-    column-gap: 50px;}
+
+.clothes{
+    margin:70px;
+    column-gap: 50px;
+    display:inline-block;
+}
 
 .col-4 {
     padding-left: 50px ;
@@ -66,4 +73,22 @@ nav ul li button{
 .col-4 img{
     width: 200px;
     height: 200px;
+}
+.order{
+    text-align: right;
+    margin-right: 20px;
+}
+.color{
+    display: inline-block;
+}
+.color button{
+    margin:5px;
+    width: 15px;
+    height: 15px;
+}
+.pricerange{
+    display: inline-block;
+}
+.pricerange input {
+    width: 50px;
 }
