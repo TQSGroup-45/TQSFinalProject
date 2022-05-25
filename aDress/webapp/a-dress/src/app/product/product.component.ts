@@ -15,13 +15,15 @@ export class ProductComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    
     this.route.params.subscribe(params => { 
       this.id=params['id'];
       
     });
-    console.log(this.id);
-    this.pd=prods[this.id];
+    prods.forEach(element => {
+      if (this.id==element.id){
+        this.pd=element;
+      }
+    });
     //ir buscar produto correspondente 
   }
   
