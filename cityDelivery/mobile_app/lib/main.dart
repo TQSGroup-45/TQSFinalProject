@@ -4,9 +4,11 @@ import 'package:mobile_app/profile.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'home.dart';
+import 'authentication/login.dart';
 
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -19,11 +21,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        backgroundColor: Colors.deepPurple[50]
+          primarySwatch: Colors.deepPurple,
+          backgroundColor: Colors.deepPurple[50]
       ),
       title: 'CityDelivery',
-      home: const MyStatefulWidget(),
+      home: const LoginView(),
     );
   }
 }
@@ -72,7 +74,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8),
             child: GNav(
               rippleColor: Colors.deepPurple[100]!,
               hoverColor: Colors.deepPurple[50]!,

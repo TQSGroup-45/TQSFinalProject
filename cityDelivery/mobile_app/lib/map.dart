@@ -62,6 +62,7 @@ class _MapViewState extends State<MapView> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Map'),
+          centerTitle: true,
         ),
         body: Stack(
           children: <Widget>[
