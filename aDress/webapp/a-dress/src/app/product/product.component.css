@@ -5,40 +5,6 @@
     --main-orange:rgb(209,101,0);
     --main-brown:rgb(132, 85, 61);
 }
-.navbar {
-    display:flex;
-    align-items: center;
-    padding-left: 15px;
-    padding-top: 10px;
-    border-bottom: 4px sandybrown groove;
-    margin-bottom:30px;
-}
-nav{
-    flex:1;
-    text-align: right ;
-}
-nav ul{
-    display:inline-block;
-    list-style-type: none;
-}
-nav ul li{
-    display: inline-block;
-    margin-right: 20px;
-    color: var(--main-orange);
-    font-size: large;
-    font-weight: bold;
-
-}
-nav ul li button{
-    font-size: large;
-    color: var(--main-orange);
-    font-weight: bold;
-    padding: 5px;
-    background-color: white;
-    border: white;
-}
-
-
 .top {
     margin-left: 30px;
 }

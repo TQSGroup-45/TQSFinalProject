@@ -1,0 +1,56 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --main-orange:rgb(209,101,0);
+    --main-brown:rgb(132, 85, 61);
+}
+.orders{
+    margin: 25px;
+}
+.orders h1{
+    font-weight: bold;
+    color: var(--main-orange);
+}
+.orders table{
+    text-align: center;
+    margin: auto;
+    width: 70%;
+    border: 2px solid var(--main-brown);
+}
+.orders table h2{
+    color:var(--main-orange);
+}
+.orders table tr th{
+    border: 2px solid var(--main-brown);
+}
+.orders table tr td{
+    color:var(--main-brown);
+    border: 2px solid var(--main-brown);
+}
+.infos{
+    width: 300px;
+}
+.infos input{
+    width: inherit;
+    color: var(--main-brown); 
+}
+.infos label{
+    color: var(--main-orange);
+}
+.infos i{
+    color:var(--main-orange);
+}
+.pc input{
+    width: 45%;
+}
+
+.confirm{
+    display: none;
+    color: var(--main-orange);
+    border: 2px solid var(--main-brown);
+    padding:4px;
+    margin-top: 5px;
+    border-radius: 4px;
+}
+
