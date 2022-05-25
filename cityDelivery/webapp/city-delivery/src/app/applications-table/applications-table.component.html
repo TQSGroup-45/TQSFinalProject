@@ -1,0 +1,42 @@
+<div class="mat-elevation-z8 table-body" style="margin-top: 2%;">
+    <table mat-table [dataSource]="couriersList">
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let courier"> {{courier.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> email </th>
+            <td mat-cell *matCellDef="let courier"> {{courier.email}} </td>
+        </ng-container>
+        <ng-container matColumnDef="contact">
+            <th mat-header-cell *matHeaderCellDef> Contact </th>
+            <td mat-cell *matCellDef="let courier"> {{courier.contact}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="profile">
+            <th mat-header-cell *matHeaderCellDef> Profile </th>
+            <td mat-cell *matCellDef="let courier"> 
+                
+                <button type="button" class="btn btn-primary btn-floating">
+                    <mat-icon>account_box</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="answer" >
+            <th mat-header-cell *matHeaderCellDef > Approve </th>
+            <td mat-cell *matCellDef="let courier"> 
+                <button type="button" mdbBtn color="success" mdbWavesEffect><mat-icon>check</mat-icon></button>
+                <button type="button" mdbBtn color="danger" mdbWavesEffect><mat-icon>close</mat-icon></button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons 
+        aria-label="Select page of periodic elements">
+    </mat-paginator>
+</div>
