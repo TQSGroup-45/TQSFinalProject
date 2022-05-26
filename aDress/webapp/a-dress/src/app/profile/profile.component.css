@@ -23,10 +23,11 @@
 }
 .orders table tr th{
     border: 2px solid var(--main-brown);
+   
 }
 .orders table tr td{
     color:var(--main-brown);
-    border: 2px solid var(--main-brown);
+    border: 2px solid var(--main-brown); height: 40px;
 }
 .infos{
     width: 300px;

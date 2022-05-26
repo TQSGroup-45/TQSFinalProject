@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Order,orders} from '../profile/order'
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -13,7 +13,7 @@ export class ProfileComponent implements OnInit {
   postcode1:string="";
   postcode2:string="";
   city:string="";
-  
+  orders:Order[]=orders;
   constructor() { }
 
   ngOnInit(): void {
@@ -95,5 +95,8 @@ export class ProfileComponent implements OnInit {
     save!.style.display="none";
     cancel!.style.display="none";
     console.log(this.name,this.date,this.city)
+  }
+  trackOrder(event:any):void{
+    console.log(event.target)
   }
 }

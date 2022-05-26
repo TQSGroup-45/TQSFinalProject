@@ -42,14 +42,21 @@
     <tr>
       <th><h2>Order</h2></th>
       <th><h2>Date</h2></th>
+      <th><h2>State</h2></th>
+      <th><h2>Track</h2></th>
     </tr>
-    <tr>
-      <td>ADbfes</td>
-      <td>25/05/20</td>
-    </tr>
-    <tr>
-      <td>ADbfes</td>
-      <td>25/05/20</td>
+    <tr *ngFor="let od of orders">
+      <td>{{ od.code }}</td>
+      <td>{{ od.date }}</td>
+      <td>{{ od.status }}</td>
+      <td>
+        <i
+          class="fa fa-search"
+          aria-hidden="true"
+          (click)="trackOrder($event)"
+        ></i>
+      </td>
     </tr>
   </table>
+  <br /><br /><br />
 </div>
