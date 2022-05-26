@@ -13,7 +13,7 @@ color:String="";
   constructor() { }
 
   ngOnInit(): void {
-    this.prods.sort((a,b)=>(a.name> b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+    this.prods.sort((a,b)=>(a.name> b.name) ? 1 : temp);
   }
   changeOrder(event:any):void{
     let order=event.target.value;

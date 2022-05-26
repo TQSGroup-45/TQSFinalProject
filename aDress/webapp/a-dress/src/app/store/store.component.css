@@ -21,7 +21,7 @@
     min-width: 200px;
     margin-bottom: 15px;
     display: inline-block;
-    width: calc(100%/4);
+    width: calc(100%/ 4);
 }
 .col-4 h4{
     margin-top: 10px;
