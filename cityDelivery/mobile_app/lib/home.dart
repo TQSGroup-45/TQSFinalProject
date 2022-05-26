@@ -9,6 +9,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text('CityDeliver'),
+          centerTitle: true,
         ),
         body: ListView(
             children: <Widget>[
@@ -124,31 +125,48 @@ class HomeView extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                TextButton(
-                                  style: ButtonStyle(
-                                      padding: MaterialStateProperty.all<EdgeInsets>(
-                                          const EdgeInsets.all(15)
-                                      )
+                                SizedBox(
+                                  width: 120,
+                                  child: OutlinedButton(
+                                    style: ButtonStyle(
+                                        padding: MaterialStateProperty.all<EdgeInsets>(
+                                            const EdgeInsets.symmetric(vertical: 18)),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(32.0)
+                                            )
+                                        )
+                                    ),
+                                    child: const Text('DECLINE'),
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => const MapView())
+                                      );
+                                    },
                                   ),
-                                  child: const Text('DECLINE'),
-                                  onPressed: () {
-
-                                  },
                                 ),
-                                ElevatedButton(
-                                  style: ButtonStyle(
-                                      padding: MaterialStateProperty.all<EdgeInsets>(
-                                          const EdgeInsets.all(15)
-                                      )
+                                SizedBox(
+                                  width: 170,
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                        padding: MaterialStateProperty.all<EdgeInsets>(
+                                            const EdgeInsets.symmetric(vertical: 18)),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(32.0)
+                                            )
+                                        )
+                                    ),
+                                    child: const Text('ACCEPT DELIVERY'),
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => const MapView())
+                                      );
+                                    },
                                   ),
-                                  child: const Text('ACCEPT DELIVERY'),
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => const MapView())
-                                    );
-                                  },
-                                ),
+                                )
                               ],
                             )
 
