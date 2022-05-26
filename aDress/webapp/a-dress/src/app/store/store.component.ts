@@ -86,6 +86,16 @@ color:String="";
     this.color=event.target.id;
     }
   } 
+  switchFilters():void{
+    var div=document.getElementById("filter");
+    var display= div!.style.display;
+    if(display == "none"){
+      div!.style.display = 'block';
+    }
+    else{
+      div!.style.display = 'none';
+    }
+  }
 
 }
 
