@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, Input, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',

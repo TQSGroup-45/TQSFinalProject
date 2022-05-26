@@ -11,12 +11,22 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { MapComponent } from './components/map/map.component';
+import { DeliveryStatisticsComponent } from './delivery-statistics/delivery-statistics.component';
+import { DeliveryBarchartComponent } from './delivery-barchart/delivery-barchart.component';
+import { NgxChartsModule }from '@swimlane/ngx-charts';
+import { CourierManagementComponent } from './courier-management/courier-management.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ApplicationsComponent,
-    ApplicationsTableComponent
+    ApplicationsTableComponent,
+    MapComponent,
+    DeliveryStatisticsComponent,
+    DeliveryBarchartComponent,
+    CourierManagementComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -27,7 +37,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     MatIconModule,
     MatButtonModule,
     MDBBootstrapModule,
-    
+    NgxChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
