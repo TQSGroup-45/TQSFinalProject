@@ -1,0 +1,15 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --main-orange:rgb(209,101,0);
+    --main-brown:rgb(132, 85, 61);
+}
+.container h1{
+    color: var(--main-orange);
+    font-weight: bold;
+}
+.aside img{
+    width: 150px;
+    height: 150px;
+}

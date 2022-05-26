@@ -16,6 +16,7 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatButtonModule } from '@angular/material/button';
 import { ProfileComponent } from './profile/profile.component';
+import { CartComponent } from './cart/cart.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ProfileComponent } from './profile/profile.component';
     NavbarComponent,
     HomeComponent,
     CarouselComponent,
-    ProfileComponent
+    ProfileComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
