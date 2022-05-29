@@ -19,13 +19,16 @@
     <div class="row">
       <main class="col-md-9">
         <div class="card">
-          <table class="table table-borderless table-shopping-cart">
+          <table
+            aria-describedby="My cart"
+            class="table table-borderless table-shopping-cart"
+          >
             <thead class="text-muted">
               <tr class="small text-uppercase">
                 <th scope="col">Product</th>
-                <th scope="col" width="120">Quantity</th>
-                <th scope="col" width="120">Price</th>
-                <th scope="col" class="text-right" width="200"></th>
+                <th scope="col" style="width: 120px">Quantity</th>
+                <th scope="col" style="width: 120px">Price</th>
+                <th scope="col" class="text-right" style="width: 200"></th>
               </tr>
             </thead>
             <tbody>
@@ -36,6 +39,7 @@
                       <img
                         src="assets/images/products/p1.jfif"
                         class="img-sm"
+                        alt="Picture of product"
                       />
                     </div>
                     <figcaption class="info">
@@ -71,6 +75,7 @@
                       <img
                         src="assets/images/products/p2.jfif"
                         class="img-sm"
+                        alt="Picture of product"
                       />
                     </div>
                     <figcaption class="info">
@@ -104,21 +109,14 @@
 
           <div class="card-body border-top">
             <a href="#" class="btn btn-success float-md-right">
-              Make Purchase <i class="fa fa-chevron-right"></i>
+              Make Purchase <em class="fa fa-chevron-right"></em>
             </a>
             <a href="/products" class="btn btn-secondary">
-              <i class="fa fa-chevron-left"></i> Continue shopping
+              <em class="fa fa-chevron-left"></em> Continue shopping
             </a>
           </div>
         </div>
         <!-- card.// -->
-
-        <div class="alert alert-success mt-3">
-          <p class="icontext">
-            <i class="icon text-success fa fa-truck"></i> Free Delivery within
-            1-2 weeks
-          </p>
-        </div>
       </main>
       <!-- col.// -->
       <aside class="col-md-3">
@@ -130,11 +128,12 @@
               <dd class="text-right h5"><strong>$69.98</strong></dd>
             </dl>
             <hr />
-            <h3>Want it delivered?</h3>
-            <input type="radio" id="yes" name="fav_language" value="yes" />
-            <label for="yes">Yes</label><br />
-            <input type="radio" id="no" name="fav_language" value="no" />
-            <label for="no">No</label><br />
+            <div class="alert alert-success mt-3">
+              <p class="icontext">
+                <em class="icon text-success fa fa-truck"></em> Free Delivery
+                within 1-2 weeks with CityDelivery!
+              </p>
+            </div>
           </div>
           <!-- card-body.// -->
         </div>
@@ -143,6 +142,9 @@
       <!-- col.// -->
     </div>
   </div>
+
+  <br />
+  <br />
   <!-- container .//  -->
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
