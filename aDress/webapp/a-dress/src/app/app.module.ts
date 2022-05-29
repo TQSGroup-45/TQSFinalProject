@@ -17,6 +17,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatButtonModule } from '@angular/material/button';
 import { ProfileComponent } from './profile/profile.component';
 import { CartComponent } from './cart/cart.component';
+import { CompleteOrderComponent } from './complete-order/complete-order.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { CartComponent } from './cart/cart.component';
     HomeComponent,
     CarouselComponent,
     ProfileComponent,
-    CartComponent
+    CartComponent,
+    CompleteOrderComponent
   ],
   imports: [
     BrowserModule,
