@@ -7,33 +7,38 @@
   <div class="infos">
     <h1>Information</h1>
     <label> Name</label><br />
-    <input type="text" id="i1" value="Andreia" disabled />
+    <input type="text" id="i1" value="{{ info.name }}" disabled />
     <br />
     <label> Date of Birth</label><br />
-    <input type="date" id="i2" value="2001-02-21" disabled /><br />
+    <input type="date" id="i2" value="{{ info.dob }}" disabled /><br />
     <label>Street number</label><br />
-    <input type="text" id="i3" value="123" disabled /><br />
+    <input type="text" id="i3" value="{{ info.snum }}" disabled /><br />
     <label>Street name</label><br />
-    <input type="text" id="i4" value="Sesame Street" disabled /><br />
+    <input type="text" id="i4" value="{{ info.sname }}" disabled /><br />
     <label>Postcode</label><br />
     <div class="pc">
-      <input type="number" id="i5" value="1234" disabled />
+      <input type="number" id="i5" value="{{ info.postcode1 }}" disabled />
       &nbsp;&nbsp;-&nbsp;&nbsp;
-      <input type="number" id="i6" value="5678" disabled /><br />
+      <input
+        type="number"
+        id="i6"
+        value="{{ info.postcode2 }}"
+        disabled
+      /><br />
     </div>
     <label>City</label><br />
-    <input type="text" id="i7" value="Narnia" disabled />
+    <input type="text" id="i7" value="{{ info.city }}" disabled />
 
     <br /><button class="confirm" id="confirmchanges" (click)="save()">
       Save
     </button>
     <button class="confirm" id="cancelchanges" (click)="cancel()">Cancel</button
     ><br />
-    <i
+    <em
       class="fa fa-pencil-square-o fa-3x"
       aria-hidden="true"
       (click)="enableinput()"
-    ></i>
+    ></em>
     <br />
   </div>
   <br />
@@ -42,17 +47,20 @@
     <tr>
       <th><h2>Order</h2></th>
       <th><h2>Date</h2></th>
+      <th><h2>Total</h2></th>
       <th><h2>State</h2></th>
       <th><h2>Track</h2></th>
     </tr>
     <tr *ngFor="let od of orders">
       <td>{{ od.code }}</td>
       <td>{{ od.date }}</td>
+      <td>$ {{ od.total }}</td>
       <td>{{ od.status }}</td>
       <td>
         <i
           class="fa fa-search"
           aria-hidden="true"
+          [hidden]="od.status == 'Delivered'"
           (click)="trackOrder($event)"
         ></i>
       </td>

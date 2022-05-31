@@ -39,7 +39,7 @@
 .infos label{
     color: var(--main-orange);
 }
-.infos i{
+.infos em{
     color:var(--main-orange);
 }
 .pc input{
