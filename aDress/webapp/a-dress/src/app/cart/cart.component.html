@@ -32,21 +32,21 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr *ngFor="let p of products">
                 <td>
                   <figure class="itemside">
                     <div class="aside">
                       <img
-                        src="assets/images/products/p1.jfif"
+                        src="assets/images/products/p{{ p.src }}.jfif"
                         class="img-sm"
                         alt="Picture of product"
                       />
                     </div>
                     <figcaption class="info">
-                      <a href="/products/product/0" class="title text-dark"
-                        >Brown Pants</a
-                      >
-                      <p class="text-muted small">Color: Brown <br /></p>
+                      <a href="/products/product/0" class="title text-dark">{{
+                        p.name
+                      }}</a>
+                      <p class="text-muted small">Color: {{ p.color }}<br /></p>
                     </figcaption>
                   </figure>
                 </td>
@@ -60,43 +60,7 @@
                 </td>
                 <td>
                   <div class="price-wrap">
-                    <var class="price">$39.99</var>
-                  </div>
-                  <!-- price-wrap .// -->
-                </td>
-                <td class="text-right">
-                  <a href="" class="btn btn-light"> Remove</a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <figure class="itemside">
-                    <div class="aside">
-                      <img
-                        src="assets/images/products/p2.jfif"
-                        class="img-sm"
-                        alt="Picture of product"
-                      />
-                    </div>
-                    <figcaption class="info">
-                      <a href="/products/product/1" class="title text-dark"
-                        >Blue T-shirt</a
-                      >
-                      <p class="text-muted small">Color: Blue <br /></p>
-                    </figcaption>
-                  </figure>
-                </td>
-                <td>
-                  <select class="form-control">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                  </select>
-                </td>
-                <td>
-                  <div class="price-wrap">
-                    <var class="price">$29.99</var>
+                    <var class="price">${{ p.price }}</var>
                   </div>
                   <!-- price-wrap .// -->
                 </td>
@@ -125,7 +89,9 @@
           <div class="card-body">
             <dl class="dlist-align">
               <dt>Total:</dt>
-              <dd class="text-right h5"><strong>$69.98</strong></dd>
+              <dd class="text-right h5">
+                <strong>${{ total }}</strong>
+              </dd>
             </dl>
             <hr />
             <div class="alert alert-success mt-3">
