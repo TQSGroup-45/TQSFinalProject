@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --main-orange:rgb(209,101,0);
+    --main-brown:rgb(132, 85, 61);
+}
+
+body{
+    margin-left:25px;
+}
+body h1{
+    color:var(--main-orange);
+    font-weight: bold;
+}
+.full{
+    margin: auto;
+    width:95%;
+    height: 70%;
+}
+body button{
+    border: 3px solid var(--main-brown);
+    margin-top: 20px;
+    padding:10px;
+    color: var(--main-orange);
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: white;
+}

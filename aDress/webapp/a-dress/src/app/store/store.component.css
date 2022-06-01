@@ -81,6 +81,7 @@
     border-right: 2px dashed var(--main-brown);
 }
 .right{
+    margin-top: 86px;
     width:20%;
     display: inline-block;
     vertical-align: top;

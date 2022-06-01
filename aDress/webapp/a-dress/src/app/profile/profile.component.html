@@ -61,7 +61,7 @@
           class="fa fa-search"
           aria-hidden="true"
           [hidden]="od.status == 'Delivered'"
-          (click)="trackOrder($event)"
+          [routerLink]="['track', od.code]"
         ></i>
       </td>
     </tr>

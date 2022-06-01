@@ -5,16 +5,17 @@
     --main-orange:rgb(209,101,0);
     --main-brown:rgb(132, 85, 61);
 }
-.top {
+.bottom {
     margin-left: 30px;
 }
-.top button{
-    padding: 6px 16px;
-    background-color: #f1f1f1;
-    border-radius: 4px;
+.bottom button{
+    border: 3px solid var(--main-brown);
+    margin-top: 25px;
+    padding:10px;
+    color: var(--main-orange);
     font-weight: bold;
-    color:var(--main-orange);
-    border:  2px solid var(--main-orange);
+    border-radius: 10px;
+    background-color: white;
 }
 .product{
     text-align: center;

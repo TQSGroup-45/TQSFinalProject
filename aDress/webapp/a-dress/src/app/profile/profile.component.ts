@@ -18,7 +18,9 @@ export class ProfileComponent implements OnInit {
   public info:Client={name:"Andreia",dob:"2001-02-21",sname:"rua",snum:"2",postcode1:123,postcode2:456,city:"Narnia"};
   private infoChangedFlag:boolean=false;
 
-  constructor() { }
+  constructor() { 
+    //empty
+  }
 
   ngOnInit(): void {
     //Carregar client info
@@ -101,8 +103,5 @@ export class ProfileComponent implements OnInit {
     save!.style.display="none";
     cancel!.style.display="none";
     console.log(this.name,this.date,this.city)
-  }
-  trackOrder(event:any):void{
-    console.log(event.target)
   }
 }
