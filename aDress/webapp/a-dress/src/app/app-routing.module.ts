@@ -5,19 +5,21 @@ import { ProductComponent } from './product/product.component';
 import { StoreComponent } from './store/store.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CartComponent } from './cart/cart.component';
-import { CompleteOrderComponent } from './complete-order/complete-order.component'
-
+import { CompleteOrderComponent } from './complete-order/complete-order.component';
+import { TrackOrderComponent } from './track-order/track-order.component';
+import { GoogleMapsModule } from '@angular/google-maps'
 const routes: Routes = [
   {path:'products', component:StoreComponent},
   {path:'products/product/:id',component:ProductComponent},
   {path:'profile',component:ProfileComponent},
   {path:'cart',component:CartComponent},
   {path:'order',component:CompleteOrderComponent},
+  {path:'profile/track/:code',component:TrackOrderComponent},
   {path:'', component:HomeComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),GoogleMapsModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

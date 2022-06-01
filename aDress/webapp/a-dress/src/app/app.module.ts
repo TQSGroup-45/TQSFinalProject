@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ProfileComponent } from './profile/profile.component';
 import { CartComponent } from './cart/cart.component';
 import { CompleteOrderComponent } from './complete-order/complete-order.component';
+import { TrackOrderComponent } from './track-order/track-order.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { CompleteOrderComponent } from './complete-order/complete-order.componen
     CarouselComponent,
     ProfileComponent,
     CartComponent,
-    CompleteOrderComponent
+    CompleteOrderComponent,
+    TrackOrderComponent
   ],
   imports: [
     BrowserModule,
