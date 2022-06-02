@@ -3,7 +3,7 @@ package adress.service;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,6 +28,7 @@ public class AppServiceTest {
     private ProductRepository prodRep;
     @Mock(lenient = true)
     private ClientRepository clientRep;
+
     @InjectMocks
     private AppService service;
 
@@ -59,8 +60,8 @@ public class AppServiceTest {
     @Test
     public void testListAllProducts() {
         List<Product> found = service.listAllProducts();
-        assertThat(found.get(1).getColor()).isEqualTo("brown");
-        assertThat(found.get(2).getPrice()).isEqualTo(9.99);
+        assertThat(found.get(0).getColor()).isEqualTo("brown");
+        assertThat(found.get(1).getPrice()).isEqualTo(9.99);
         verify(prodRep, VerificationModeFactory.times(1)).findAll();
     }
 
@@ -94,7 +95,7 @@ public class AppServiceTest {
 
     @Test
     public void givenThereIsAnUpdatedClient_testUpdateInformationById() {
-        Client found = service.updateInformation(0, c1);
+        Client found = service.updateInformation(c1);
         verify(clientRep, VerificationModeFactory.times(1)).save(c1);
         assertThat(found).isEqualTo(c1);
     }

@@ -33,6 +33,18 @@ public class Order {
     @Column(name = "total")
     private double total;
 
+    public Order() {
+        super();
+    }
+
+    public Order(Client client, int id, List<Product> prods, String date, double total) {
+        this.client = client;
+        this.id = id;
+        this.prods = prods;
+        this.date = date;
+        this.total = total;
+    }
+
     public Order(Client client, List<Product> prods, String date, double total) {
         this.client = client;
         this.prods = prods;
@@ -59,4 +71,16 @@ public class Order {
     public double getTotal() {
         return this.total;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " client='" + getClient() + "'" +
+                ", prods='" + getProds() + "'" +
+                ", id='" + getId() + "'" +
+                ", date='" + getDate() + "'" +
+                ", total='" + getTotal() + "'" +
+                "}";
+    }
+
 }

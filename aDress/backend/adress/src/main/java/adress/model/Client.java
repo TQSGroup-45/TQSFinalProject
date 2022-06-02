@@ -48,4 +48,56 @@ public class Client {
         this.pc2 = pc2;
         this.city = city;
     }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getDob() {
+        return this.dob;
+    }
+
+    public String getSnum() {
+        return this.snum;
+    }
+
+    public String getSname() {
+        return this.sname;
+    }
+
+    public int getPc1() {
+        return this.pc1;
+    }
+
+    public int getPc2() {
+        return this.pc2;
+    }
+
+    public String getCity() {
+        return this.city;
+    }
+
+    public List<Order> getOrders() {
+        return this.orders;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " id='" + getId() + "'" +
+                ", name='" + getName() + "'" +
+                ", dob='" + getDob() + "'" +
+                ", snum='" + getSnum() + "'" +
+                ", sname='" + getSname() + "'" +
+                ", pc1='" + getPc1() + "'" +
+                ", pc2='" + getPc2() + "'" +
+                ", city='" + getCity() + "'" +
+                ", orders='" + getOrders() + "'" +
+                "}";
+    }
+
 }
