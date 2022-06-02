@@ -19,7 +19,8 @@ public class Order {
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    @OneToMany(mappedBy = "items")
+    @OneToMany
+    @JoinColumn(name = "products_id")
     private List<Product> prods;
 
     @Id
@@ -32,6 +33,18 @@ public class Order {
 
     @Column(name = "total")
     private double total;
+
+    public Order() {
+        super();
+    }
+
+    public Order(Client client, int id, List<Product> prods, String date, double total) {
+        this.client = client;
+        this.id = id;
+        this.prods = prods;
+        this.date = date;
+        this.total = total;
+    }
 
     public Order(Client client, List<Product> prods, String date, double total) {
         this.client = client;
@@ -59,4 +72,16 @@ public class Order {
     public double getTotal() {
         return this.total;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " client='" + getClient() + "'" +
+                ", prods='" + getProds() + "'" +
+                ", id='" + getId() + "'" +
+                ", date='" + getDate() + "'" +
+                ", total='" + getTotal() + "'" +
+                "}";
+    }
+
 }

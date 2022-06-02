@@ -11,7 +11,7 @@
   />
   <h3>{{ pd.price }} €</h3>
   <h3 class="it">{{ pd.color }} , {{ pd.class }} , {{ pd.gender }}</h3>
-  <button style="font-size: 20px">
+  <button style="font-size: 20px" (click)="addToCart(pd)">
     <em class="fa fa-cart-plus"></em>
   </button>
 </div>

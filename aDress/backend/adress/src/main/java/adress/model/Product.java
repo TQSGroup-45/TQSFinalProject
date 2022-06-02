@@ -29,9 +29,8 @@ public class Product {
         // TODO constructor
     }
 
-    public Product(int id, String name, double price, String color, String gender, String type) {
+    public Product(String name, double price, String color, String gender, String type) {
         // TODO constructor
-        this.id = id;
         this.name = name;
         this.price = price;
         this.color = color;

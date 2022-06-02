@@ -4,12 +4,14 @@ import adress.model.Client;
 import adress.model.Order;
 import adress.model.Product;
 import adress.service.AppService;
-import adress.utils.JsonUtil;
 
 import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
 
 import org.springframework.test.web.servlet.MockMvc;
+
+import com.google.gson.Gson;
+
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.ArrayList;
 
 @WebMvcTest(AppController.class)
@@ -38,6 +41,7 @@ class AppControllerTest {
     private Order o1;
     private Order o2;
     private Client c1;
+
     @Autowired
     private MockMvc mvc;
 
@@ -46,8 +50,8 @@ class AppControllerTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        p1 = new Product(1, "brown pants", 19.99, "brown", "male", "pants");
-        p2 = new Product(2, "red tshirt", 9.99, "red", "male", "tshirt");
+        p1 = new Product("brown pants", 19.99, "brown", "male", "pants");
+        p2 = new Product("red tshirt", 9.99, "red", "male", "tshirt");
         c1 = new Client("andreia", "2001-02-21", "123", "sesame street", 1234, 5678, "Narnia");
         o1 = new Order(c1, prods, "2022-06-01", 28.89);
         o2 = new Order(c1, prods, "2022-06-05", 28.89);
@@ -65,7 +69,7 @@ class AppControllerTest {
         when(service.listAllProducts()).thenReturn(prods);
         mvc.perform(get("/api/v1/store").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id", is(1)))
+                .andExpect(jsonPath("$[0].id", is(0)))
                 .andExpect(jsonPath("$[0].color", is("brown")))
                 .andExpect(jsonPath("$[1].gender", is("male")));
         verify(service, times(1)).listAllProducts();
@@ -73,11 +77,11 @@ class AppControllerTest {
 
     @Test
     void testGetProductById() throws Exception {
-        when(service.getProductById(Mockito.anyInt())).thenReturn(p1);
+        when(service.getProductById(Mockito.anyInt())).thenReturn(Optional.of(p1));
         mvc.perform(get("/api/v1/product/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id", is(1)))
-                .andExpect(jsonPath("$[0].name", is("brown pants")));
+                .andExpect(jsonPath("$.id", is(0)))
+                .andExpect(jsonPath("$.name", is("brown pants")));
         verify(service, times(1)).getProductById(1);
     }
 
@@ -94,11 +98,11 @@ class AppControllerTest {
 
     @Test
     void testAddOrder() throws Exception {
-        when(service.addOrder(Mockito.anyInt(), o1)).thenReturn(o1);
-        mvc.perform(post("/api/v1/orders/0").contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(o1)))
+        when(service.addOrder((Order) Mockito.any())).thenReturn(o1);
+        mvc.perform(post("/api/v1/orders/0").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(o1)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.date", is("2022-06-01")));
-        verify(service, times(1)).addOrder(Mockito.anyInt(), o1);
+        verify(service, times(1)).addOrder((Order) Mockito.any());
     }
 
     @Test
@@ -106,17 +110,16 @@ class AppControllerTest {
         when(service.getInformation(Mockito.anyInt())).thenReturn(c1);
         mvc.perform(get("/api/v1/profile/0").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].name", is("andreia")));
+                .andExpect(jsonPath("$.name", is("andreia")));
         verify(service, times(1)).getInformation(Mockito.anyInt());
     }
 
     @Test
     void testUpdateInformation() throws Exception {
-        when(service.updateInformation(Mockito.anyInt(), c1)).thenReturn(c1);
-        mvc.perform(put("/api/v1/profile/0").contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(c1)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].dob", is("2001-02-21")));
-        verify(service, times(1)).updateInformation(Mockito.anyInt(), c1);
+        when(service.updateInformation(c1)).thenReturn(c1);
+        mvc.perform(put("/api/v1/profile/0").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(c1)))
+                .andExpect(status().isAccepted());
+        verify(service, times(1)).updateInformation((Client) Mockito.any());
     }
 
 }

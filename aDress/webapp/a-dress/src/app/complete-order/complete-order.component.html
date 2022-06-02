@@ -17,13 +17,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let p of products">
+    <tr *ngFor="let p of cart">
       <td>
         <figure class="itemside">
           <figcaption class="info">
             <div class="details1">
               <img
-                src="assets/images/products/p{{ p.src }}.jfif"
+                src="assets/images/products/p{{ p.id }}.jfif"
                 class="img-sm"
                 alt="Picture of product"
               />
@@ -36,11 +36,11 @@
         </figure>
       </td>
       <td>
-        <p>1</p>
+        <p>{{ count[p.id] }}</p>
       </td>
       <td>
         <div class="price-wrap">
-          <var class="price">${{ total }}</var>
+          <var class="price">${{ count[p.id] * p.price }}</var>
         </div>
         <!-- price-wrap .// -->
       </td>

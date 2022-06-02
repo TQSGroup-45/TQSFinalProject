@@ -32,12 +32,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let p of products">
+              <tr *ngFor="let p of cart">
                 <td>
                   <figure class="itemside">
                     <div class="aside">
                       <img
-                        src="assets/images/products/p{{ p.src }}.jfif"
+                        src="assets/images/products/p{{ p.id }}.jfif"
                         class="img-sm"
                         alt="Picture of product"
                       />
@@ -51,12 +51,7 @@
                   </figure>
                 </td>
                 <td>
-                  <select class="form-control">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                  </select>
+                  <var class="price">{{ count[p.id] }}</var>
                 </td>
                 <td>
                   <div class="price-wrap">
@@ -65,14 +60,20 @@
                   <!-- price-wrap .// -->
                 </td>
                 <td class="text-right">
-                  <a href="" class="btn btn-light"> Remove</a>
+                  <a (click)="removeFromCart(p)" class="btn btn-light">
+                    Remove</a
+                  >
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="card-body border-top">
-            <a href="/order" class="btn btn-success float-md-right">
+            <a
+              href="/order"
+              (click)="sendCart()"
+              class="btn btn-success float-md-right"
+            >
               Make Purchase <em class="fa fa-chevron-right"></em>
             </a>
             <a href="/products" class="btn btn-secondary">
