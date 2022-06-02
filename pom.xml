@@ -11,8 +11,8 @@
     <name>Example of multi-module Maven project</name>
 
     <modules>
-        <module>adress/backend/adress</module>
-        <module>citydelivery/backend/citydelivery</module>
+        <module>aDress/backend/adress</module>
+        <module>cityDelivery/backend/citydelivery</module>
     </modules>
 
     <properties>
