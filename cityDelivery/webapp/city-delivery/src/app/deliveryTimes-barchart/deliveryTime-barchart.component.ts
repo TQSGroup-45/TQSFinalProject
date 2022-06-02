@@ -8,7 +8,7 @@ import { averageTimes } from '../data/product';
 export class DeliveryTimeBarchartComponent implements OnInit {
 
   averageTimes: any[] ;
-  view: [number,number] = [1500, 800];
+  view: [number,number] = [0,0];
 
   // options
   legend: boolean = true;
@@ -18,10 +18,10 @@ export class DeliveryTimeBarchartComponent implements OnInit {
   yAxis: boolean = true;
   showYAxisLabel: boolean = true;
   showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Year';
-  yAxisLabel: string = 'Population';
+  xAxisLabel: string = 'Mês';
+  yAxisLabel: string = 'Tempo';
   timeline: boolean = true;
-  legendTitle: string = 'Deliveries Time';
+  legendTitle: string = 'Deliveries';
 
 
   colorScheme = {
