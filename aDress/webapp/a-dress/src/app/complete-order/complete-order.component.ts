@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../product/product';
 import { Client } from '../profile/client';
 
+import {HttpClient,HttpHeaders} from '@angular/common/http';
 @Component({
   selector: 'app-complete-order',
   templateUrl: './complete-order.component.html',
@@ -15,7 +16,7 @@ export class CompleteOrderComponent implements OnInit {
   public count:number[]=[];
   private infoChangedFlag:boolean=false;
   public info:Client={name:"Andreia",dob:"2001-02-21",sname:"rua",snum:"2",postcode1:123,postcode2:456,city:"Narnia"};
-  constructor() {
+  constructor(private http: HttpClient) {
     this.cartOriginal= JSON.parse(localStorage.getItem("cart")!);
     this.total= JSON.parse(localStorage.getItem("cartTotal")!);
     for(const element of this.cartOriginal){
@@ -26,7 +27,13 @@ export class CompleteOrderComponent implements OnInit {
       }
       else {
       this.count[element.id]+=1;}
-    }
+    };
+    // this.http.get("http://localhost:8080/api/v1/profile/"+0).subscribe((data) => {
+    //   this.info = new Map<string, Product>(Object.entries(data));
+    //   this.prods=[];
+    //   this.info.forEach((value: Product) => {
+    //     this.prods.push(value);
+    // })});
     
   }
 
