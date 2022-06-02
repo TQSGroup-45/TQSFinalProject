@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "orders")
 public class Order {
+    
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;

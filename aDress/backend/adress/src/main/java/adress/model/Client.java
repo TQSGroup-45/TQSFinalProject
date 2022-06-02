@@ -2,8 +2,10 @@ package adress.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,11 +34,20 @@ public class Client {
     @Column(name = "city", nullable = false, length = 50)
     private String city;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(
+        fetch = FetchType.EAGER,
+        mappedBy = "client",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
     private List<Order> orders;
 
     public Client() {
         // TODO constructor
+    }
+
+    public String getName(){
+        return null;
     }
 
     public Client(String name, String dob, String snum, String sname, int pc1, int pc2, String city) {
