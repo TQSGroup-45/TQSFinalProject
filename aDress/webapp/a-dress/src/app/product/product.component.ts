@@ -12,7 +12,15 @@ export class ProductComponent implements OnInit {
   private id!: number;
   info!:  Map<string, Product>;
   public pd!:Product;
-  constructor(private route: ActivatedRoute,private http: HttpClient) { }
+  cart:Product[] = [];
+  constructor(private route: ActivatedRoute,private http: HttpClient) { 
+    if (localStorage.getItem("cart") === null) {
+      localStorage.setItem("cart", JSON.stringify(this.cart));
+    }
+    else{
+      this.cart= JSON.parse(localStorage.getItem("cart")!);
+    }
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => { 
@@ -25,7 +33,13 @@ export class ProductComponent implements OnInit {
       this.pd={id: temp[0],price:temp[2],name:temp[1],color:temp[3],class:temp[4],gender:temp[5],src:temp[0]};
     
      }
-      )};
+    )
+  };
+
+  addToCart(pd:Product):void{
+    this.cart.push(pd);
+    localStorage.setItem("cart", JSON.stringify(this.cart));
+  }
     
     //ir buscar produto correspondente 
   

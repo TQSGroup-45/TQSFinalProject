@@ -16,7 +16,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private int id;
     @Column(name = "name", nullable = false, length = 50)
     private String name;
     @Column(name = "dob", nullable = false, length = 50)
@@ -40,6 +40,17 @@ public class Client {
         // TODO constructor
     }
 
+    public Client(String name, int id, String dob, String snum, String sname, int pc1, int pc2, String city) {
+        this.name = name;
+        this.id = id;
+        this.dob = dob;
+        this.snum = snum;
+        this.sname = sname;
+        this.pc1 = pc1;
+        this.pc2 = pc2;
+        this.city = city;
+    }
+
     public Client(String name, String dob, String snum, String sname, int pc1, int pc2, String city) {
         this.name = name;
         this.dob = dob;
@@ -50,11 +61,7 @@ public class Client {
         this.city = city;
     }
 
-    // public void saveOrder(Order d) {
-    // orders.add(d);
-    // }
-
-    public Long getId() {
+    public int getId() {
         return this.id;
     }
 

@@ -8,16 +8,24 @@ import { Client } from '../profile/client';
   styleUrls: ['./complete-order.component.css']
 })
 export class CompleteOrderComponent implements OnInit {
-  public products:Product[]=[
-    {id: 0,price:39.99,name:"Brown pants",color:"Brown",class:"Pants",gender:"Male",src:"1"},
-    {id: 1,price:29.99,name:"Blue T-shirt",color:"Blue",class:"T-shirt",gender:"Male",src:"2"}];
+  public cart:Product[]=[];
+  public cartOriginal:Product[]=[];
   public total=0;
+  
+  public count:number[]=[];
   private infoChangedFlag:boolean=false;
   public info:Client={name:"Andreia",dob:"2001-02-21",sname:"rua",snum:"2",postcode1:123,postcode2:456,city:"Narnia"};
   constructor() {
-    
-    for(const element of this.products){
+    this.cartOriginal= JSON.parse(localStorage.getItem("cart")!);
+    this.total= JSON.parse(localStorage.getItem("cartTotal")!);
+    for(const element of this.cartOriginal){
       this.total+=element.price;
+      if (this.count[element.id]==null){
+        this.count[element.id]=1;
+        this.cart.push(element);
+      }
+      else {
+      this.count[element.id]+=1;}
     }
     
   }
@@ -42,7 +50,7 @@ export class CompleteOrderComponent implements OnInit {
       //enviar novas informacoes para API
     }
     //enviar order para citydelivery
-    
+    // enviar this.total
     console.log("Order saved");
   }
   enableinput():void{

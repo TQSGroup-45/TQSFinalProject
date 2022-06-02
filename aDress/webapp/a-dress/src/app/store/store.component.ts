@@ -11,8 +11,16 @@ selection={value:""};
 originalprods:Product[]=prods;
 prods!:Product[];
 info!:  Map<string, Product>;
-color:String="";
-  constructor(private http: HttpClient) { }
+cart:Product[] = [];
+color:string="";
+  constructor(private http: HttpClient) { 
+    if (localStorage.getItem("cart") === null) {
+      localStorage.setItem("cart", JSON.stringify(this.cart));
+    }
+    else{
+      this.cart= JSON.parse(localStorage.getItem("cart")!);
+    }
+  }
 
   ngOnInit(): void {
     this.http.get("http://localhost:8080/api/v1/store").subscribe((data) => {
@@ -23,6 +31,10 @@ color:String="";
     });
       this.prods.sort((a,b)=>this.compareName(a,b));
   })
+  }
+  addToCart(pd:Product):void{
+    this.cart.push(pd);
+    localStorage.setItem("cart", JSON.stringify(this.cart));
   }
   changeOrder(event:any):void{
     let order=event.target.value;

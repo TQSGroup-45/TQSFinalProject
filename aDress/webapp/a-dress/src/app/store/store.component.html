@@ -14,7 +14,7 @@
         [routerLink]="['product', pd.id]"
         alt="picture of product"
       />
-      <button style="font-size: 20px">
+      <button style="font-size: 20px" (click)="addToCart(pd)">
         <em class="fa fa-cart-plus"></em>
       </button>
       <h4>{{ pd.name }}</h4>

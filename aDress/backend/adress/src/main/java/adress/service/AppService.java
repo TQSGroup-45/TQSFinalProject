@@ -54,6 +54,7 @@ public class AppService {
     public List<Order> getOrders(int id) {
         List<Order> res = new ArrayList<Order>();
         Iterable<Order> temp = orderRep.findAll();
+        System.out.println(temp);
         for (Order t : temp) {
             if (t.getClient().getId() == id) {
                 res.add(t);

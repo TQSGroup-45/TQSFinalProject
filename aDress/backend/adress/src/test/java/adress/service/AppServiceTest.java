@@ -49,6 +49,7 @@ public class AppServiceTest {
         p2 = new Product("red tshirt", 9.99, "red", "male", "tshirt");
         List<Product> prods = Arrays.asList(p1, p2);
         c1 = new Client("andreia", "2001-02-21", "123", "sesame street", 1234, 5678, "Narnia");
+        System.out.println(c1);
         o1 = new Order(c1, prods, "2022-06-01", 28.89);
         o2 = new Order(c1, prods, "2022-06-05", 28.89);
         List<Order> orders = Arrays.asList(o1, o2);
@@ -57,8 +58,8 @@ public class AppServiceTest {
         Mockito.when(prodRep.findAll()).thenReturn(prods);
         Mockito.when(clientRep.findById(0)).thenReturn(c1);
         Mockito.when(clientRep.save(c1)).thenReturn(c1);
-        Mockito.when(clientRep.findOrdersById(0)).thenReturn(orders);
         Mockito.when(orderRep.save(o1)).thenReturn(o1);
+        Mockito.when(orderRep.findAll()).thenReturn(orders);
     }
 
     @Test
@@ -109,7 +110,7 @@ public class AppServiceTest {
         List<Order> found = service.getOrders(0);
         assertThat(found.get(0).getDate()).isEqualTo("2022-06-01");
         assertThat(found.get(1).getDate()).isEqualTo("2022-06-05");
-        verify(clientRep, VerificationModeFactory.times(1)).findOrdersById(0);
+        verify(orderRep, VerificationModeFactory.times(1)).findAll();
     }
 
     @Test
