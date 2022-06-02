@@ -19,7 +19,8 @@ public class Order {
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    @OneToMany(mappedBy = "items")
+    @OneToMany
+    @JoinColumn(name = "products_id")
     private List<Product> prods;
 
     @Id

@@ -32,7 +32,8 @@ public class Client {
     @Column(name = "city", nullable = false, length = 50)
     private String city;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany
+    @Column(name = "orders")
     private List<Order> orders;
 
     public Client() {
@@ -48,6 +49,10 @@ public class Client {
         this.pc2 = pc2;
         this.city = city;
     }
+
+    // public void saveOrder(Order d) {
+    // orders.add(d);
+    // }
 
     public Long getId() {
         return this.id;

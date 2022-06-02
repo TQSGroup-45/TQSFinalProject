@@ -2,9 +2,12 @@ package adress.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,22 +26,24 @@ import adress.service.AppService;
 @RestController
 @RequestMapping("/api/v1")
 public class AppController {
+
     private AppService service;
 
     public AppController(AppService service) {
         this.service = service;
+        service.save();
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/store")
     public List<Product> listAllProducts() {
         List<Product> temp = service.listAllProducts();
-        System.out.println(temp);
         return temp;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/product/{id}")
-    public Product getProductById(@PathVariable(value = "id") int id) {
-
+    public Optional<Product> getProductById(@PathVariable(value = "id") int id) {
         return service.getProductById(id);
     }
 
@@ -48,10 +53,11 @@ public class AppController {
     }
 
     @PostMapping(path = "/orders/{id}")
-    public ResponseEntity<Order> addOrder(@PathVariable(value = "id") int id, @RequestBody Order order) {
+    public ResponseEntity<Order> addOrder(@PathVariable(value = "id") int id,
+            @RequestBody Order order) {
         System.out.println("" + id + order);
         HttpStatus status = HttpStatus.CREATED;
-        Order o = service.addOrder(id, order);
+        Order o = service.addOrder(order);
         return new ResponseEntity<Order>(o, status);
     }
 

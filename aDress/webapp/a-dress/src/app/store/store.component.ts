@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Product,prods} from '../product/product';
+import {HttpClient,HttpHeaders} from '@angular/common/http';
 @Component({
   selector: 'app-store',
   templateUrl: './store.component.html',
@@ -8,23 +9,49 @@ import {Product,prods} from '../product/product';
 export class StoreComponent implements OnInit {
 selection={value:""};
 originalprods:Product[]=prods;
-prods:Product[]=prods;
+prods!:Product[];
+info!:  Map<string, Product>;
 color:String="";
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.prods.sort((a,b)=>(a.name> b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+    this.http.get("http://localhost:8080/api/v1/store").subscribe((data) => {
+      this.info = new Map<string, Product>(Object.entries(data));
+      this.prods=[];
+      this.info.forEach((value: Product) => {
+        this.prods.push(value);
+    });
+      this.prods.sort((a,b)=>this.compareName(a,b));
+  })
   }
   changeOrder(event:any):void{
     let order=event.target.value;
     console.log(order);
     if(order=="Name")
-      this.prods.sort((a,b)=>(a.name> b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+      this.prods.sort((a,b)=>this.compareName(a,b));
     if(order=="Plh")
-      this.prods.sort((a,b)=>(a.price> b.price) ? 1 : ((b.price > a.price) ? -1 : 0));
+      this.prods.sort((a,b)=>this.comparePrice(a,b,"asc"));
     if(order=="Phl")
-      this.prods.sort((a,b)=>(a.price> b.price) ? -1 : ((b.price > a.price) ? 1 : 0));
+      this.prods.sort((a,b)=>this.comparePrice(a,b,"desc"));
   }
+  compareName(a:Product,b:Product):number {
+    if (a.name>b.name) {
+      return 1;
+    }
+    return (b.name > a.name) ? -1 : 0;
+  }
+  comparePrice(a:Product,b:Product,ord:string):number {
+    
+    if (a.name==b.name) {
+      return 0;
+    }
+    if(ord=="asc"){
+    return (b.price > a.price) ? -1 : 1;
+    }
+    return (b.price > a.price) ? 1 : -1;
+
+  }
+  
   changeFilter():void{
     var temp=this.originalprods;
     temp=this.changeGender(temp);
