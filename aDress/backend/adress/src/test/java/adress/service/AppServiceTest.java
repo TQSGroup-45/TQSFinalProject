@@ -49,7 +49,7 @@ public class AppServiceTest {
         p2 = new Product("red tshirt", 9.99, "red", "male", "tshirt");
         List<Product> prods = Arrays.asList(p1, p2);
         c1 = new Client("andreia", "2001-02-21", "123", "sesame street", 1234, 5678, "Narnia");
-        System.out.println(c1);
+
         o1 = new Order(c1, prods, "2022-06-01", 28.89);
         o2 = new Order(c1, prods, "2022-06-05", 28.89);
         List<Order> orders = Arrays.asList(o1, o2);

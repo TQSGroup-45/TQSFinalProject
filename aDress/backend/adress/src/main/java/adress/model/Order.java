@@ -34,8 +34,10 @@ public class Order {
     @Column(name = "total")
     private double total;
 
+    @Column(name = "status")
+    private String status = "In route";
+
     public Order() {
-        super();
     }
 
     public Order(Client client, int id, List<Product> prods, String date, double total) {
@@ -73,6 +75,14 @@ public class Order {
         return this.total;
     }
 
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -81,6 +91,7 @@ public class Order {
                 ", id='" + getId() + "'" +
                 ", date='" + getDate() + "'" +
                 ", total='" + getTotal() + "'" +
+                ", status='" + getStatus() + "'" +
                 "}";
     }
 

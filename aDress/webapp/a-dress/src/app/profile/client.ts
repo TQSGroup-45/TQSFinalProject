@@ -1,11 +1,10 @@
-
-
 export interface Client {
+    id:number,
     name: string,
     dob:string,
     snum:string,
     sname:string,
-    postcode1:number,
-    postcode2:number,
+    pc1:number,
+    pc2:number,
     city:string
 }

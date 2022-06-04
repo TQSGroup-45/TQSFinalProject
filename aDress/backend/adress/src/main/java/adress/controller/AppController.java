@@ -1,10 +1,8 @@
 package adress.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import adress.api.ClientRepository;
-import adress.api.ProductRepository;
 import adress.model.Client;
 import adress.model.Order;
 import adress.model.Product;
@@ -31,14 +27,13 @@ public class AppController {
 
     public AppController(AppService service) {
         this.service = service;
-        service.save();
+        service.save(); // This will enter the initial data into the database (like products)
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/store")
     public List<Product> listAllProducts() {
-        List<Product> temp = service.listAllProducts();
-        return temp;
+        return service.listAllProducts();
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -47,25 +42,29 @@ public class AppController {
         return service.getProductById(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/orders/{id}")
+    // It will get all orders from a certain client using their ID
     public List<Order> getOrders(@PathVariable(value = "id") int id) {
         return service.getOrders(id);
     }
 
-    @PostMapping(path = "/orders/{id}")
-    public ResponseEntity<Order> addOrder(@PathVariable(value = "id") int id,
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping(path = "/orders")
+    public ResponseEntity<Order> addOrder(
             @RequestBody Order order) {
-        System.out.println("" + id + order);
         HttpStatus status = HttpStatus.CREATED;
         Order o = service.addOrder(order);
         return new ResponseEntity<Order>(o, status);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/profile/{id}")
     public Client getInformation(@PathVariable(value = "id") int id) {
         return service.getInformation(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping(path = "/profile/{id}")
     public ResponseEntity<Client> updateInformation(@RequestBody Client c1) {
         HttpStatus status = HttpStatus.ACCEPTED;

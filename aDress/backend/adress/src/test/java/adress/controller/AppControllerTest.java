@@ -60,7 +60,6 @@ class AppControllerTest {
         prods.add(p2);
         orders = new ArrayList<Order>();
         orders.add(o1);
-
         orders.add(o2);
     }
 
@@ -99,7 +98,7 @@ class AppControllerTest {
     @Test
     void testAddOrder() throws Exception {
         when(service.addOrder((Order) Mockito.any())).thenReturn(o1);
-        mvc.perform(post("/api/v1/orders/0").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(o1)))
+        mvc.perform(post("/api/v1/orders").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(o1)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.date", is("2022-06-01")));
         verify(service, times(1)).addOrder((Order) Mockito.any());
