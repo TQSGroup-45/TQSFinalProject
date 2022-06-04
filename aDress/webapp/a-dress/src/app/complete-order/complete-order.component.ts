@@ -6,6 +6,7 @@ import {HttpClient,HttpHeaders} from '@angular/common/http';
 import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { catchError, Observable } from 'rxjs';
 import { Order } from '../profile/order';
+
 @Component({
   selector: 'app-complete-order',
   templateUrl: './complete-order.component.html',
@@ -35,6 +36,7 @@ export class CompleteOrderComponent implements OnInit {
       else {
       this.count[element.id]+=1;}
     };
+
     this.http.get("http://localhost:8080/api/v1/profile/"+this.id).subscribe((data) => {
       console.log(data);
       var temp = Object.values(data);
@@ -44,7 +46,6 @@ export class CompleteOrderComponent implements OnInit {
       this.orders=temp[8];
     console.log(this.info);
     })
-    
     
   }
 
