@@ -40,14 +40,6 @@ public class Order {
     public Order() {
     }
 
-    public Order(Client client, int id, List<Product> prods, String date, double total) {
-        this.client = client;
-        this.id = id;
-        this.prods = prods;
-        this.date = date;
-        this.total = total;
-    }
-
     public Order(Client client, List<Product> prods, String date, double total) {
         this.client = client;
         this.prods = prods;
@@ -81,18 +73,6 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                " client='" + getClient() + "'" +
-                ", prods='" + getProds() + "'" +
-                ", id='" + getId() + "'" +
-                ", date='" + getDate() + "'" +
-                ", total='" + getTotal() + "'" +
-                ", status='" + getStatus() + "'" +
-                "}";
     }
 
 }

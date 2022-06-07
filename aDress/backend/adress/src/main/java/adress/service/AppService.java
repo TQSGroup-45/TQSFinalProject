@@ -65,14 +65,6 @@ public class AppService {
         return orderRep.save(o);
     }
 
-    public ClientRepository getClientRep() {
-        return this.clientRep;
-    }
-
-    public ProductRepository getProdRep() {
-        return this.prodRep;
-    }
-
     public void save() {
         String male = "Male";
         String undefined = "Undefined";

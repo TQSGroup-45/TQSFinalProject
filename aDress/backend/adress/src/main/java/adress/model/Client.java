@@ -107,18 +107,4 @@ public class Client {
         this.city = city;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                " id='" + getId() + "'" +
-                ", name='" + getName() + "'" +
-                ", dob='" + getDob() + "'" +
-                ", snum='" + getSnum() + "'" +
-                ", sname='" + getSname() + "'" +
-                ", pc1='" + getPc1() + "'" +
-                ", pc2='" + getPc2() + "'" +
-                ", city='" + getCity() + "'" +
-                "}";
-    }
-
 }

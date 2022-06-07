@@ -55,11 +55,20 @@ public class AppServiceTest {
         List<Order> orders = Arrays.asList(o1, o2);
         Mockito.when(prodRep.findById(1)).thenReturn(Optional.of(p1));
         Mockito.when(prodRep.findById(2)).thenReturn(Optional.of(p2));
+        Mockito.when(prodRep.save(Mockito.any())).thenReturn(p1);
         Mockito.when(prodRep.findAll()).thenReturn(prods);
         Mockito.when(clientRep.findById(0)).thenReturn(c1);
-        Mockito.when(clientRep.save(c1)).thenReturn(c1);
+        Mockito.when(clientRep.save(Mockito.any())).thenReturn(c1);
         Mockito.when(orderRep.save(o1)).thenReturn(o1);
         Mockito.when(orderRep.findAll()).thenReturn(orders);
+    }
+
+    @Test
+    public void testSave() {
+        // means that every initial product and client were correctly saved
+        service.save();
+        verify(prodRep, VerificationModeFactory.times(8)).save(Mockito.any());
+        verify(clientRep, VerificationModeFactory.times(1)).save(Mockito.any());
     }
 
     @Test
