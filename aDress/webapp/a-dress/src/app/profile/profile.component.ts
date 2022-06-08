@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Order,orders} from '../profile/order'
+import { OrderReceived } from '../profile/order';
+import { HttpClient } from '@angular/common/http';
 import { Client } from './client';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -14,19 +16,39 @@ export class ProfileComponent implements OnInit {
   postcode1:string="";
   postcode2:string="";
   city:string="";
-  orders:Order[]=orders; //apagar orders de order.ts
-  public info:Client={name:"Andreia",dob:"2001-02-21",sname:"rua",snum:"2",postcode1:123,postcode2:456,city:"Narnia"};
-  private infoChangedFlag:boolean=false;
+  orders:OrderReceived[]=[]; 
+  id:number=1;
+  info!:Client;
+  private temp!:Map<string,OrderReceived>;
+  private infoChangedFlag:boolean;
 
-  constructor() { 
-    //empty
+  constructor(private http: HttpClient) { 
+    this.infoChangedFlag=false;
   }
 
   ngOnInit(): void {
-    //Carregar client info
-    //buscar orders
+    this.getClientInfo();
+    this.getOrders();
   }
-  enableinput():void{
+      
+  getClientInfo():void{
+    this.http.get("http://localhost:8080/api/v1/profile/"+this.id).subscribe((data) => {
+      var temp = Object.values(data);
+      this.info={id:temp[0],name:temp[1],dob:temp[2],sname:temp[4],snum:temp[3],pc1:temp[5],pc2:temp[6],city:temp[7]};
+    }) 
+  }
+
+  getOrders():void{
+    this.http.get("http://localhost:8080/api/v1/orders/"+this.id).subscribe((data) => {
+    this.temp = new Map<string, OrderReceived>(Object.entries(data)); 
+    this.orders=[];
+    this.temp.forEach((value: OrderReceived) => {
+      this.orders.push(value);
+    })})
+  }
+  
+  enableinput():void{ 
+    //removes the disabled attribute from the form fields and saves a backup of the current values
     var save = document.getElementById("confirmchanges");
     var cancel = document.getElementById("cancelchanges");
     var i1=document.getElementById("i1") as HTMLInputElement;
@@ -51,10 +73,11 @@ export class ProfileComponent implements OnInit {
     i6.removeAttribute('disabled');
     i7.removeAttribute('disabled');
     save!.style.display="block";
-    cancel!.style.display="block"
-    console.log(this.name,this.date,this.city)
+    cancel!.style.display="block";
   }
+
   save():void{
+    //disables form fields and send new information to backend
     var save = document.getElementById("confirmchanges");
     var cancel = document.getElementById("cancelchanges");
     var i1=document.getElementById("i1") as HTMLInputElement;
@@ -73,10 +96,17 @@ export class ProfileComponent implements OnInit {
     i7.setAttribute('disabled','');
     save!.style.display="none";
     cancel!.style.display="none"
-    console.log(this.name,this.date,this.city)
-    //TODO: enviar nova informacao para 
+    this.info={id:this.info.id,name:i1.value,dob:i2.value,sname:i4.value,snum:i3.value,pc1:parseInt(i5.value),pc2:parseInt(i6.value),city:i7.value};
+    this.updateClient(this.info).subscribe(response => {console.log("res:"+response)});
   }
+
+  updateClient(client: Client): Observable<Client> {
+    //send information to backend
+    return this.http.put<Client>("http://localhost:8080/api/v1/profile/"+this.id, client);
+  }
+
   cancel():void{
+    // gets information from backup back to the form fields and disables them again
     var save = document.getElementById("confirmchanges");
     var cancel = document.getElementById("cancelchanges");
     var i1=document.getElementById("i1") as HTMLInputElement;
