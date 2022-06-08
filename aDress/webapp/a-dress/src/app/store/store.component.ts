@@ -70,6 +70,7 @@ color:string="";
   }
   
   changeFilter():void{
+    console.log(this.originalprods);
     var temp=this.originalprods;
     temp=this.changeGender(temp);
     temp=this.changePrice(temp);
@@ -119,7 +120,7 @@ color:string="";
     var f=document.getElementById("F") as HTMLInputElement;
     var u=document.getElementById("U") as HTMLInputElement;
     listprod.forEach(element => {
-      if (m.checked && element.gender=="Male" || f.checked && element.gender=="Female" || u.checked && element.gender=="Undefined" ){
+      if (m.checked && element.gender=="MALE" || f.checked && element.gender=="FEMALE" || u.checked && element.gender=="UNDEFINED" ){
         temp.push(element);
       }
     });

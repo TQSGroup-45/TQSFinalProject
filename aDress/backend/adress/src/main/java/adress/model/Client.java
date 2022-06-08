@@ -30,7 +30,8 @@ public class Client {
     private String city;
 
     public Client() {
-        // TODO constructor
+        // empty constructor; only used no create an empty object that will later be
+        // filled with the setters
     }
 
     public Client(String name, String dob, String snum, String sname, int pc1, int pc2, String city) {

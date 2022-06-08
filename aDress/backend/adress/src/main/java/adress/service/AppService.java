@@ -69,14 +69,14 @@ public class AppService {
     }
 
     public void save() {
-        prodRep.save(new Product("Brown Pants", 39.99, "Brown", Gender.Male, "Pants"));
-        prodRep.save(new Product("Blue T-shirt", 29.99, "Blue", Gender.Male, "T-shirt"));
-        prodRep.save(new Product("Yellow T-shirt", 19.99, "Yellow", Gender.Undefined, "T-shirt"));
-        prodRep.save(new Product("Pringle Socks", 9.99, "Undefined", Gender.Undefined, "Socks"));
-        prodRep.save(new Product("Black Dress", 39.99, "Black", Gender.Female, "Dress"));
-        prodRep.save(new Product("Green Dress", 59.99, "Green", Gender.Female, "Dress"));
-        prodRep.save(new Product("Black Sneakers", 39.99, "Black", Gender.Undefined, "Sneakers"));
-        prodRep.save(new Product("White Sneakers", 59.99, "White", Gender.Undefined, "Sneakers"));
+        prodRep.save(new Product("Brown Pants", 39.99, "Brown", Gender.MALE, "Pants"));
+        prodRep.save(new Product("Blue T-shirt", 29.99, "Blue", Gender.MALE, "T-shirt"));
+        prodRep.save(new Product("Yellow T-shirt", 19.99, "Yellow", Gender.UNDEFINED, "T-shirt"));
+        prodRep.save(new Product("Pringle Socks", 9.99, "Undefined", Gender.UNDEFINED, "Socks"));
+        prodRep.save(new Product("Black Dress", 39.99, "Black", Gender.FEMALE, "Dress"));
+        prodRep.save(new Product("Green Dress", 59.99, "Green", Gender.FEMALE, "Dress"));
+        prodRep.save(new Product("Black Sneakers", 39.99, "Black", Gender.UNDEFINED, "Sneakers"));
+        prodRep.save(new Product("White Sneakers", 59.99, "White", Gender.UNDEFINED, "Sneakers"));
         clientRep.save(new Client("Andreia", "2001-02-21", "2", "Sesamee", 1234, 5678, "Narnia"));
 
     }
