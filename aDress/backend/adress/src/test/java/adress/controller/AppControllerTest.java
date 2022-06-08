@@ -3,6 +3,7 @@ package adress.controller;
 import adress.dto.ClientDTO;
 import adress.dto.OrderDTO;
 import adress.model.Client;
+import adress.model.Gender;
 import adress.model.Order;
 import adress.model.Product;
 import adress.service.AppService;
@@ -52,8 +53,8 @@ class AppControllerTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        p1 = new Product("brown pants", 19.99, "brown", "male", "pants");
-        p2 = new Product("red tshirt", 9.99, "red", "male", "tshirt");
+        p1 = new Product("brown pants", 19.99, "brown", Gender.Male, "pants");
+        p2 = new Product("red tshirt", 9.99, "red", Gender.Male, "tshirt");
         c1 = new Client("andreia", "2001-02-21", "123", "sesame street", 1234, 5678, "Narnia");
         o1 = new Order(c1, prods, "2022-06-01", 28.89);
         o2 = new Order(c1, prods, "2022-06-05", 28.89);
@@ -72,7 +73,7 @@ class AppControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id", is(0)))
                 .andExpect(jsonPath("$[0].color", is("brown")))
-                .andExpect(jsonPath("$[1].gender", is("male")));
+                .andExpect(jsonPath("$[1].type", is("tshirt")));
         verify(service, times(1)).listAllProducts();
     }
 

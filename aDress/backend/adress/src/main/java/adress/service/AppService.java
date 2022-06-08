@@ -13,6 +13,7 @@ import adress.api.ProductRepository;
 import adress.dto.ClientDTO;
 import adress.dto.OrderDTO;
 import adress.model.Client;
+import adress.model.Gender;
 import adress.model.Order;
 import adress.model.Product;
 
@@ -68,17 +69,14 @@ public class AppService {
     }
 
     public void save() {
-        String male = "Male";
-        String undefined = "Undefined";
-        String female = "Female";
-        prodRep.save(new Product("Brown Pants", 39.99, "Brown", male, "Pants"));
-        prodRep.save(new Product("Blue T-shirt", 29.99, "Blue", male, "T-shirt"));
-        prodRep.save(new Product("Yellow T-shirt", 19.99, "Yellow", undefined, "T-shirt"));
-        prodRep.save(new Product("Pringle Socks", 9.99, undefined, undefined, "Socks"));
-        prodRep.save(new Product("Black Dress", 39.99, "Black", female, "Dress"));
-        prodRep.save(new Product("Green Dress", 59.99, "Green", female, "Dress"));
-        prodRep.save(new Product("Black Sneakers", 39.99, "Black", undefined, "Sneakers"));
-        prodRep.save(new Product("White Sneakers", 59.99, "White", undefined, "Sneakers"));
+        prodRep.save(new Product("Brown Pants", 39.99, "Brown", Gender.Male, "Pants"));
+        prodRep.save(new Product("Blue T-shirt", 29.99, "Blue", Gender.Male, "T-shirt"));
+        prodRep.save(new Product("Yellow T-shirt", 19.99, "Yellow", Gender.Undefined, "T-shirt"));
+        prodRep.save(new Product("Pringle Socks", 9.99, "Undefined", Gender.Undefined, "Socks"));
+        prodRep.save(new Product("Black Dress", 39.99, "Black", Gender.Female, "Dress"));
+        prodRep.save(new Product("Green Dress", 59.99, "Green", Gender.Female, "Dress"));
+        prodRep.save(new Product("Black Sneakers", 39.99, "Black", Gender.Undefined, "Sneakers"));
+        prodRep.save(new Product("White Sneakers", 59.99, "White", Gender.Undefined, "Sneakers"));
         clientRep.save(new Client("Andreia", "2001-02-21", "2", "Sesamee", 1234, 5678, "Narnia"));
 
     }

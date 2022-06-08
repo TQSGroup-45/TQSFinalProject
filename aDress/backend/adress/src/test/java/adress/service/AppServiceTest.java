@@ -16,13 +16,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
-import adress.service.AppService;
 import adress.api.ClientRepository;
 import adress.api.OrderRepository;
 import adress.api.ProductRepository;
 import adress.dto.ClientDTO;
 import adress.dto.OrderDTO;
 import adress.model.Client;
+import adress.model.Gender;
 import adress.model.Order;
 import adress.model.Product;
 
@@ -50,8 +50,8 @@ public class AppServiceTest {
     @BeforeEach
     public void setUp() {
 
-        p1 = new Product("brown pants", 19.99, "brown", "male", "pants");
-        p2 = new Product("red tshirt", 9.99, "red", "male", "tshirt");
+        p1 = new Product("brown pants", 19.99, "brown", Gender.Male, "pants");
+        p2 = new Product("red tshirt", 9.99, "red", Gender.Male, "tshirt");
         List<Product> prods = Arrays.asList(p1, p2);
         c1 = new Client("andreia", "2001-02-21", "123", "sesame street", 1234, 5678, "Narnia");
         c1dto.setName(c1.getName());

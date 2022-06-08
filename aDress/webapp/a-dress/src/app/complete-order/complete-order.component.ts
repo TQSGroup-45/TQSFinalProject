@@ -28,7 +28,6 @@ export class CompleteOrderComponent implements OnInit {
     this.cartOriginal= JSON.parse(localStorage.getItem("cart")!);
     this.total= JSON.parse(localStorage.getItem("cartTotal")!);
     for(const element of this.cartOriginal){
-      this.total+=element.price;
       if (this.count[element.id]==null){
         this.count[element.id]=1;
         this.cart.push(element);
@@ -36,7 +35,8 @@ export class CompleteOrderComponent implements OnInit {
       else {
       this.count[element.id]+=1;}
     };
-
+    console.log(this.cartOriginal);
+    console.log(this.total);
     this.http.get("http://localhost:8080/api/v1/profile/"+this.id).subscribe((data) => {
       console.log(data);
       var temp = Object.values(data);

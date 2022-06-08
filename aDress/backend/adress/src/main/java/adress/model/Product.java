@@ -21,14 +21,14 @@ public class Product {
     @Column(name = "color", nullable = false, length = 50)
     public String color;
     @Column(name = "gender", nullable = false, length = 50)
-    public String gender;
+    public Gender gender;
     @Column(name = "type", nullable = false, length = 50)
     public String type;
 
     public Product() {
     }
 
-    public Product(String name, double price, String color, String gender, String type) {
+    public Product(String name, double price, String color, Gender gender, String type) {
         this.name = name;
         this.price = price;
         this.color = color;

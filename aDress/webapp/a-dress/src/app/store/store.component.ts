@@ -31,7 +31,9 @@ color:string="";
         this.prods.push(value);
     });
       this.prods.sort((a,b)=>this.compareName(a,b));
+      this.originalprods=this.prods;
   })
+    
   }
 
   addToCart(pd:Product):void{

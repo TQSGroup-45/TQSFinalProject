@@ -22,6 +22,7 @@ import adress.model.Product;
 import adress.service.AppService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1")
 public class AppController {
 
@@ -32,26 +33,22 @@ public class AppController {
         service.save(); // This will enter the initial data into the database (like products)
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/store")
     public List<Product> listAllProducts() {
         return service.listAllProducts();
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/product/{id}")
     public Optional<Product> getProductById(@PathVariable(value = "id") int id) {
         return service.getProductById(id);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/orders/{id}")
     // It will get all orders from a certain client using their ID
     public List<Order> getOrders(@PathVariable(value = "id") int id) {
         return service.getOrders(id);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(path = "/orders")
     public ResponseEntity<Order> addOrder(
             @RequestBody OrderDTO order) {
@@ -60,13 +57,11 @@ public class AppController {
         return new ResponseEntity<>(o, status);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/profile/{id}")
     public Client getInformation(@PathVariable(value = "id") int id) {
         return service.getInformation(id);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping(path = "/profile/{id}")
     public ResponseEntity<Client> updateInformation(@RequestBody ClientDTO c1) {
         HttpStatus status = HttpStatus.ACCEPTED;
