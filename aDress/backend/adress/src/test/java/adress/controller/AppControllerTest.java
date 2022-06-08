@@ -1,5 +1,7 @@
 package adress.controller;
 
+import adress.dto.ClientDTO;
+import adress.dto.OrderDTO;
 import adress.model.Client;
 import adress.model.Order;
 import adress.model.Product;
@@ -97,11 +99,11 @@ class AppControllerTest {
 
     @Test
     void testAddOrder() throws Exception {
-        when(service.addOrder((Order) Mockito.any())).thenReturn(o1);
+        when(service.addOrder((OrderDTO) Mockito.any())).thenReturn(o1);
         mvc.perform(post("/api/v1/orders").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(o1)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.date", is("2022-06-01")));
-        verify(service, times(1)).addOrder((Order) Mockito.any());
+        verify(service, times(1)).addOrder((OrderDTO) Mockito.any());
     }
 
     @Test
@@ -115,10 +117,10 @@ class AppControllerTest {
 
     @Test
     void testUpdateInformation() throws Exception {
-        when(service.updateInformation(c1)).thenReturn(c1);
+        when(service.updateInformation((ClientDTO) Mockito.any())).thenReturn(c1);
         mvc.perform(put("/api/v1/profile/0").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(c1)))
                 .andExpect(status().isAccepted());
-        verify(service, times(1)).updateInformation((Client) Mockito.any());
+        verify(service, times(1)).updateInformation((ClientDTO) Mockito.any());
     }
 
 }

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import adress.dto.ClientDTO;
+import adress.dto.OrderDTO;
 import adress.model.Client;
 import adress.model.Order;
 import adress.model.Product;
@@ -52,10 +54,10 @@ public class AppController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(path = "/orders")
     public ResponseEntity<Order> addOrder(
-            @RequestBody Order order) {
+            @RequestBody OrderDTO order) {
         HttpStatus status = HttpStatus.CREATED;
         Order o = service.addOrder(order);
-        return new ResponseEntity<Order>(o, status);
+        return new ResponseEntity<>(o, status);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -66,9 +68,9 @@ public class AppController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping(path = "/profile/{id}")
-    public ResponseEntity<Client> updateInformation(@RequestBody Client c1) {
+    public ResponseEntity<Client> updateInformation(@RequestBody ClientDTO c1) {
         HttpStatus status = HttpStatus.ACCEPTED;
         Client o = service.updateInformation(c1);
-        return new ResponseEntity<Client>(o, status);
+        return new ResponseEntity<>(o, status);
     }
 }

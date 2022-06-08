@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import adress.api.ClientRepository;
 import adress.api.OrderRepository;
 import adress.api.ProductRepository;
+import adress.dto.ClientDTO;
+import adress.dto.OrderDTO;
 import adress.model.Client;
 import adress.model.Order;
 import adress.model.Product;
@@ -35,7 +37,7 @@ public class AppService {
         return clientRep.findById(id);
     }
 
-    public Client updateInformation(Client c1) {
+    public Client updateInformation(ClientDTO c1) {
         // We can use the same save() method to update an existing entry in our
         // database. - https://www.baeldung.com/spring-data-crud-repository-save
         // Since we don't know which field was updated, we will "update" them all
@@ -61,8 +63,8 @@ public class AppService {
         return res; // and return the ones with the right id
     }
 
-    public Order addOrder(Order o) {
-        return orderRep.save(o);
+    public Order addOrder(OrderDTO order) {
+        return orderRep.save(new Order(order.getClient(), order.getProds(), order.getDate(), order.getTotal()));
     }
 
     public void save() {
