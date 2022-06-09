@@ -26,6 +26,7 @@ import adress.service.AppService;
 @RequestMapping("/api/v1")
 public class AppController {
 
+    @Autowired
     private AppService service;
 
     public AppController(AppService service) {
@@ -68,4 +69,11 @@ public class AppController {
         Client o = service.updateInformation(c1);
         return new ResponseEntity<>(o, status);
     }
+    
+    @PostMapping(path = "/client)
+    public ResponseEntity<Client> createClient(@RequestBody Client client ){
+        return null;
+
+    }
+}
 }
