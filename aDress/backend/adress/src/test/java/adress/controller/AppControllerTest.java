@@ -4,6 +4,7 @@ import adress.dto.ClientDTO;
 import adress.dto.OrderDTO;
 import adress.model.Client;
 import adress.model.Gender;
+import adress.model.Location;
 import adress.model.Order;
 import adress.model.Product;
 import adress.service.AppService;
@@ -44,6 +45,7 @@ class AppControllerTest {
     private Order o1;
     private Order o2;
     private Client c1;
+    private Location l1;
 
     @Autowired
     private MockMvc mvc;
@@ -58,6 +60,7 @@ class AppControllerTest {
         c1 = new Client("andreia", "2001-02-21", "123", "sesame street", 1234, 5678, "Narnia");
         o1 = new Order(c1, prods, "2022-06-01", 28.89);
         o2 = new Order(c1, prods, "2022-06-05", 28.89);
+        l1 = new Location(40.632084, -8.6606357);
         prods = new ArrayList<Product>();
         prods.add(p1);
         prods.add(p2);
@@ -122,6 +125,17 @@ class AppControllerTest {
         mvc.perform(put("/api/v1/profile/0").contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(c1)))
                 .andExpect(status().isAccepted());
         verify(service, times(1)).updateInformation((ClientDTO) Mockito.any());
+    }
+
+    @Test
+    void trackOrder() throws Exception {
+        when(service.trackOrder(Mockito.anyInt())).thenReturn(l1);
+        // return latitude and longitude { lat: 40.632084, lng:-8.6606357 }
+        mvc.perform(get("/api/v1/track/0").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.lat", is(40.632084)))
+                .andExpect(jsonPath("$.lng", is(-8.6606357)));
+        verify(service, times(1)).trackOrder(Mockito.any());
     }
 
 }

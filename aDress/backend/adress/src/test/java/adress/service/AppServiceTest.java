@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
+import adress.api.CityDeliveryAPI;
 import adress.api.ClientRepository;
 import adress.api.OrderRepository;
 import adress.api.ProductRepository;
@@ -23,6 +24,7 @@ import adress.dto.ClientDTO;
 import adress.dto.OrderDTO;
 import adress.model.Client;
 import adress.model.Gender;
+import adress.model.Location;
 import adress.model.Order;
 import adress.model.Product;
 
@@ -35,6 +37,8 @@ class AppServiceTest {
     private ClientRepository clientRep;
     @Mock(lenient = true)
     private OrderRepository orderRep;
+    @Mock(lenient = true)
+    private CityDeliveryAPI cityDeliveryAPI;
 
     @InjectMocks
     private AppService service;
@@ -46,6 +50,7 @@ class AppServiceTest {
     private Order o2;
     private Client c1;
     private ClientDTO c1dto = new ClientDTO();
+    private Location l1;
 
     @BeforeEach
     public void setUp() {
@@ -67,6 +72,7 @@ class AppServiceTest {
         o1dto.setTotal(o1.getTotal());
         o2 = new Order(c1, prods, "2022-06-05", 28.89);
         List<Order> orders = Arrays.asList(o1, o2);
+        l1 = new Location(40.632084, -8.6606357);
         Mockito.when(prodRep.findById(1)).thenReturn(Optional.of(p1));
         Mockito.when(prodRep.findById(2)).thenReturn(Optional.of(p2));
         Mockito.when(prodRep.save(Mockito.any())).thenReturn(p1);
@@ -75,6 +81,7 @@ class AppServiceTest {
         Mockito.when(clientRep.save(Mockito.any())).thenReturn(c1);
         Mockito.when(orderRep.save(Mockito.any())).thenReturn(o1);
         Mockito.when(orderRep.findAll()).thenReturn(orders);
+        Mockito.when(cityDeliveryAPI.track(Mockito.anyInt())).thenReturn(l1);
     }
 
     @Test
@@ -144,4 +151,10 @@ class AppServiceTest {
         assertThat(found).isEqualTo(o1);
     }
 
+    @Test
+    void trackOrder() {
+        Location found = service.trackOrder(o1.getId());
+        assertThat(found.getLat()).isEqualTo(40.632084);
+        verify(cityDeliveryAPI, VerificationModeFactory.times(1)).track(Mockito.any());
+    }
 }

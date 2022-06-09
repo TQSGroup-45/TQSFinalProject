@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import adress.api.CityDeliveryAPI;
 import adress.api.ClientRepository;
 import adress.api.OrderRepository;
 import adress.api.ProductRepository;
@@ -14,6 +15,7 @@ import adress.dto.ClientDTO;
 import adress.dto.OrderDTO;
 import adress.model.Client;
 import adress.model.Gender;
+import adress.model.Location;
 import adress.model.Order;
 import adress.model.Product;
 
@@ -25,6 +27,8 @@ public class AppService {
     private ProductRepository prodRep;
     @Autowired
     private OrderRepository orderRep;
+
+    private CityDeliveryAPI cityDeliveryAPI = new CityDeliveryAPI();
 
     public List<Product> listAllProducts() {
         return (List<Product>) prodRep.findAll();
@@ -79,5 +83,9 @@ public class AppService {
         prodRep.save(new Product("White Sneakers", 59.99, "White", Gender.UNDEFINED, "Sneakers"));
         clientRep.save(new Client("Andreia", "2001-02-21", "2", "Sesamee", 1234, 5678, "Narnia"));
 
+    }
+
+    public Location trackOrder(int order_id) {
+        return null;
     }
 }
