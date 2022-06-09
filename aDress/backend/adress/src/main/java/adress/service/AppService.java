@@ -34,6 +34,10 @@ public class AppService {
         return (List<Product>) prodRep.findAll();
     }
 
+    public List<Client> getClients() {
+        return (List<Client>) clientRep.findAll();
+    }
+
     public Optional<Product> getProductById(int id) {
         return prodRep.findById(id);
     }
@@ -58,18 +62,20 @@ public class AppService {
     }
 
     public List<Order> getOrders(int id) {
-        List<Order> res = new ArrayList<>();
-        Iterable<Order> temp = orderRep.findAll(); // we will find every order
-        for (Order t : temp) {
-            if (t.getClient().getId() == id) { // filter by the client id
-                res.add(t);
-            }
-        }
-        return res; // and return the ones with the right id
+        // Iterable<Order> temp = orderRep.findAll(); // we will find every order
+        // for (Order t : temp) {
+        // if (t.getClient().getId() == id) { // filter by the client id
+        // res.add(t);
+        // }
+        // }
+        return clientRep.findById(id).getOrders(); // and return the ones with the right id
     }
 
-    public Order addOrder(OrderDTO order) {
-        return orderRep.save(new Order(order.getClient(), order.getProds(), order.getDate(), order.getTotal()));
+    public Order addOrder(int clientId, OrderDTO order) {
+        // Client c = clientRep.findById(clientId);
+        Order temp = new Order(order.getClient(), order.getProds(), order.getDate(), order.getTotal());
+        // c.addOrder(temp);
+        return orderRep.save(temp);
     }
 
     public void save() {
@@ -85,7 +91,7 @@ public class AppService {
 
     }
 
-    public Location trackOrder(int order_id) {
-        return null;
+    public Location trackOrder(int clientId, int orderId) {
+        return cityDeliveryAPI.track(clientId, orderId);
     }
 }

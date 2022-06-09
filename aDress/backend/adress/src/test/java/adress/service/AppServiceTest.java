@@ -71,7 +71,9 @@ class AppServiceTest {
         o1dto.setDate(o1.getDate());
         o1dto.setTotal(o1.getTotal());
         o2 = new Order(c1, prods, "2022-06-05", 28.89);
-        List<Order> orders = Arrays.asList(o1, o2);
+        c1.addOrder(o1);
+        c1.addOrder(o2);
+        // List<Order> orders = Arrays.asList(o1, o2);
         l1 = new Location(40.632084, -8.6606357);
         Mockito.when(prodRep.findById(1)).thenReturn(Optional.of(p1));
         Mockito.when(prodRep.findById(2)).thenReturn(Optional.of(p2));
@@ -80,8 +82,8 @@ class AppServiceTest {
         Mockito.when(clientRep.findById(0)).thenReturn(c1);
         Mockito.when(clientRep.save(Mockito.any())).thenReturn(c1);
         Mockito.when(orderRep.save(Mockito.any())).thenReturn(o1);
-        Mockito.when(orderRep.findAll()).thenReturn(orders);
-        Mockito.when(cityDeliveryAPI.track(Mockito.anyInt())).thenReturn(l1);
+        // Mockito.when(orderRep.findAll()).thenReturn(orders);
+        Mockito.when(cityDeliveryAPI.track(Mockito.anyInt(), Mockito.anyInt())).thenReturn(l1);
     }
 
     @Test
@@ -140,12 +142,12 @@ class AppServiceTest {
         List<Order> found = service.getOrders(0);
         assertThat(found.get(0).getDate()).isEqualTo("2022-06-01");
         assertThat(found.get(1).getDate()).isEqualTo("2022-06-05");
-        verify(orderRep, VerificationModeFactory.times(1)).findAll();
+        verify(clientRep, VerificationModeFactory.times(1)).findById(Mockito.anyInt());
     }
 
     @Test
     void testAddOrders() {
-        Order found = service.addOrder(o1dto);
+        Order found = service.addOrder(1, o1dto);
         assertThat(found.getDate()).isEqualTo("2022-06-01");
         verify(orderRep, VerificationModeFactory.times(1)).save(Mockito.any());
         assertThat(found).isEqualTo(o1);
@@ -153,8 +155,8 @@ class AppServiceTest {
 
     @Test
     void trackOrder() {
-        Location found = service.trackOrder(o1.getId());
+        Location found = service.trackOrder(c1.getId(), o1.getId());
         assertThat(found.getLat()).isEqualTo(40.632084);
-        verify(cityDeliveryAPI, VerificationModeFactory.times(1)).track(Mockito.any());
+        verify(cityDeliveryAPI, VerificationModeFactory.times(1)).track(Mockito.anyInt(), Mockito.anyInt());
     }
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import adress.dto.ClientDTO;
 import adress.dto.OrderDTO;
 import adress.model.Client;
+import adress.model.Location;
 import adress.model.Order;
 import adress.model.Product;
 import adress.service.AppService;
@@ -33,39 +34,49 @@ public class AppController {
         service.save(); // This will enter the initial data into the database (like products)
     }
 
-    @GetMapping(path = "/store")
+    @GetMapping(path = "/products")
     public List<Product> listAllProducts() {
         return service.listAllProducts();
     }
 
-    @GetMapping(path = "/product/{id}")
+    @GetMapping(path = "/products/{id}")
     public Optional<Product> getProductById(@PathVariable(value = "id") int id) {
         return service.getProductById(id);
     }
 
-    @GetMapping(path = "/orders/{id}")
+    @GetMapping(path = "/clients/{id}/orders")
     // It will get all orders from a certain client using their ID
-    public List<Order> getOrders(@PathVariable(value = "id") int id) {
-        return service.getOrders(id);
+    public List<Order> getOrders(@PathVariable(value = "id") int clientid) {
+        return service.getOrders(clientid);
     }
 
-    @PostMapping(path = "/orders")
-    public ResponseEntity<Order> addOrder(
+    @PostMapping(path = "/clients/{id}/orders")
+    public ResponseEntity<Order> addOrder(@PathVariable(value = "id") int id,
             @RequestBody OrderDTO order) {
         HttpStatus status = HttpStatus.CREATED;
-        Order o = service.addOrder(order);
+        Order o = service.addOrder(id, order);
         return new ResponseEntity<>(o, status);
     }
 
-    @GetMapping(path = "/profile/{id}")
+    @GetMapping(path = "/clients")
+    public List<Client> getClients() {
+        return service.getClients();
+    }
+
+    @GetMapping(path = "/clients/{id}")
     public Client getInformation(@PathVariable(value = "id") int id) {
         return service.getInformation(id);
     }
 
-    @PutMapping(path = "/profile/{id}")
+    @PutMapping(path = "/clients/{id}")
     public ResponseEntity<Client> updateInformation(@RequestBody ClientDTO c1) {
         HttpStatus status = HttpStatus.ACCEPTED;
         Client o = service.updateInformation(c1);
         return new ResponseEntity<>(o, status);
+    }
+
+    @GetMapping(path = "/clients/{id}/orders/{orderid}")
+    public Location getOrderLocation(@PathVariable(value = "id") int id, @PathVariable(value = "orderid") int orderid) {
+        return service.trackOrder(id, orderid);
     }
 }

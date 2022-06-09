@@ -37,7 +37,7 @@ export class CompleteOrderComponent implements OnInit {
     };
     console.log(this.cartOriginal);
     console.log(this.total);
-    this.http.get("http://localhost:8080/api/v1/profile/"+this.id).subscribe((data) => {
+    this.http.get("http://localhost:8080/api/v1/clients/"+this.id).subscribe((data) => {
       console.log(data);
       var temp = Object.values(data);
       this.info={id:temp[0],name:temp[1],dob:temp[2],sname:temp[4],snum:temp[3],pc1:temp[5],pc2:temp[6],city:temp[7]};
@@ -69,11 +69,11 @@ export class CompleteOrderComponent implements OnInit {
     localStorage.setItem("cart", JSON.stringify([]));
   }
   sendOrderToApi(order:Order):Observable<Order> {
-    return this.http.post<Order>("http://localhost:8080/api/v1/orders/", order)
+    return this.http.post<Order>("http://localhost:8080/api/v1/clients/"+this.id+"/orders", order)
     ;
   }
   updateClient(client: Client): Observable<Client> {
-        return this.http.put<Client>("http://localhost:8080/api/v1/profile/"+this.id, client)
+        return this.http.put<Client>("http://localhost:8080/api/v1/clients/"+this.id, client)
           ;
       }
   getNewInfo():void{

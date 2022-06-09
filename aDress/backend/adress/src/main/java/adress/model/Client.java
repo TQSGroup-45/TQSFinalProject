@@ -1,11 +1,19 @@
 package adress.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import ch.qos.logback.core.subst.Token.Type;
 
 @Entity
 @Table(name = "clients")
@@ -28,6 +36,9 @@ public class Client {
     private int pc2;
     @Column(name = "city", nullable = false, length = 50)
     private String city;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
+    // @JoinColumn(name = "order")
+    private List<Order> orders;
 
     public Client() {
         // empty constructor; only used no create an empty object that will later be
@@ -42,6 +53,7 @@ public class Client {
         this.pc1 = pc1;
         this.pc2 = pc2;
         this.city = city;
+        this.orders = new ArrayList<Order>();
     }
 
     public int getId() {
@@ -106,6 +118,14 @@ public class Client {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public List<Order> getOrders() {
+        return this.orders;
+    }
+
+    public void addOrder(Order o) {
+        this.orders.add(o);
     }
 
 }
