@@ -3,7 +3,6 @@ import { averageTimes } from '../data/product';
 @Component({
   selector: 'app-deliveryTime-barchart',
   templateUrl: './deliveryTime-barchart.component.html',
-  styleUrls: ['./deliveryTime-barchart.component.css']
 })
 export class DeliveryTimeBarchartComponent implements OnInit {
 
@@ -32,6 +31,7 @@ export class DeliveryTimeBarchartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+     //Empty for now
   }
 
 

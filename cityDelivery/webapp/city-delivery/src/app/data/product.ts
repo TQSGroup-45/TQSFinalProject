@@ -1,4 +1,4 @@
-export var productSales = [
+export let productSales = [
   {
     "name": "January",
     "value": 178
@@ -18,7 +18,7 @@ export var productSales = [
 ];
 
 
-export var averageTimes = [
+export let averageTimes = [
   {
     "name": "Mean",
     "series": [
@@ -111,7 +111,7 @@ export var averageTimes = [
 
 ];
 
-export var productSalesMulti = [
+export let productSalesMulti = [
   {
     "name": "Janur",
     "series": [
@@ -185,7 +185,7 @@ export var productSalesMulti = [
   }
 ]
 
-export var bubbleData = [
+export let bubbleData = [
   {
     name: 'book',
     series: [
