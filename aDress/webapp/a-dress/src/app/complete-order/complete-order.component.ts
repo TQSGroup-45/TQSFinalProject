@@ -66,6 +66,7 @@ export class CompleteOrderComponent implements OnInit {
     console.log(this.order);
     this.sendOrderToApi(this.order).subscribe(response => {console.log(response)});
     console.log("Order saved");
+    localStorage.setItem("cart", JSON.stringify([]));
   }
   sendOrderToApi(order:Order):Observable<Order> {
     return this.http.post<Order>("http://localhost:8080/api/v1/orders/", order)
