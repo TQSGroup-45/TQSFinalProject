@@ -1,2 +1,4 @@
-adress\controller\AppControllerTest.class
 adress\service\AppServiceTest.class
+cucumbertest\StepDefinitions.class
+adress\controller\AppControllerTest.class
+cucumbertest\RunCucumberTest.class
