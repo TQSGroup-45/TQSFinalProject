@@ -9,9 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import adress.model.Client;
-import adress.service.ClientService;
-import adress.utils.JsonUtil;
-
+import adress.service.AppService;
+import adress.JsonUtils;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.IOException;
@@ -26,39 +25,39 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
-@WebMvcTest(ClientController.class)
+@WebMvcTest(AppController.class)
 public class UserRegisterTest {
     
     @Autowired
     private MockMvc mvc;
 
     @MockBean
-    private ClientService clientService;
+    private AppService appService;
 
     @Test
     void whenPostClient_thenCreateClient() throws IOException, Exception{
         Client manuel = new Client();
 
-        when( clientService.createClient(manuel)).thenReturn(manuel);
+        when( appService.createClient(manuel)).thenReturn(manuel);
 
         mvc.perform(
-            post("/api/clients").contentType(MediaType.APPLICATION_JSON).content( JsonUtil.toJson(manuel) ) )
+            post("/api/clients").contentType(MediaType.APPLICATION_JSON).content( JsonUtils.toJson(manuel) ) )
             .andExpect(status().isCreated())
             .andExpect(jsonPath("$.name", is("manuel")));
         
-        verify(clientService, times(1)).createClient(manuel);
+        verify(appService, times(1)).createClient(manuel);
     }
 
     @Test
     void whenPostClientWithRepeatedEmail_thenClienNotCreated() throws IOException, Exception{
         Client manuel = new Client();
 
-        when( clientService.createClient(manuel)).thenReturn(new Client()) ;
+        when( appService.createClient(manuel)).thenReturn(new Client()) ;
 
         mvc.perform(
-            post("/api/clients").contentType(MediaType.APPLICATION_JSON).content( JsonUtil.toJson(manuel) ) )
+            post("/api/clients").contentType(MediaType.APPLICATION_JSON).content( JsonUtils.toJson(manuel) ) )
             .andExpect(status().isConflict());
         
-        verify(clientService, times(0)).createClient(manuel);
+        verify(appService, times(0)).createClient(manuel);
     }
 }

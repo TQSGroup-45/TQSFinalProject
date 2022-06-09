@@ -80,4 +80,8 @@ public class AppService {
         clientRep.save(new Client("Andreia", "2001-02-21", "2", "Sesamee", 1234, 5678, "Narnia"));
 
     }
+
+    public Client createClient(Client c){
+        return null;
+    }
 }
