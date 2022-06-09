@@ -1,13 +1,10 @@
 package adress.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,23 +29,9 @@ public class Client {
     @Column(name = "city", nullable = false, length = 50)
     private String city;
 
-    @OneToMany
-    @Column(name = "orders")
-    private List<Order> orders;
-
     public Client() {
-        // TODO constructor
-    }
-
-    public Client(String name, int id, String dob, String snum, String sname, int pc1, int pc2, String city) {
-        this.name = name;
-        this.id = id;
-        this.dob = dob;
-        this.snum = snum;
-        this.sname = sname;
-        this.pc1 = pc1;
-        this.pc2 = pc2;
-        this.city = city;
+        // empty constructor; only used no create an empty object that will later be
+        // filled with the setters
     }
 
     public Client(String name, String dob, String snum, String sname, int pc1, int pc2, String city) {
@@ -93,23 +76,36 @@ public class Client {
         return this.city;
     }
 
-    public List<Order> getOrders() {
-        return this.orders;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                " id='" + getId() + "'" +
-                ", name='" + getName() + "'" +
-                ", dob='" + getDob() + "'" +
-                ", snum='" + getSnum() + "'" +
-                ", sname='" + getSname() + "'" +
-                ", pc1='" + getPc1() + "'" +
-                ", pc2='" + getPc2() + "'" +
-                ", city='" + getCity() + "'" +
-                ", orders='" + getOrders() + "'" +
-                "}";
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public void setSnum(String snum) {
+        this.snum = snum;
+    }
+
+    public void setSname(String sname) {
+        this.sname = sname;
+    }
+
+    public void setPc1(int pc1) {
+        this.pc1 = pc1;
+    }
+
+    public void setPc2(int pc2) {
+        this.pc2 = pc2;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
 }

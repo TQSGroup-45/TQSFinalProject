@@ -1,10 +1,8 @@
 package adress.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,14 +14,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import adress.api.ClientRepository;
-import adress.api.ProductRepository;
+import adress.dto.ClientDTO;
+import adress.dto.OrderDTO;
 import adress.model.Client;
 import adress.model.Order;
 import adress.model.Product;
 import adress.service.AppService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1")
 public class AppController {
 
@@ -31,34 +30,31 @@ public class AppController {
 
     public AppController(AppService service) {
         this.service = service;
-        service.save();
+        service.save(); // This will enter the initial data into the database (like products)
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/store")
     public List<Product> listAllProducts() {
-        List<Product> temp = service.listAllProducts();
-        return temp;
+        return service.listAllProducts();
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/product/{id}")
     public Optional<Product> getProductById(@PathVariable(value = "id") int id) {
         return service.getProductById(id);
     }
 
     @GetMapping(path = "/orders/{id}")
+    // It will get all orders from a certain client using their ID
     public List<Order> getOrders(@PathVariable(value = "id") int id) {
         return service.getOrders(id);
     }
 
-    @PostMapping(path = "/orders/{id}")
-    public ResponseEntity<Order> addOrder(@PathVariable(value = "id") int id,
-            @RequestBody Order order) {
-        System.out.println("" + id + order);
+    @PostMapping(path = "/orders")
+    public ResponseEntity<Order> addOrder(
+            @RequestBody OrderDTO order) {
         HttpStatus status = HttpStatus.CREATED;
         Order o = service.addOrder(order);
-        return new ResponseEntity<Order>(o, status);
+        return new ResponseEntity<>(o, status);
     }
 
     @GetMapping(path = "/profile/{id}")
@@ -67,9 +63,9 @@ public class AppController {
     }
 
     @PutMapping(path = "/profile/{id}")
-    public ResponseEntity<Client> updateInformation(@RequestBody Client c1) {
+    public ResponseEntity<Client> updateInformation(@RequestBody ClientDTO c1) {
         HttpStatus status = HttpStatus.ACCEPTED;
         Client o = service.updateInformation(c1);
-        return new ResponseEntity<Client>(o, status);
+        return new ResponseEntity<>(o, status);
     }
 }
