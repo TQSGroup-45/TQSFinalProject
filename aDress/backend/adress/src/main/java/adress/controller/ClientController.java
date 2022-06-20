@@ -1,7 +1,6 @@
 package adress.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,29 +18,18 @@ import adress.dto.OrderDTO;
 import adress.model.Client;
 import adress.model.Location;
 import adress.model.Order;
-import adress.model.Product;
-import adress.service.AppService;
+import adress.service.ClientService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1")
-public class AppController {
+public class ClientController {
 
-    private AppService service;
+    private ClientService service;
 
-    public AppController(AppService service) {
+    public ClientController(ClientService service) {
         this.service = service;
         service.save(); // This will enter the initial data into the database (like products)
-    }
-
-    @GetMapping(path = "/products")
-    public List<Product> listAllProducts() {
-        return service.listAllProducts();
-    }
-
-    @GetMapping(path = "/products/{id}")
-    public Optional<Product> getProductById(@PathVariable(value = "id") int id) {
-        return service.getProductById(id);
     }
 
     @GetMapping(path = "/clients/{id}/orders")

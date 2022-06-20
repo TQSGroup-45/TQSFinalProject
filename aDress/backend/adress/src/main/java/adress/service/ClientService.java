@@ -1,8 +1,6 @@
 package adress.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,36 +8,22 @@ import org.springframework.stereotype.Service;
 import adress.api.CityDeliveryAPI;
 import adress.api.ClientRepository;
 import adress.api.OrderRepository;
-import adress.api.ProductRepository;
 import adress.dto.ClientDTO;
 import adress.dto.OrderDTO;
 import adress.model.Client;
-import adress.model.Gender;
 import adress.model.Location;
 import adress.model.Order;
-import adress.model.Product;
 
 @Service
-public class AppService {
+public class ClientService {
     @Autowired
     private ClientRepository clientRep;
     @Autowired
-    private ProductRepository prodRep;
-    @Autowired
     private OrderRepository orderRep;
-
     private CityDeliveryAPI cityDeliveryAPI = new CityDeliveryAPI();
-
-    public List<Product> listAllProducts() {
-        return (List<Product>) prodRep.findAll();
-    }
 
     public List<Client> getClients() {
         return (List<Client>) clientRep.findAll();
-    }
-
-    public Optional<Product> getProductById(int id) {
-        return prodRep.findById(id);
     }
 
     public Client getInformation(int id) {
@@ -62,36 +46,20 @@ public class AppService {
     }
 
     public List<Order> getOrders(int id) {
-        // Iterable<Order> temp = orderRep.findAll(); // we will find every order
-        // for (Order t : temp) {
-        // if (t.getClient().getId() == id) { // filter by the client id
-        // res.add(t);
-        // }
-        // }
         return clientRep.findById(id).getOrders(); // and return the ones with the right id
     }
 
     public Order addOrder(int clientId, OrderDTO order) {
-        // Client c = clientRep.findById(clientId);
-        Order temp = new Order(order.getClient(), order.getProds(), order.getDate(), order.getTotal());
-        // c.addOrder(temp);
+        Order temp = new Order(clientRep.findById(clientId), order.getProds(), order.getDate(), order.getTotal());
         return orderRep.save(temp);
-    }
-
-    public void save() {
-        prodRep.save(new Product("Brown Pants", 39.99, "Brown", Gender.MALE, "Pants"));
-        prodRep.save(new Product("Blue T-shirt", 29.99, "Blue", Gender.MALE, "T-shirt"));
-        prodRep.save(new Product("Yellow T-shirt", 19.99, "Yellow", Gender.UNDEFINED, "T-shirt"));
-        prodRep.save(new Product("Pringle Socks", 9.99, "Undefined", Gender.UNDEFINED, "Socks"));
-        prodRep.save(new Product("Black Dress", 39.99, "Black", Gender.FEMALE, "Dress"));
-        prodRep.save(new Product("Green Dress", 59.99, "Green", Gender.FEMALE, "Dress"));
-        prodRep.save(new Product("Black Sneakers", 39.99, "Black", Gender.UNDEFINED, "Sneakers"));
-        prodRep.save(new Product("White Sneakers", 59.99, "White", Gender.UNDEFINED, "Sneakers"));
-        clientRep.save(new Client("Andreia", "2001-02-21", "2", "Sesamee", 1234, 5678, "Narnia"));
-
     }
 
     public Location trackOrder(int clientId, int orderId) {
         return cityDeliveryAPI.track(clientId, orderId);
+    }
+
+    public void save() {
+        clientRep.save(new Client("Andreia", "2001-02-21", "2", "Sesamee", 1234, 5678, "Narnia"));
+
     }
 }

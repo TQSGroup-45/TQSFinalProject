@@ -7,7 +7,7 @@ import adress.model.Gender;
 import adress.model.Location;
 import adress.model.Order;
 import adress.model.Product;
-import adress.service.AppService;
+import adress.service.ClientService;
 
 import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
@@ -32,62 +32,37 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.ArrayList;
 
-@WebMvcTest(AppController.class)
-class AppControllerTest {
+@WebMvcTest(ClientController.class)
+public class ClientControllerTest {
 
-    private List<Product> prods;
     private List<Order> orders;
-    private Product p1;
-    private Product p2;
     private Order o1;
     private Order o2;
     private Client c1;
     private Location l1;
-
     @Autowired
     private MockMvc mvc;
 
     @MockBean
-    private AppService service;
+    private ClientService service;
 
     @BeforeEach
     public void setUp() throws Exception {
-        p1 = new Product("brown pants", 19.99, "brown", Gender.MALE, "pants");
-        p2 = new Product("red tshirt", 9.99, "red", Gender.MALE, "tshirt");
+        Product p1 = new Product("brown pants", 19.99, "brown", Gender.MALE, "pants");
+        Product p2 = new Product("red tshirt", 9.99, "red", Gender.MALE, "tshirt");
+        List<Product> prods = new ArrayList<Product>();
+        prods.add(p1);
+        prods.add(p2);
+
         c1 = new Client("andreia", "2001-02-21", "123", "sesame street", 1234, 5678, "Narnia");
         o1 = new Order(c1, prods, "2022-06-01", 28.89);
         o2 = new Order(c1, prods, "2022-06-05", 28.89);
         l1 = new Location(40.632084, -8.6606357);
-        prods = new ArrayList<Product>();
-        prods.add(p1);
-        prods.add(p2);
         orders = new ArrayList<Order>();
         orders.add(o1);
         orders.add(o2);
-    }
-
-    @Test
-    void testListAllProducts() throws Exception {
-        when(service.listAllProducts()).thenReturn(prods);
-        mvc.perform(get("/api/v1/products").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id", is(0)))
-                .andExpect(jsonPath("$[0].color", is("brown")))
-                .andExpect(jsonPath("$[1].type", is("tshirt")));
-        verify(service, times(1)).listAllProducts();
-    }
-
-    @Test
-    void testGetProductById() throws Exception {
-        when(service.getProductById(Mockito.anyInt())).thenReturn(Optional.of(p1));
-        mvc.perform(get("/api/v1/products/1").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(0)))
-                .andExpect(jsonPath("$.name", is("brown pants")));
-        verify(service, times(1)).getProductById(1);
     }
 
     @Test
