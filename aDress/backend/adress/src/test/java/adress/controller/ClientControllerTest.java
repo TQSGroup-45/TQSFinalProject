@@ -124,7 +124,7 @@ public class ClientControllerTest {
         ClientDTO manuel = new ClientDTO( );
 
         manuel.setName("Manuel");
-        manuel.setDob("1-1-2021");
+        manuel.setDob("1-1-2000");
         manuel.setSname("José");
         manuel.setSnum("123");
         manuel.setCity("Aveiro");
