@@ -62,4 +62,8 @@ public class ClientService {
         clientRep.save(new Client("Andreia", "2001-02-21", "2", "Sesamee", 1234, 5678, "Narnia"));
 
     }
+
+    public Order sendOrderToCityDelivery(Order o1) {
+        return cityDeliveryAPI.send(o1);
+    }
 }

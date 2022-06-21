@@ -91,7 +91,7 @@ public class StepDefinitions {
     @And("I find my order and click \"track\"")
     public void track_order() throws InterruptedException {
         driver.findElement(By.cssSelector(".fa-search")).click();
-        TimeUnit.SECONDS.sleep(5); // give website time to think
+        TimeUnit.SECONDS.sleep(1); // give website time to think
     }
 
     @Then("the order shows in my orders")

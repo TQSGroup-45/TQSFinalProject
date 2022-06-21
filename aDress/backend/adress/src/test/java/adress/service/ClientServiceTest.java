@@ -13,6 +13,7 @@ import org.mockito.internal.verification.VerificationModeFactory;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 import adress.api.CityDeliveryAPI;
@@ -73,6 +74,7 @@ public class ClientServiceTest {
         Mockito.when(clientRep.save(Mockito.any())).thenReturn(c1);
         Mockito.when(orderRep.save(Mockito.any())).thenReturn(o1);
         Mockito.when(cityDeliveryAPI.track(Mockito.anyInt(), Mockito.anyInt())).thenReturn(l1);
+        Mockito.when(cityDeliveryAPI.send(Mockito.any())).thenReturn(o1);
     }
 
     @Test
@@ -124,5 +126,12 @@ public class ClientServiceTest {
         Location found = service.trackOrder(c1.getId(), o1.getId());
         assertThat(found.getLat()).isEqualTo(40.632084);
         verify(cityDeliveryAPI, VerificationModeFactory.times(1)).track(Mockito.anyInt(), Mockito.anyInt());
+    }
+
+    @Test
+    void sendOrderToCityDelivery() throws Exception {
+        Order ret = service.sendOrderToCityDelivery(o1);
+        assertEquals(ret.getId(), o1.getId());
+        verify(cityDeliveryAPI, VerificationModeFactory.times(1)).send(Mockito.any());
     }
 }
