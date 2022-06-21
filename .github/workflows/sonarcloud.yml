@@ -15,7 +15,7 @@ env:
 jobs:
   build:
     name: Build
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -42,22 +42,22 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify -Pcoverage org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=TQSGroup-45_TQSFinalProject
 
-      - name: Copy repository contents via scp
-        uses: appleboy/scp-action@master
-        env:
-          HOST: ${{ secrets.HOST }}
-          USERNAME: ${{ secrets.USERNAME }}
-          PORT: ${{ secrets.PORT }}
-          KEY: ${{ secrets.SSHKEY }}
-        with:
-          source: "."
-          target: "/var/www/mywebsite"
-
-      - name: Executing remote command
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          USERNAME: ${{ secrets.USERNAME }}
-          PORT: ${{ secrets.PORT }}
-          KEY: ${{ secrets.SSHKEY }}
-          script: ls
+#      - name: Copy repository contents via scp
+#        uses: appleboy/scp-action@master
+#        env:
+#          HOST: ${{ secrets.HOST }}
+#          USERNAME: ${{ secrets.USERNAME }}
+#          PORT: ${{ secrets.PORT }}
+#          KEY: ${{ secrets.SSHKEY }}
+#        with:
+#          source: "."
+#          target: "/var/www/mywebsite"
+#
+#      - name: Executing remote command
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.HOST }}
+#          USERNAME: ${{ secrets.USERNAME }}
+#          PORT: ${{ secrets.PORT }}
+#          KEY: ${{ secrets.SSHKEY }}
+#          script: ls
