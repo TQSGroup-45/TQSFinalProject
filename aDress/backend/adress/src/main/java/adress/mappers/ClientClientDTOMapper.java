@@ -11,6 +11,6 @@ public interface ClientClientDTOMapper {
 
     ClientClientDTOMapper MAPPER = Mappers.getMapper(ClientClientDTOMapper.class );
 
-    ClientDTO clientToClientDTO(Client source);
-    Client clientDTOToClient(ClientDTO destination);
+    ClientDTO clientToClientDTO(Client client);
+    Client clientDTOToClient(ClientDTO clientDTO);
 }
