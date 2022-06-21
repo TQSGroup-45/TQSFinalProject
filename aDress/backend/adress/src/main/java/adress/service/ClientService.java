@@ -24,7 +24,7 @@ public class ClientService {
     private CityDeliveryAPI cityDeliveryAPI = new CityDeliveryAPI();
 
     public List<Client> getClients() {
-        return (List<Client>) clientRep.findAll();
+        return  clientRep.findAll();
     }
 
     public Client getInformation(int id) {

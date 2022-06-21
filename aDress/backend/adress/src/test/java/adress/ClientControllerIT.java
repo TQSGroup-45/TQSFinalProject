@@ -20,7 +20,7 @@ import adress.model.Client;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 
 @AutoConfigureTestDatabase
-public class ClientIT {
+public class ClientControllerIT {
     
     @LocalServerPort
     int randomServerPort;

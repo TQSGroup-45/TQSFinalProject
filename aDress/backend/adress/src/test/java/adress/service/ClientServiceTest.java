@@ -12,14 +12,18 @@ import org.mockito.Mockito;
 import org.mockito.internal.verification.VerificationModeFactory;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import adress.api.CityDeliveryAPI;
 import adress.api.ClientRepository;
 import adress.api.OrderRepository;
 import adress.dto.ClientDTO;
 import adress.dto.OrderDTO;
+import adress.mappers.ClientClientDTOMapper;
 import adress.model.Client;
 import adress.model.Gender;
 import adress.model.Location;
@@ -124,5 +128,27 @@ public class ClientServiceTest {
         Location found = service.trackOrder(c1.getId(), o1.getId());
         assertThat(found.getLat()).isEqualTo(40.632084);
         verify(cityDeliveryAPI, VerificationModeFactory.times(1)).track(Mockito.anyInt(), Mockito.anyInt());
+    }
+
+    @Test
+    void createClientTest(){
+
+        ClientDTO manuel = new ClientDTO();
+
+        manuel.setName("Manuel");
+        manuel.setDob("1-1-2021");
+        manuel.setSname("José");
+        manuel.setSnum("123");
+        manuel.setCity("Aveiro");
+        manuel.setPc1(1);
+        manuel.setPc2(1);
+
+        when(clientRep.save(Mockito.any())).thenReturn( ClientClientDTOMapper.MAPPER.clientDTOToClient(manuel));
+
+        ClientDTO answer = service.createClient(manuel);
+
+        verify(clientRep, VerificationModeFactory.times(1)).save(Mockito.any());
+
+        assertThat(answer).isNotNull();
     }
 }
