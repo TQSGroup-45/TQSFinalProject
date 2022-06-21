@@ -60,7 +60,7 @@ public class ClientControllerTest {
         prods.add(p1);
         prods.add(p2);
 
-        c1 = new Client("andreia", "2001-02-21", "123", "sesame street", 1234, 5678, "Narnia");
+        c1 = new Client("andreia", "2001-02-21", "123", "sesame street", 1234, 5678, "Narnia", "andreia@gmail.com");
         o1 = new Order(c1, prods, "2022-06-01", 28.89);
         o2 = new Order(c1, prods, "2022-06-05", 28.89);
         l1 = new Location(40.632084, -8.6606357);

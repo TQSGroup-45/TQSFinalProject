@@ -12,8 +12,6 @@ import org.mockito.Mockito;
 import org.mockito.internal.verification.VerificationModeFactory;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -56,7 +54,7 @@ public class ClientServiceTest {
         p1 = new Product("brown pants", 19.99, "brown", Gender.MALE, "pants");
         p2 = new Product("red tshirt", 9.99, "red", Gender.MALE, "tshirt");
         List<Product> prods = Arrays.asList(p1, p2);
-        c1 = new Client("andreia", "2001-02-21", "123", "sesame street", 1234, 5678, "Narnia");
+        c1 = new Client("andreia", "2001-02-21", "123", "sesame street", 1234, 5678, "Narnia", "andreia@gmail.com");
         c1dto.setName(c1.getName());
         c1dto.setDob(c1.getDob());
         c1dto.setSnum(c1.getSnum());

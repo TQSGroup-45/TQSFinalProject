@@ -13,9 +13,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.ResponseEntity;
 
 import adress.api.ClientRepository;
 import adress.model.Client;
+
+import java.io.IOException;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 
@@ -44,7 +47,7 @@ class ClientControllerIT {
 
     @Test
     void whenValidInput_thenCreateClient(){
-        Client manuel = new Client( "Manuel",  "1-1-2021", "123", "manuel", 1, 1, "Aveiro");
+        Client manuel = new Client( "Manuel",  "1-1-2021", "123", "manuel", 1, 1, "Aveiro", "manuel@gmail.com");
         restTemplate.postForEntity("/api/v1/clients", manuel, Client.class);
 
         System.out.println(clientRepository.findAll());
@@ -52,30 +55,24 @@ class ClientControllerIT {
         assertThat( clientsFound).hasSize(1);
     }
 
-/*     @Test
+    @Test
     public void whenInvalidInput_thenNotCreateClient(){
-        Client manuel = new Client( "Manuel",  "1-1-2021", "123", "manuel", 1, 1, "Aveiro");
+        Client manuel = new Client( "Manuel",  "1-1-2021", "123", "manuel", 0, 1, "Aveiro", "manuel@gmail.com");
         
-        Client manuel2 = new Client( "Manuel",  "1-1-2021", "123", "manuel", 1, 1, "Aveiro");
+        ResponseEntity<Client> entity = restTemplate.postForEntity("/api/v1/clients", manuel, Client.class);
+        System.out.println(entity);
+        assertThat( entity.getStatusCode() ).isEqualTo(org.springframework.http.HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    void whenPostClientWithRepeatedEmail_thenClienNotCreated() throws IOException, Exception{
+        Client manuel = new Client( "Manuel",  "1-1-2021", "123", "manuel", 1, 1, "Aveiro", "manuel@gmail.com");
+        Client manuel2 = new Client( "Manuel Gaspar",  "1-1-2021", "123", "manuel", 0, 1, "Aveiro", "manuel@gmail.com");
 
         clientRepository.save(manuel);
 
-        ResponseEntity<Client> entity = restTemplate.postForEntity("/api/v1/clients", manuel, Client.class);
-
-        List<Client> clientsFound = clientRepository.findAll();
-        assertThat( clientsFound ).containsOnly(manuel);
-    } */
-
-    /* @Test
-    void whenPostClientWithRepeatedEmail_thenClienNotCreated() throws IOException, Exception{
-        Client manuel = new Client( "Manuel",  "1-1-2021", "123", "manuel", 1, 1, "Aveiro");
-
-        ResponseEntity<Client> entity = restTemplate.postForEntity("/api/v1/clients", manuel, Client.class);
-
-        mvc.perform(
-            post("/api/v1/clients").contentType(MediaType.APPLICATION_JSON).content( JsonUtils.toJson(manuel) ) )
-            .andExpect(status().isConflict());
+        ResponseEntity<Client> entity = restTemplate.postForEntity("/api/v1/clients", manuel2, Client.class);
         
-        verify(appService, times(0)).createClient(manuel);
-    } */
+        assertThat(entity.getStatusCode()).isEqualTo(org.springframework.http.HttpStatus.BAD_REQUEST);
+    }
 }

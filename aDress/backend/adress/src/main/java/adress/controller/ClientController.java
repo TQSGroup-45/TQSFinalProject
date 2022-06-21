@@ -2,6 +2,8 @@ package adress.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,7 +73,8 @@ public class ClientController {
     }
 
     @PostMapping(path = "/clients", produces="application/json")
-    public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO client ){
+    public ResponseEntity<ClientDTO> createClient(@Valid @RequestBody ClientDTO client ){
+        System.out.println(client.getPc1());
         return ResponseEntity.status(HttpStatus.CREATED).body(service.createClient(client));
     }
 }

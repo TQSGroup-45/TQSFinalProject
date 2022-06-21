@@ -30,6 +30,8 @@ public class Client {
     )
     @Column(name = "id")
     private int id;
+    @Column(name = "email", unique = true, nullable = false, length = 50)
+    private String email;
     @Column(name = "name", nullable = false, length = 50)
     private String name;
     @Column(name = "dob", nullable = false, length = 50)
@@ -53,7 +55,7 @@ public class Client {
         // filled with the setters
     }
 
-    public Client(String name, String dob, String snum, String sname, int pc1, int pc2, String city) {
+    public Client(String name, String dob, String snum, String sname, int pc1, int pc2, String city, String email) {
         this.name = name;
         this.dob = dob;
         this.snum = snum;
@@ -61,6 +63,7 @@ public class Client {
         this.pc1 = pc1;
         this.pc2 = pc2;
         this.city = city;
+        this.email = email;
         this.orders = new ArrayList<Order>();
     }
 
@@ -136,4 +139,12 @@ public class Client {
         this.orders.add(o);
     }
 
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
