@@ -20,15 +20,41 @@ class ClientClientDTOMapperTest {
     void givenSourceToDestination_whenMaps_thenCorrect() {
         Client client = new Client();
         client.setName("Manel");
-        ClientDTO destination = mapper.clientToClientDTO(client);
+        client.setCity("Aveiro");
+        client.setDob("1-1-2021");
+        client.setSname("José");
+        client.setSnum("123");
+        client.setPc1(1);
+        client.setPc2(1);
 
-        assertEquals(client.getName(), destination.getName());
+        ClientDTO clientDTO = mapper.clientToClientDTO(client);
+
+        assertEquals(client.getName(), clientDTO.getName());
+        assertEquals(client.getCity(), clientDTO.getCity());
+        assertEquals(client.getDob(), clientDTO.getDob());
+        assertEquals(client.getPc1(), clientDTO.getPc1());
+        assertEquals(client.getPc2(), clientDTO.getPc2());
+        assertEquals(client.getSname(), clientDTO.getSname());
+        assertEquals(client.getSnum(), clientDTO.getSnum());
     }
     @Test
     void givenDestinationToSource_whenMaps_thenCorrect() {
         ClientDTO clientDTO = new ClientDTO();
         clientDTO.setName("Manel");
+        clientDTO.setCity("Aveiro");
+        clientDTO.setDob("1-1-2021");
+        clientDTO.setSname("José");
+        clientDTO.setSnum("123");
+        clientDTO.setPc1(1);
+        clientDTO.setPc2(1);
+
         Client client = mapper.clientDTOToClient(clientDTO);
-        assertEquals(clientDTO.getName(), client.getName());
-    }
+        
+        assertEquals(client.getName(), clientDTO.getName());
+        assertEquals(client.getCity(), clientDTO.getCity());
+        assertEquals(client.getDob(), clientDTO.getDob());
+        assertEquals(client.getPc1(), clientDTO.getPc1());
+        assertEquals(client.getPc2(), clientDTO.getPc2());
+        assertEquals(client.getSname(), clientDTO.getSname());
+        assertEquals(client.getSnum(), clientDTO.getSnum());    }
 }
