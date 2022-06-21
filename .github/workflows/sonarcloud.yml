@@ -15,7 +15,7 @@ env:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
         with:
@@ -41,23 +41,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify -Pcoverage org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=TQSGroup-45_TQSFinalProject
-
-#      - name: Copy repository contents via scp
-#        uses: appleboy/scp-action@master
-#        env:
-#          HOST: ${{ secrets.HOST }}
-#          USERNAME: ${{ secrets.USERNAME }}
-#          PORT: ${{ secrets.PORT }}
-#          KEY: ${{ secrets.SSHKEY }}
-#        with:
-#          source: "."
-#          target: "/var/www/mywebsite"
-#
-#      - name: Executing remote command
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: ${{ secrets.HOST }}
-#          USERNAME: ${{ secrets.USERNAME }}
-#          PORT: ${{ secrets.PORT }}
-#          KEY: ${{ secrets.SSHKEY }}
-#          script: ls
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v2.0.0
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          event-type: deploy-workflow
