@@ -6,9 +6,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.cucumber.java.PendingException;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import java.util.concurrent.TimeUnit;
@@ -43,7 +42,7 @@ public class StepDefinitions {
 
     }
 
-    @Given("I've made an order'")
+    @Given("I've made an order")
     public void i_make_an_order() throws InterruptedException {
         driver.findElement(By.linkText("Products")).click();
         TimeUnit.SECONDS.sleep(1); // give website time to think
@@ -90,8 +89,9 @@ public class StepDefinitions {
     }
 
     @And("I find my order and click \"track\"")
-    public void track_order() {
-        // clicar lupa
+    public void track_order() throws InterruptedException {
+        driver.findElement(By.cssSelector(".fa-search")).click();
+        TimeUnit.SECONDS.sleep(5); // give website time to think
     }
 
     @Then("the order shows in my orders")
@@ -113,6 +113,7 @@ public class StepDefinitions {
     @Then("I get information about its whereabouts")
     public void get_location() throws Exception {
         // verificar que aparece mapa
+        assertTrue(driver.findElement(By.cssSelector("area")).isDisplayed());
         // assertTrue(driver.findElement(By.cssSelector("tr:nth-child(2)")).isDisplayed());
     }
 

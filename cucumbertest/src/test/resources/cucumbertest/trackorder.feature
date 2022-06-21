@@ -1,4 +1,5 @@
-Feature: As a client of aDress, I want to track my order,so that I know where it is
+Feature: Track Order
+    As a client of aDress, I want to track my order,so that I know where it is
 
     Scenario: Track an order
         Given I've made an order
