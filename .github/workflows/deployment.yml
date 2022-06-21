@@ -13,8 +13,7 @@ jobs:
         with:
           HOST: ${{ secrets.VM_HOST }}
           USERNAME: ${{ secrets.VM_USERNAME }}
-          PORT: ${{ secrets.VM_PORT }}
-          KEY: ${{ secrets.VM_SSH_KEY }}
+          PASSWORD: ${{ secrets.VM_PASSWORD }}
           source: "."
           target: "/var/www/mywebsite"
 
@@ -23,6 +22,5 @@ jobs:
         with:
           host: ${{ secrets.VM_HOST }}
           USERNAME: ${{ secrets.VM_USERNAME }}
-          PORT: ${{ secrets.VM_PORT }}
-          KEY: ${{ secrets.VM_SSH_KEY }}
+          PASSWORD: ${{ secrets.VM_PASSWORD }}
           script: ls
