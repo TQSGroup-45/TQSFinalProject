@@ -12,9 +12,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "orders")
 public class Order {
+    @JsonIgnoreProperties("orders")
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;

@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
+import adress.api.CityDeliveryAPI;
 import adress.api.ClientRepository;
 import adress.api.OrderRepository;
 import adress.api.ProductRepository;
@@ -23,11 +24,12 @@ import adress.dto.ClientDTO;
 import adress.dto.OrderDTO;
 import adress.model.Client;
 import adress.model.Gender;
+import adress.model.Location;
 import adress.model.Order;
 import adress.model.Product;
 
 @ExtendWith(MockitoExtension.class)
-class AppServiceTest {
+class ProductsServiceTest {
 
     @Mock(lenient = true)
     private ProductRepository prodRep;
@@ -35,9 +37,11 @@ class AppServiceTest {
     private ClientRepository clientRep;
     @Mock(lenient = true)
     private OrderRepository orderRep;
+    @Mock(lenient = true)
+    private CityDeliveryAPI cityDeliveryAPI;
 
     @InjectMocks
-    private AppService service;
+    private ProductsService service;
 
     private Product p1;
     private Product p2;
@@ -46,6 +50,7 @@ class AppServiceTest {
     private Order o2;
     private Client c1;
     private ClientDTO c1dto = new ClientDTO();
+    private Location l1;
 
     @BeforeEach
     public void setUp() {
@@ -66,7 +71,10 @@ class AppServiceTest {
         o1dto.setDate(o1.getDate());
         o1dto.setTotal(o1.getTotal());
         o2 = new Order(c1, prods, "2022-06-05", 28.89);
-        List<Order> orders = Arrays.asList(o1, o2);
+        c1.addOrder(o1);
+        c1.addOrder(o2);
+        // List<Order> orders = Arrays.asList(o1, o2);
+        l1 = new Location(40.632084, -8.6606357);
         Mockito.when(prodRep.findById(1)).thenReturn(Optional.of(p1));
         Mockito.when(prodRep.findById(2)).thenReturn(Optional.of(p2));
         Mockito.when(prodRep.save(Mockito.any())).thenReturn(p1);
@@ -74,7 +82,8 @@ class AppServiceTest {
         Mockito.when(clientRep.findById(0)).thenReturn(c1);
         Mockito.when(clientRep.save(Mockito.any())).thenReturn(c1);
         Mockito.when(orderRep.save(Mockito.any())).thenReturn(o1);
-        Mockito.when(orderRep.findAll()).thenReturn(orders);
+        // Mockito.when(orderRep.findAll()).thenReturn(orders);
+        Mockito.when(cityDeliveryAPI.track(Mockito.anyInt(), Mockito.anyInt())).thenReturn(l1);
     }
 
     @Test
@@ -82,7 +91,6 @@ class AppServiceTest {
         // means that every initial product and client were correctly saved
         service.save();
         verify(prodRep, VerificationModeFactory.times(8)).save(Mockito.any());
-        verify(clientRep, VerificationModeFactory.times(1)).save(Mockito.any());
     }
 
     @Test
@@ -105,43 +113,6 @@ class AppServiceTest {
         Optional<Product> found = service.getProductById(3);
         verify(prodRep, VerificationModeFactory.times(1)).findById(3);
         assertThat(found).isEmpty();
-    }
-
-    @Test
-    void givenThereIsAClient_testGetInformationById() {
-        Client found = service.getInformation(0);
-        verify(clientRep, VerificationModeFactory.times(1)).findById(0);
-        assertThat(found).isEqualTo(c1);
-    }
-
-    @Test
-    void givenThereIsNotAClient_testGetInformationByInexistentId() {
-        Client found = service.getInformation(5);
-        verify(clientRep, VerificationModeFactory.times(1)).findById(5);
-        assertThat(found).isNull();
-    }
-
-    @Test
-    void givenThereIsAnUpdatedClient_testUpdateInformationById() {
-        Client found = service.updateInformation(c1dto);
-        verify(clientRep, VerificationModeFactory.times(1)).save(Mockito.any());
-        assertThat(found).isEqualTo(c1);
-    }
-
-    @Test
-    void testGetOrders() {
-        List<Order> found = service.getOrders(0);
-        assertThat(found.get(0).getDate()).isEqualTo("2022-06-01");
-        assertThat(found.get(1).getDate()).isEqualTo("2022-06-05");
-        verify(orderRep, VerificationModeFactory.times(1)).findAll();
-    }
-
-    @Test
-    void testAddOrders() {
-        Order found = service.addOrder(o1dto);
-        assertThat(found.getDate()).isEqualTo("2022-06-01");
-        verify(orderRep, VerificationModeFactory.times(1)).save(Mockito.any());
-        assertThat(found).isEqualTo(o1);
     }
 
 }

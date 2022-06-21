@@ -32,14 +32,14 @@ export class ProfileComponent implements OnInit {
   }
       
   getClientInfo():void{
-    this.http.get("http://localhost:8080/api/v1/profile/"+this.id).subscribe((data) => {
+    this.http.get("http://localhost:8080/api/v1/clients/"+this.id).subscribe((data) => {
       var temp = Object.values(data);
       this.info={id:temp[0],name:temp[1],dob:temp[2],sname:temp[4],snum:temp[3],pc1:temp[5],pc2:temp[6],city:temp[7]};
     }) 
   }
 
   getOrders():void{
-    this.http.get("http://localhost:8080/api/v1/orders/"+this.id).subscribe((data) => {
+    this.http.get("http://localhost:8080/api/v1/clients/"+this.id+"/orders").subscribe((data) => {
     this.temp = new Map<string, OrderReceived>(Object.entries(data)); 
     this.orders=[];
     this.temp.forEach((value: OrderReceived) => {
@@ -102,7 +102,7 @@ export class ProfileComponent implements OnInit {
 
   updateClient(client: Client): Observable<Client> {
     //send information to backend
-    return this.http.put<Client>("http://localhost:8080/api/v1/profile/"+this.id, client);
+    return this.http.put<Client>("http://localhost:8080/api/v1/clients/"+this.id, client);
   }
 
   cancel():void{

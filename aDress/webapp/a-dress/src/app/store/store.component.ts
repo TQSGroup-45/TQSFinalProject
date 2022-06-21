@@ -24,7 +24,7 @@ color:string="";
   }
 
   ngOnInit(): void {
-    this.http.get("http://localhost:8080/api/v1/store").subscribe((data) => {
+    this.http.get("http://localhost:8080/api/v1/products").subscribe((data) => {
       this.info = new Map<string, Product>(Object.entries(data));
       this.prods=[];
       this.info.forEach((value: Product) => {
