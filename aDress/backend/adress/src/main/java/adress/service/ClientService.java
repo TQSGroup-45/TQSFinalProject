@@ -40,18 +40,18 @@ public class ClientService {
         return clientRep.findById(id);
     }
 
-    public Client updateInformation(ClientDTO c1) {
+    public Client updateInformation(ClientDTO newClient) {
         // We can use the same save() method to update an existing entry in our
         // database. - https://www.baeldung.com/spring-data-crud-repository-save
         // Since we don't know which field was updated, we will "update" them all
-        int id = c1.getId();
+        int id = newClient.getId();
         Client temp = clientRep.findById(id);
-        temp.setName(c1.getName());
-        temp.setSname(c1.getSname());
-        temp.setSnum(c1.getSnum());
-        temp.setCity(c1.getCity());
-        temp.setPc1(c1.getPc1());
-        temp.setPc2(c1.getPc2());
+        temp.setName(newClient.getName());
+        temp.setSname(newClient.getSname());
+        temp.setSnum(newClient.getSnum());
+        temp.setCity(newClient.getCity());
+        temp.setPc1(newClient.getPc1());
+        temp.setPc2(newClient.getPc2());
         return clientRep.save(temp);
     }
 
