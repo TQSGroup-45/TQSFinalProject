@@ -15,7 +15,7 @@ jobs:
           USERNAME: ${{ secrets.VM_USERNAME }}
           PASSWORD: ${{ secrets.VM_PASSWORD }}
           source: "."
-          target: "/var/www/mywebsite"
+          target: "/home/ubuntu/Desktop/"
 
       - name: Executing remote command
         uses: appleboy/ssh-action@master
