@@ -43,6 +43,17 @@ public class StepDefinitions {
 
     }
 
+    @Given("I've made an order'")
+    public void i_make_an_order() throws InterruptedException {
+        driver.findElement(By.linkText("Products")).click();
+        TimeUnit.SECONDS.sleep(1); // give website time to think
+        driver.findElement(By.cssSelector(".col-4:nth-child(1) > button")).click();
+        driver.findElement(By.cssSelector(".fa-shopping-cart")).click();
+        driver.findElement(By.linkText("Make Purchase")).click();
+        driver.findElement(By.cssSelector(".confirm")).click();
+        TimeUnit.SECONDS.sleep(1); // give website time to think
+    }
+
     @And("I click the \"Make purchase\" button")
     public void i_click_the_make_purchase_button() {
         driver.findElement(By.linkText("Make Purchase")).click();
@@ -78,14 +89,31 @@ public class StepDefinitions {
         TimeUnit.SECONDS.sleep(1); // give website time to think
     }
 
+    @And("I find my order and click \"track\"")
+    public void track_order() {
+        // clicar lupa
+    }
+
     @Then("the order shows in my orders")
     public void order_show_in_profile() throws Exception {
         assertTrue(driver.findElement(By.cssSelector("tr:nth-child(2)")).isDisplayed());
     }
 
+    /*
+     * Given I've made an order
+     * When I go to my profile
+     * And I find my order and click "track"
+     * Then I get information about its whereabouts
+     */
     @And("my profile information is right")
     public void my_information_is_right() throws Exception {
         assertEquals("Sacramento", driver.findElement(By.id("i4")).getAttribute("value"));
+    }
+
+    @Then("I get information about its whereabouts")
+    public void get_location() throws Exception {
+        // verificar que aparece mapa
+        // assertTrue(driver.findElement(By.cssSelector("tr:nth-child(2)")).isDisplayed());
     }
 
     @After()

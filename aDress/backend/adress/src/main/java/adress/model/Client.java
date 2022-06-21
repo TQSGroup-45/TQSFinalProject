@@ -9,11 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import ch.qos.logback.core.subst.Token.Type;
 
 @Entity
 @Table(name = "clients")
@@ -53,7 +50,7 @@ public class Client {
         this.pc1 = pc1;
         this.pc2 = pc2;
         this.city = city;
-        this.orders = new ArrayList<Order>();
+        this.orders = new ArrayList<>();
     }
 
     public int getId() {

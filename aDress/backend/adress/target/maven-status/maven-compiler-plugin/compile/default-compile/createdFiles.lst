@@ -1,12 +1,10 @@
 adress\model\Client.class
-adress\api\ClientRepository.class
 adress\App.class
-adress\service\AppService.class
-adress\api\OrderRepository.class
-adress\controller\AppController.class
-adress\dto\ClientDTO.class
 adress\dto\OrderDTO.class
 adress\model\Gender.class
 adress\model\Order.class
+adress\api\ClientRepository.class
+adress\api\OrderRepository.class
+adress\dto\ClientDTO.class
 adress\api\ProductRepository.class
 adress\model\Product.class
