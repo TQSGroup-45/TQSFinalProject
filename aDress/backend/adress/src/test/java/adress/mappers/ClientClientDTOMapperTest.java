@@ -12,12 +12,12 @@ import adress.model.Client;
 
 
 @SpringBootApplication
-public class ClientClientDTOMapperTest {
+class ClientClientDTOMapperTest {
     
     private ClientClientDTOMapper mapper = Mappers.getMapper(ClientClientDTOMapper.class);
     
     @Test
-    public void givenSourceToDestination_whenMaps_thenCorrect() {
+    void givenSourceToDestination_whenMaps_thenCorrect() {
         Client client = new Client();
         client.setName("Manel");
         ClientDTO destination = mapper.clientToClientDTO(client);
@@ -25,7 +25,7 @@ public class ClientClientDTOMapperTest {
         assertEquals(client.getName(), destination.getName());
     }
     @Test
-    public void givenDestinationToSource_whenMaps_thenCorrect() {
+    void givenDestinationToSource_whenMaps_thenCorrect() {
         ClientDTO clientDTO = new ClientDTO();
         clientDTO.setName("Manel");
         Client client = mapper.clientDTOToClient(clientDTO);

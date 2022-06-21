@@ -20,7 +20,7 @@ import adress.model.Client;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 
 @AutoConfigureTestDatabase
-public class ClientControllerIT {
+class ClientControllerIT {
     
     @LocalServerPort
     int randomServerPort;
@@ -43,7 +43,7 @@ public class ClientControllerIT {
     }
 
     @Test
-    public void whenValidInput_thenCreateClient(){
+    void whenValidInput_thenCreateClient(){
         Client manuel = new Client( "Manuel",  "1-1-2021", "123", "manuel", 1, 1, "Aveiro");
         restTemplate.postForEntity("/api/v1/clients", manuel, Client.class);
 
