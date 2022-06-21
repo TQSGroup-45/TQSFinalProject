@@ -67,4 +67,9 @@ public class ClientController {
     public Location getOrderLocation(@PathVariable(value = "id") int id, @PathVariable(value = "orderid") int orderid) {
         return service.trackOrder(id, orderid);
     }
+
+    @PostMapping(path = "/clients", produces="application/json")
+    public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO client ){
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.createClient(client));
+    }
 }

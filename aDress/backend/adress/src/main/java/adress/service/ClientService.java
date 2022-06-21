@@ -10,6 +10,7 @@ import adress.api.ClientRepository;
 import adress.api.OrderRepository;
 import adress.dto.ClientDTO;
 import adress.dto.OrderDTO;
+import adress.mappers.ClientClientDTOMapper;
 import adress.model.Client;
 import adress.model.Location;
 import adress.model.Order;
@@ -61,5 +62,19 @@ public class ClientService {
     public void save() {
         clientRep.save(new Client("Andreia", "2001-02-21", "2", "Sesamee", 1234, 5678, "Narnia"));
 
+    }
+
+    public ClientDTO createClient(ClientDTO c1){
+
+        Client temp = new Client();
+        temp.setName(c1.getName());
+        temp.setDob(c1.getDob());
+        temp.setSname(c1.getSname());
+        temp.setSnum(c1.getSnum());
+        temp.setCity(c1.getCity());
+        temp.setPc1(c1.getPc1());
+        temp.setPc2(c1.getPc2());
+        
+        return ClientClientDTOMapper.MAPPER.clientToClientDTO( clientRep.save(temp) );
     }
 }

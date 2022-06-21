@@ -1,5 +1,6 @@
 package adress.controller;
 
+import adress.JsonUtils;
 import adress.dto.ClientDTO;
 import adress.dto.OrderDTO;
 import adress.model.Client;
@@ -28,10 +29,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import static org.hamcrest.CoreMatchers.is;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.util.List;
+import java.io.IOException;
 import java.util.ArrayList;
 
 @WebMvcTest(ClientController.class)
@@ -114,4 +118,27 @@ public class ClientControllerTest {
         verify(service, times(1)).trackOrder(Mockito.anyInt(), Mockito.anyInt());
     }
 
+    @Test
+    void whenPostClient_thenCreateClient() throws IOException, Exception{
+
+        ClientDTO manuel = new ClientDTO( );
+
+        manuel.setName("Manuel");
+        manuel.setDob("1-1-2021");
+        manuel.setSname("José");
+        manuel.setSnum("123");
+        manuel.setCity("Aveiro");
+        manuel.setPc1(1);
+        manuel.setPc2(1);
+
+        when( service.createClient(Mockito.any())).thenReturn( manuel);
+
+        mvc.perform(
+            post("/api/v1/clients").contentType(MediaType.APPLICATION_JSON).content( JsonUtils.toJson(manuel) ) )
+            .andExpect(status().isCreated())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.name", is("Manuel")));
+        
+        verify(service, times(1)).createClient(Mockito.any());
+    }
 }
