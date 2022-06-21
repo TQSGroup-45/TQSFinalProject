@@ -1,12 +1,17 @@
 package adress.dto;
 
+import javax.validation.constraints.Min;
+
 public class ClientDTO {
     private int id;
     private String name;
     private String dob;
     private String snum;
     private String sname;
+    private String email;
+    @Min(value = 1, message = "Invalid post code")
     private int pc1;
+    @Min(value = 1, message = "Invalid post code")
     private int pc2;
     private String city;
 
@@ -72,6 +77,15 @@ public class ClientDTO {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }
