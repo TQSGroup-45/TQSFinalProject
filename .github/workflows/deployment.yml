@@ -1,8 +1,9 @@
 name: Repository Dispatch
 
 on:
-  repository_dispatch:
-    types: [deploy-workflow]
+  push:
+    branches:
+      - master
 
 jobs:
   deploy:
