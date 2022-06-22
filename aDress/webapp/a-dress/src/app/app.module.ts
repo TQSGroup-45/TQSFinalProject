@@ -20,6 +20,8 @@ import { CartComponent } from './cart/cart.component';
 import { CompleteOrderComponent } from './complete-order/complete-order.component';
 import { TrackOrderComponent } from './track-order/track-order.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RegisterComponent } from './register/register.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { HttpClientModule } from '@angular/common/http';
     ProfileComponent,
     CartComponent,
     CompleteOrderComponent,
-    TrackOrderComponent
+    TrackOrderComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     NgbModule,
     MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

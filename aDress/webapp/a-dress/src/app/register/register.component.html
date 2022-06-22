@@ -1,0 +1,34 @@
+<div class="container">
+    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+        <div class="form-group input-group-lg entry">
+            <input class="form-control" placeholder="Name" formControlName="name">
+        </div>
+        <div class="form-group input-group-lg entry">
+            <input class="form-control" placeholder="Email" formControlName="email">
+        </div>
+        <div class="form-group input-group-lg entry">
+            <input class="form-control" placeholder="Date of Birth" formControlName="dob">
+        </div>
+        <div class="form-group input-group-lg entry">
+            <input class="form-control" placeholder="Street Name" formControlName="sname">
+        </div>
+        <div class="form-group input-group-lg entry">
+            <input class="form-control" placeholder="Street Number" formControlName="snum">
+        </div>
+        <div class="form-group input-group-lg entry">
+            <input class="form-control" placeholder="City" formControlName="city">
+        </div>
+        <div class="entry">
+            <div class="form-group input-group-lg" style="width:48%; float:left">
+                <input class="form-control" placeholder="Post Code" formControlName="pc1">
+            </div>
+            <p style="float:left; margin-top: 15px; margin-left:2%;">-</p>
+            <div class="form-group input-group-lg" style="width:48%; float:right">
+                <input class="form-control" placeholder="Post Code" formControlName="pc2">
+            </div>
+        </div>
+        <div class="form-group" style="margin-top: 100px;">
+            <button class="btn btn-danger btn-block btn-lg" style="width:25%">Create</button>
+        </div>
+    </form>
+</div>
