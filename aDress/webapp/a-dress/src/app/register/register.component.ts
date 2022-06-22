@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
 
     const options = {headers: {'Content-Type': 'application/json'}};
     this.http
-      .post<ClientRegister>("http://127.0.0.1:8080/api/v1/clients/", this.info, options)
+      .post<ClientRegister>("http://localhost:8080/api/v1/clients/", this.info, options)
       .subscribe({
         next: (response) => console.log(response),
         error: (error) => console.log(error),
