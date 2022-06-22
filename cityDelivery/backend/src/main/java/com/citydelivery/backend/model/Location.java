@@ -15,6 +15,13 @@ public class Location {
     @Column
     private Double longitude;
 
+    public Location() {}
+
+    public Location(Double latitude, Double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public Long getId() {
         return id;
     }
@@ -37,5 +44,11 @@ public class Location {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public Double distanceToLocation(Location otherLocation) {
+        return Math.sqrt(
+                Math.pow(latitude - otherLocation.getLatitude(), 2)
+                        + Math.pow(longitude - otherLocation.getLongitude(), 2));
     }
 }
