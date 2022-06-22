@@ -14,14 +14,52 @@ main {
   display: flex;
   flex-grow: 1;
 }
-.left-bar {
-  width: 20em;
-  background-color: var(--sidebar-color);
-}
 .map-container {
   flex-grow: 1;
 }
 footer {
   background-color: var(--header-color);
   padding: 1em;
+}
+
+#ol-map
+{
+  width: 100%;
+  height: 500px;
+}
+
+#apps-table
+{
+  width: 2000px;
+  height: 500px;
+}
+.mat-table {
+  overflow-x: scroll;
+  max-width: 99%;
+}
+
+.mat-cell,
+.mat-header-cell {
+  word-wrap: initial;
+  display: table-cell;
+  padding: 0px 10px;
+  line-break: unset;
+  width: 75%;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.mat-row,
+.mat-header-row {
+  display: table-row;
+}
+.mat-column-profile{
+  text-align:center;
+  justify-content: flex-end;
+}
+
+.mat-column-answer{
+  text-align:center;
+  justify-content: flex-end;
 }

@@ -1,24 +1,117 @@
-export var productSales = [
+export let productSales = [
   {
     "name": "January",
-    "value": 5001
+    "value": 178
   }, {
     "name": "February",
-    "value": 7322
+    "value": 241
   }, {
     "name": "March",
-    "value": 1726
+    "value": 124
   }, {
     "name": "April",
-    "value": 2599
+    "value": 151
   }, {
     "name": "May",
-    "value": 705
+    "value": 163
   }
 ];
 
 
-export var productSalesMulti = [
+export let averageTimes = [
+  {
+    "name": "Mean",
+    "series": [
+      {
+        "name": "Jan",
+        "value": 25
+      },
+      {
+        "name": "Feb",
+        "value": 24
+      },
+      {
+        "name": "Mar",
+        "value": 26
+      },
+      {
+        "name": "Apr",
+        "value": 25
+      },
+      {
+        "name": "May",
+        "value": 24
+      },
+      {
+        "name": "Jun",
+        "value": 25
+      }
+    ]
+  },
+
+  {
+    "name": "Min",
+    "series": [
+      {
+        "name": "Jan",
+        "value": 15
+      },
+      {
+        "name": "Feb",
+        "value": 12
+      },
+      {
+        "name": "Mar",
+        "value": 12
+      },
+      {
+        "name": "Apr",
+        "value": 13
+      },
+      {
+        "name": "May",
+        "value": 15
+      },
+      {
+        "name": "Jun",
+        "value": 14
+      }
+    ]
+  },
+
+  {
+    "name": "Max",
+    "series": [
+      {
+        "name": "Jan",
+        "value": 45
+      },
+      {
+        "name": "Feb",
+        "value": 51
+      },
+      {
+        "name": "Mar",
+        "value": 48
+      },
+      {
+        "name": "Apr",
+        "value": 49
+      },
+      {
+        "name": "May",
+        "value": 50
+      },
+      {
+        "name": "Jun",
+        "value": 51
+      }
+    ]
+  },
+
+];
+
+export let productSalesMulti = [
   {
     "name": "Janur",
     "series": [
@@ -92,7 +185,7 @@ export var productSalesMulti = [
   }
 ]
 
-export var bubbleData = [
+export let bubbleData = [
   {
     name: 'book',
     series: [

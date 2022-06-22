@@ -14,8 +14,13 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { MapComponent } from './components/map/map.component';
 import { DeliveryStatisticsComponent } from './delivery-statistics/delivery-statistics.component';
 import { DeliveryBarchartComponent } from './delivery-barchart/delivery-barchart.component';
+import { DeliveryTimeBarchartComponent } from './deliveryTimes-barchart/deliveryTime-barchart.component';
 import { NgxChartsModule }from '@swimlane/ngx-charts';
 import { CourierManagementComponent } from './courier-management/courier-management.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from './components/modal/modal.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +31,9 @@ import { CourierManagementComponent } from './courier-management/courier-managem
     DeliveryStatisticsComponent,
     DeliveryBarchartComponent,
     CourierManagementComponent,
+    DeliveryTimeBarchartComponent,
+    ModalComponent,
+    ProfileComponent
 
   ],
   imports: [
@@ -37,7 +45,10 @@ import { CourierManagementComponent } from './courier-management/courier-managem
     MatIconModule,
     MatButtonModule,
     MDBBootstrapModule,
-    NgxChartsModule
+    NgxChartsModule,
+    MatDialogModule,
+    NgbModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
