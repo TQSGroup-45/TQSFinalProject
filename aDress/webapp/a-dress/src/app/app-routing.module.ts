@@ -1,3 +1,4 @@
+import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path:'cart',component:CartComponent},
   {path:'order',component:CompleteOrderComponent},
   {path:'profile/track/:code',component:TrackOrderComponent},
-  {path:'', component:HomeComponent}
+  {path:'register',component:RegisterComponent},
+  {path:'home', component:HomeComponent}
 ];
 
 @NgModule({
