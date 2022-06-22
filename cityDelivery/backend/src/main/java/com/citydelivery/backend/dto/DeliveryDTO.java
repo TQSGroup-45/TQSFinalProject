@@ -1,11 +1,14 @@
 package com.citydelivery.backend.dto;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 
 public class DeliveryDTO {
     private Long id;
+    @Valid
     private LocationDTO pickup;
     private LocalDateTime pickupTime;
+    @Valid
     private LocationDTO dropOff;
     private LocalDateTime deliveryTime;
     private CourierDTO courier;
