@@ -1,6 +1,7 @@
 package com.citydelivery.backend.service;
 
 import com.citydelivery.backend.dto.DeliveryDTO;
+import com.citydelivery.backend.mapper.DeliveryMapper;
 import com.citydelivery.backend.model.Courier;
 import com.citydelivery.backend.model.Delivery;
 import com.citydelivery.backend.repository.DeliveryRepository;
@@ -16,7 +17,9 @@ public class DeliveryService {
     private DeliveryRepository deliveryRepository;
 
     public DeliveryDTO save(Delivery delivery) {
-        return new DeliveryDTO();
+        return DeliveryMapper.INSTANCE.toDeliveryDTO(
+                deliveryRepository.save(delivery)
+        );
     }
 
     public Page<DeliveryDTO> getPageOfDeliveries(Pageable pageable) {
