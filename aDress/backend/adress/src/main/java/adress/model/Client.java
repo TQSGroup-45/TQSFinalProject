@@ -46,8 +46,11 @@ public class Client {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
     // @JoinColumn(name = "order")
     private List<Order> orders;
-    @Column(name = "location", nullable = false, length = 50)
-    private Location location;
+
+    @Column(name = "lat", nullable = false, length = 50)
+    private double lat;
+    @Column(name = "lng", nullable = false, length = 50)
+    private double lng;
 
     public Client() {
         // empty constructor; only used no create an empty object that will later be
@@ -64,7 +67,9 @@ public class Client {
         this.pc2 = pc2;
         this.city = city;
         this.orders = new ArrayList<>();
-        this.location = new Location(snum, sname, pc1, pc2, city);
+        Location location = new Location(snum, sname, pc1, pc2, city);
+        this.lat = location.getLat();
+        this.lng = location.getLng();
         this.email = email;
     }
 
@@ -101,11 +106,14 @@ public class Client {
     }
 
     public Location getLocation() {
-        return this.location;
+
+        return new Location(this.lat, this.lng);
     }
 
     public void updateLocation() throws UnirestException {
-        this.location = new Location(this.snum, this.sname, this.pc1, this.pc2, this.city);
+        Location location = new Location(this.snum, this.sname, this.pc1, this.pc2, this.city);
+        this.lat = location.getLat();
+        this.lng = location.getLng();
     }
 
     public void setId(int id) {

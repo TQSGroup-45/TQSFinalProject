@@ -18,7 +18,7 @@ export class CompleteOrderComponent implements OnInit {
   public total=0;
   private dob="";
   private orders=[];
-  private id=1;
+  private id=2;
   public count:number[]=[];
   private infoChangedFlag:boolean=false;
   private temp!:Map<string, Client>;
@@ -40,10 +40,10 @@ export class CompleteOrderComponent implements OnInit {
     this.http.get("http://localhost:8080/api/v1/clients/"+this.id).subscribe((data) => {
       console.log(data);
       var temp = Object.values(data);
-      this.info={id:temp[0],name:temp[1],dob:temp[2],sname:temp[4],snum:temp[3],pc1:temp[5],pc2:temp[6],city:temp[7]};
+      this.info={id:temp[0],name:temp[2],dob:temp[3],sname:temp[5],snum:temp[4],pc1:temp[6],pc2:temp[7],city:temp[8]};
       this.id=temp[0];
-      this.dob=temp[2];
-      this.orders=temp[8];
+      this.dob=temp[3];
+      this.orders=temp[9];
     console.log(this.info);
     })
     

@@ -40,7 +40,7 @@ public class ClientController {
 
     @GetMapping(path = "/clients/{id}/orders")
     // It will get all orders from a certain client using their ID
-    public List<Order> getOrders(@PathVariable(value = "id") int clientid) {
+    public List<Order> getOrders(@PathVariable(value = "id") int clientid) throws UnirestException {
         return service.getOrders(clientid);
     }
 
@@ -63,7 +63,7 @@ public class ClientController {
     }
 
     @PutMapping(path = "/clients/{id}")
-    public ResponseEntity<Client> updateInformation(@RequestBody ClientDTO c1) {
+    public ResponseEntity<Client> updateInformation(@RequestBody ClientDTO c1) throws UnirestException {
         HttpStatus status = HttpStatus.ACCEPTED;
         Client o = service.updateInformation(c1);
         return new ResponseEntity<>(o, status);
@@ -75,8 +75,8 @@ public class ClientController {
         return service.trackOrder(orderid);
     }
 
-    @PostMapping(path = "/clients", produces="application/json")
-    public ResponseEntity<ClientDTO> createClient(@Valid @RequestBody ClientDTO client ){
+    @PostMapping(path = "/clients", produces = "application/json")
+    public ResponseEntity<ClientDTO> createClient(@Valid @RequestBody ClientDTO client) throws UnirestException {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.createClient(client));
     }
 }

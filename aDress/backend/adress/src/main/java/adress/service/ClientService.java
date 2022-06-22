@@ -30,6 +30,7 @@ public class ClientService {
     private ClientRepository clientRep;
     @Autowired
     private OrderRepository orderRep;
+
     private CityDeliveryAPI cityDeliveryAPI = new CityDeliveryAPI();
 
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -43,7 +44,7 @@ public class ClientService {
         return clientRep.findById(id);
     }
 
-    public Client updateInformation(ClientDTO newClient) {
+    public Client updateInformation(ClientDTO newClient) throws UnirestException {
         // We can use the same save() method to update an existing entry in our
         // database. - https://www.baeldung.com/spring-data-crud-repository-save
         // Since we don't know which field was updated, we will "update" them all
@@ -55,6 +56,7 @@ public class ClientService {
         temp.setCity(newClient.getCity());
         temp.setPc1(newClient.getPc1());
         temp.setPc2(newClient.getPc2());
+        temp.updateLocation();
         return clientRep.save(temp);
     }
 
@@ -80,28 +82,18 @@ public class ClientService {
     }
 
     public void save() throws UnirestException {
-        clientRep.save(new Client("andreia", "2001-02-21", "90", "rua doutor mario sacramento", 3810, 106, "Aveiro",
-                "andreia@gmail.com"));
-
+        clientRep.save(new Client("andreia", "2001-02-21", "97", "rua doutor mari sacramento", 3810, 106, "Aveiro",
+                "andreia123@gmail.com"));
     }
 
-    public ClientDTO createClient(ClientDTO c1) {
+    public ClientDTO createClient(ClientDTO c1) throws UnirestException {
         Set<ConstraintViolation<ClientDTO>> violations = validator.validate(c1);
 
         if (!violations.isEmpty()) {
             return new ClientDTO();
         }
-
-        Client temp = new Client();
-        temp.setName(c1.getName());
-        temp.setEmail(c1.getEmail());
-        temp.setDob(c1.getDob());
-        temp.setSname(c1.getSname());
-        temp.setSnum(c1.getSnum());
-        temp.setCity(c1.getCity());
-        temp.setPc1(c1.getPc1());
-        temp.setPc2(c1.getPc2());
-
+        Client temp = new Client(c1.getName(), c1.getDob(), c1.getSnum(), c1.getSname(), c1.getPc1(), c1.getPc2(),
+                c1.getCity(), c1.getEmail());
         return ClientClientDTOMapper.MAPPER.clientToClientDTO(clientRep.save(temp));
     }
 

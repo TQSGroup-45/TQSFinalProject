@@ -23,7 +23,7 @@ public class Location {
                 + city.replace(" ", "+") + "+" + pc1 + "+,+" + pc2
                 + ",Portugal&key=AIzaSyAgaH3w-lIbEwm5rWu2c-MIvziIWqoHhF8";
         JsonNode res = Unirest.get(request).asJson().getBody();
-        String[] geocode = res.getArray().getJSONObject(0).getString("results").split("location");
+        String[] geocode = res.getArray().toString().split("location");
         // O JsonNode do Unirest nao deixa abrir objetos dentro de objetos etc por isso
         // editei a string
         String[] temp = geocode[1].split("lng\":")[1].split(",\"lat\":");

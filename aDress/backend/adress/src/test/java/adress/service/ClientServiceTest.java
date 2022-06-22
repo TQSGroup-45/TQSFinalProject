@@ -106,7 +106,7 @@ public class ClientServiceTest {
     }
 
     @Test
-    void givenThereIsAnUpdatedClient_testUpdateInformationById() {
+    void givenThereIsAnUpdatedClient_testUpdateInformationById() throws UnirestException {
         Client found = service.updateInformation(c1dto);
         verify(clientRep, VerificationModeFactory.times(1)).save(Mockito.any());
         assertThat(found).isEqualTo(c1);
@@ -144,7 +144,7 @@ public class ClientServiceTest {
     }
 
     @Test
-    void createClientTest() {
+    void createClientTest() throws UnirestException {
 
         ClientDTO manuel = new ClientDTO();
 
