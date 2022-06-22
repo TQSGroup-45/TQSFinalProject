@@ -53,4 +53,20 @@ class DeliveryControllerTest {
         verify(deliveryService, times(1)).save(any());
     }
 
+    @Test
+    void whenPostInvalidDelivery_ThenReturnBadRequest() throws Exception {
+        DeliveryDTO deliveryDTO = new DeliveryDTO();
+        deliveryDTO.setPickup(new LocationDTO(-181.0, 0.0));
+        deliveryDTO.setDropOff(new LocationDTO(1.0, 2.0));
+
+        when(deliveryService.save(any())).thenReturn(deliveryDTO);
+
+        mvc.perform(
+                post("/api/deliveries").contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtils.toJson(deliveryDTO)))
+                .andExpect(status().isBadRequest());
+
+        verify(deliveryService, times(0)).save(any());
+    }
+
 }
