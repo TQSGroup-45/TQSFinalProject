@@ -6,6 +6,13 @@ public class LocationDTO {
     private Double latitude;
     private Double longitude;
 
+    public LocationDTO() {}
+
+    public LocationDTO(Double latitude, Double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public Long getId() {
         return id;
     }

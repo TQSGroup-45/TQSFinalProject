@@ -10,6 +10,13 @@ public class DeliveryDTO {
     private LocalDateTime deliveryTime;
     private CourierDTO courier;
 
+    public DeliveryDTO() {}
+
+    public DeliveryDTO(LocationDTO dropOff, LocationDTO pickup) {
+        this.dropOff = dropOff;
+        this.pickup = pickup;
+    }
+
     public Long getId() {
         return id;
     }
