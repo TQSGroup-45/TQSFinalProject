@@ -15,7 +15,7 @@ jobs:
           USERNAME: ${{ secrets.VM_USERNAME }}
           PASSWORD: ${{ secrets.VM_PASSWORD }}
           source: "."
-          target: "/home/ubuntu/Desktop/"
+          target: "/home/ubuntu/Desktop/target/"
 
       - name: Executing remote command
         uses: appleboy/ssh-action@master
@@ -23,4 +23,4 @@ jobs:
           host: ${{ secrets.VM_HOST }}
           USERNAME: ${{ secrets.VM_USERNAME }}
           PASSWORD: ${{ secrets.VM_PASSWORD }}
-          script: ls
+          script: /home/${{ secrets.VM_USERNAME }}/Desktop/run.sh
