@@ -2,6 +2,12 @@ package adress.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +19,7 @@ import adress.api.ClientRepository;
 import adress.api.OrderRepository;
 import adress.dto.ClientDTO;
 import adress.dto.OrderDTO;
+import adress.mappers.ClientClientDTOMapper;
 import adress.model.Client;
 import adress.model.Location;
 import adress.model.Order;
@@ -25,26 +32,29 @@ public class ClientService {
     private OrderRepository orderRep;
     private CityDeliveryAPI cityDeliveryAPI = new CityDeliveryAPI();
 
+    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    Validator validator = factory.getValidator();
+
     public List<Client> getClients() {
-        return (List<Client>) clientRep.findAll();
+        return clientRep.findAll();
     }
 
     public Client getInformation(int id) {
         return clientRep.findById(id);
     }
 
-    public Client updateInformation(ClientDTO c1) {
+    public Client updateInformation(ClientDTO newClient) {
         // We can use the same save() method to update an existing entry in our
         // database. - https://www.baeldung.com/spring-data-crud-repository-save
         // Since we don't know which field was updated, we will "update" them all
-        int id = c1.getId();
+        int id = newClient.getId();
         Client temp = clientRep.findById(id);
-        temp.setName(c1.getName());
-        temp.setSname(c1.getSname());
-        temp.setSnum(c1.getSnum());
-        temp.setCity(c1.getCity());
-        temp.setPc1(c1.getPc1());
-        temp.setPc2(c1.getPc2());
+        temp.setName(newClient.getName());
+        temp.setSname(newClient.getSname());
+        temp.setSnum(newClient.getSnum());
+        temp.setCity(newClient.getCity());
+        temp.setPc1(newClient.getPc1());
+        temp.setPc2(newClient.getPc2());
         return clientRep.save(temp);
     }
 
@@ -65,12 +75,34 @@ public class ClientService {
         return null;
     }
 
-    public void save() throws UnirestException {
-        clientRep.save(new Client("andreia", "2001-02-21", "90", "rua doutor mario sacramento", 3810, 106, "Aveiro"));
-
-    }
-
     public Order sendOrderToCityDelivery(Order o1) throws UnirestException {
         return cityDeliveryAPI.send(o1);
     }
+
+    public void save() throws UnirestException {
+        clientRep.save(new Client("andreia", "2001-02-21", "90", "rua doutor mario sacramento", 3810, 106, "Aveiro",
+                "andreia@gmail.com"));
+
+    }
+
+    public ClientDTO createClient(ClientDTO c1) {
+        Set<ConstraintViolation<ClientDTO>> violations = validator.validate(c1);
+
+        if (!violations.isEmpty()) {
+            return new ClientDTO();
+        }
+
+        Client temp = new Client();
+        temp.setName(c1.getName());
+        temp.setEmail(c1.getEmail());
+        temp.setDob(c1.getDob());
+        temp.setSname(c1.getSname());
+        temp.setSnum(c1.getSnum());
+        temp.setCity(c1.getCity());
+        temp.setPc1(c1.getPc1());
+        temp.setPc2(c1.getPc2());
+
+        return ClientClientDTOMapper.MAPPER.clientToClientDTO(clientRep.save(temp));
+    }
+
 }

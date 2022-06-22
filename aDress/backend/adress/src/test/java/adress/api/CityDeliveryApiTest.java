@@ -46,7 +46,8 @@ public class CityDeliveryApiTest {
         accepted = "{'status':200,'tracking':'AHSHFE'}";
         unreachable = "{'status':400}";
         List<Product> prods = Arrays.asList(new Product("brown pants", 19.99, "brown", Gender.MALE, "pants"));
-        client = new Client("andreia", "2001-02-21", "97", "rua doutor mario sacramento", 3810, 106, "Aveiro");
+        client = new Client("andreia", "2001-02-21", "97", "rua doutor mario sacramento", 3810, 106, "Aveiro",
+                "andreia@gmail.com");
         order = new Order(client, prods, "2022-06-01", 19.99);
 
     }

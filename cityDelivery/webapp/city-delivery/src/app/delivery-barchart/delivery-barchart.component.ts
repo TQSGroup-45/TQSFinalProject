@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { productSales, productSalesMulti } from '../data/product';
+
 @Component({
   selector: 'app-delivery-barchart',
   templateUrl: './delivery-barchart.component.html',
@@ -10,10 +12,11 @@ export class DeliveryBarchartComponent implements OnInit {
   productSales: any[]
   productSalesMulti: any[]
 
-  view: [number,number] = [1500, 800];
+  view: [number,number] = [0,0];
+
 
   // options
-  legendTitle: string = 'Deliveries';
+  legendTitle: string = 'Entregas';
   legendTitleMulti: string = 'Months';
   legendPosition: string = 'below'; // ['right', 'below']
   legend: boolean = true;
@@ -21,8 +24,8 @@ export class DeliveryBarchartComponent implements OnInit {
   xAxis: boolean = true;
   yAxis: boolean = true;
 
-  yAxisLabel: string = 'Sales';
-  xAxisLabel: string = 'Months';
+  yAxisLabel: string = 'Entregas';
+  xAxisLabel: string = 'Mês';
   showXAxisLabel: boolean = true;
   showYAxisLabel: boolean = true;
 
@@ -33,7 +36,7 @@ export class DeliveryBarchartComponent implements OnInit {
   rotateXAxisTicks: boolean = false;
 
   xAxisTicks: any[] = ['Genre 1', 'Genre 2', 'Genre 3', 'Genre 4', 'Genre 5', 'Genre 6', 'Genre 7']
-  yAxisTicks: any[] = [100, 1000, 2000, 5000, 7000, 10000]
+  yAxisTicks: any[] = []
 
   animations: boolean = true; // animations on load
 
@@ -61,3 +64,10 @@ export class DeliveryBarchartComponent implements OnInit {
   }
 
 }
+
+
+
+
+
+
+

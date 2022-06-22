@@ -5,6 +5,13 @@ on:
       - master
   pull_request:
     types: [opened, synchronize, reopened]
+
+
+env:
+  AZURE_WEBAPP_NAME: MY_WEBAPP_NAME   # set this to your application's name
+  WEBAPP_PACKAGE_PATH: '.'      
+
+
 jobs:
   build:
     name: Build
@@ -34,3 +41,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify -Pcoverage org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=TQSGroup-45_TQSFinalProject
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v2.0.0
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          event-type: deploy-workflow

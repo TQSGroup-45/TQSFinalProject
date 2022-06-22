@@ -7,20 +7,28 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "clients")
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "client-sequence-generator")
+    @GenericGenerator(name = "client-sequence-generator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
+            @Parameter(name = "sequence_name", value = "clientssequence"),
+            @Parameter(name = "initial_value", value = "2"),
+            @Parameter(name = "increment_size", value = "1")
+    })
     @Column(name = "id")
     private int id;
+    @Column(name = "email", unique = true, nullable = false, length = 50)
+    private String email;
     @Column(name = "name", nullable = false, length = 50)
     private String name;
     @Column(name = "dob", nullable = false, length = 50)
@@ -46,7 +54,7 @@ public class Client {
         // filled with the setters
     }
 
-    public Client(String name, String dob, String snum, String sname, int pc1, int pc2, String city)
+    public Client(String name, String dob, String snum, String sname, int pc1, int pc2, String city, String email)
             throws UnirestException {
         this.name = name;
         this.dob = dob;
@@ -57,6 +65,7 @@ public class Client {
         this.city = city;
         this.orders = new ArrayList<>();
         this.location = new Location(snum, sname, pc1, pc2, city);
+        this.email = email;
     }
 
     public int getId() {
@@ -139,4 +148,11 @@ public class Client {
         this.orders.add(o);
     }
 
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

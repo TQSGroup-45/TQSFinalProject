@@ -2,6 +2,9 @@ package adress.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,6 +30,7 @@ import adress.service.ClientService;
 @RequestMapping("/api/v1")
 public class ClientController {
 
+    @Autowired
     private ClientService service;
 
     public ClientController(ClientService service) throws UnirestException {
@@ -69,5 +73,10 @@ public class ClientController {
     public Location getOrderLocation(@PathVariable(value = "id") int id, @PathVariable(value = "orderid") int orderid)
             throws UnirestException {
         return service.trackOrder(orderid);
+    }
+
+    @PostMapping(path = "/clients", produces="application/json")
+    public ResponseEntity<ClientDTO> createClient(@Valid @RequestBody ClientDTO client ){
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.createClient(client));
     }
 }
