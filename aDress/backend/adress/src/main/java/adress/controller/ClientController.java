@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import adress.dto.ClientDTO;
 import adress.dto.OrderDTO;
 import adress.model.Client;
@@ -27,7 +29,7 @@ public class ClientController {
 
     private ClientService service;
 
-    public ClientController(ClientService service) {
+    public ClientController(ClientService service) throws UnirestException {
         this.service = service;
         service.save(); // This will enter the initial data into the database (like products)
     }
@@ -64,7 +66,8 @@ public class ClientController {
     }
 
     @GetMapping(path = "/clients/{id}/orders/{orderid}")
-    public Location getOrderLocation(@PathVariable(value = "id") int id, @PathVariable(value = "orderid") int orderid) {
-        return service.trackOrder(id, orderid);
+    public Location getOrderLocation(@PathVariable(value = "id") int id, @PathVariable(value = "orderid") int orderid)
+            throws UnirestException {
+        return service.trackOrder(orderid);
     }
 }

@@ -56,7 +56,7 @@ public class ClientControllerTest {
         prods.add(p1);
         prods.add(p2);
 
-        c1 = new Client("andreia", "2001-02-21", "123", "sesame street", 1234, 5678, "Narnia");
+        c1 = new Client("andreia", "2001-02-21", "90", "rua doutor mario sacramento", 3810, 106, "Aveiro");
         o1 = new Order(c1, prods, "2022-06-01", 28.89);
         o2 = new Order(c1, prods, "2022-06-05", 28.89);
         l1 = new Location(40.632084, -8.6606357);
@@ -105,13 +105,13 @@ public class ClientControllerTest {
 
     @Test
     void trackOrder() throws Exception {
-        when(service.trackOrder(Mockito.anyInt(), Mockito.anyInt())).thenReturn(l1);
+        when(service.trackOrder(Mockito.anyInt())).thenReturn(l1);
         // return latitude and longitude { lat: 40.632084, lng:-8.6606357 }
         mvc.perform(get("/api/v1/clients/0/orders/0").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.lat", is(40.632084)))
                 .andExpect(jsonPath("$.lng", is(-8.6606357)));
-        verify(service, times(1)).trackOrder(Mockito.anyInt(), Mockito.anyInt());
+        verify(service, times(1)).trackOrder(Mockito.anyInt());
     }
 
 }

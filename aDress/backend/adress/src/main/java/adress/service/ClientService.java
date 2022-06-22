@@ -1,9 +1,12 @@
 package adress.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 import adress.api.CityDeliveryAPI;
 import adress.api.ClientRepository;
@@ -54,16 +57,20 @@ public class ClientService {
         return orderRep.save(temp);
     }
 
-    public Location trackOrder(int clientId, int orderId) {
-        return cityDeliveryAPI.track(clientId, orderId);
+    public Location trackOrder(int orderId) throws UnirestException {
+        Optional<Order> o = orderRep.findById(orderId);
+        if (o.isPresent()) {
+            return cityDeliveryAPI.track(o.get().getTrack());
+        }
+        return null;
     }
 
-    public void save() {
-        clientRep.save(new Client("Andreia", "2001-02-21", "2", "Sesamee", 1234, 5678, "Narnia"));
+    public void save() throws UnirestException {
+        clientRep.save(new Client("andreia", "2001-02-21", "90", "rua doutor mario sacramento", 3810, 106, "Aveiro"));
 
     }
 
-    public Order sendOrderToCityDelivery(Order o1) {
+    public Order sendOrderToCityDelivery(Order o1) throws UnirestException {
         return cityDeliveryAPI.send(o1);
     }
 }

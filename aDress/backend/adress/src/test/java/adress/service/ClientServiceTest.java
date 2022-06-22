@@ -2,6 +2,7 @@ package adress.service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.internal.verification.VerificationModeFactory;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -48,12 +51,12 @@ public class ClientServiceTest {
     private Location l1;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws UnirestException {
 
         p1 = new Product("brown pants", 19.99, "brown", Gender.MALE, "pants");
         p2 = new Product("red tshirt", 9.99, "red", Gender.MALE, "tshirt");
         List<Product> prods = Arrays.asList(p1, p2);
-        c1 = new Client("andreia", "2001-02-21", "123", "sesame street", 1234, 5678, "Narnia");
+        c1 = new Client("andreia", "2001-02-21", "97", "rua doutor mario sacramento", 3810, 106, "Aveiro");
         c1dto.setName(c1.getName());
         c1dto.setDob(c1.getDob());
         c1dto.setSnum(c1.getSnum());
@@ -73,12 +76,13 @@ public class ClientServiceTest {
         Mockito.when(clientRep.findById(0)).thenReturn(c1);
         Mockito.when(clientRep.save(Mockito.any())).thenReturn(c1);
         Mockito.when(orderRep.save(Mockito.any())).thenReturn(o1);
-        Mockito.when(cityDeliveryAPI.track(Mockito.anyInt(), Mockito.anyInt())).thenReturn(l1);
+        Mockito.when(orderRep.findById(Mockito.anyInt())).thenReturn(Optional.of(o1));
+        Mockito.when(cityDeliveryAPI.track(Mockito.anyString())).thenReturn(l1);
         Mockito.when(cityDeliveryAPI.send(Mockito.any())).thenReturn(o1);
     }
 
     @Test
-    void testSave() {
+    void testSave() throws UnirestException {
         // means that every initial product and client were correctly saved
         service.save();
         verify(clientRep, VerificationModeFactory.times(1)).save(Mockito.any());
@@ -122,10 +126,11 @@ public class ClientServiceTest {
     }
 
     @Test
-    void trackOrder() {
-        Location found = service.trackOrder(c1.getId(), o1.getId());
+    void trackOrder() throws UnirestException {
+        o1.setTrack("ABCDE");
+        Location found = service.trackOrder(o1.getId());
         assertThat(found.getLat()).isEqualTo(40.632084);
-        verify(cityDeliveryAPI, VerificationModeFactory.times(1)).track(Mockito.anyInt(), Mockito.anyInt());
+        verify(cityDeliveryAPI, VerificationModeFactory.times(1)).track(Mockito.anyString());
     }
 
     @Test

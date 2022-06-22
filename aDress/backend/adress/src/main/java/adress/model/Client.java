@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 @Entity
 @Table(name = "clients")
 public class Client {
@@ -36,13 +38,16 @@ public class Client {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
     // @JoinColumn(name = "order")
     private List<Order> orders;
+    @Column(name = "location", nullable = false, length = 50)
+    private Location location;
 
     public Client() {
         // empty constructor; only used no create an empty object that will later be
         // filled with the setters
     }
 
-    public Client(String name, String dob, String snum, String sname, int pc1, int pc2, String city) {
+    public Client(String name, String dob, String snum, String sname, int pc1, int pc2, String city)
+            throws UnirestException {
         this.name = name;
         this.dob = dob;
         this.snum = snum;
@@ -51,6 +56,7 @@ public class Client {
         this.pc2 = pc2;
         this.city = city;
         this.orders = new ArrayList<>();
+        this.location = new Location(snum, sname, pc1, pc2, city);
     }
 
     public int getId() {
@@ -83,6 +89,14 @@ public class Client {
 
     public String getCity() {
         return this.city;
+    }
+
+    public Location getLocation() {
+        return this.location;
+    }
+
+    public void updateLocation() throws UnirestException {
+        this.location = new Location(this.snum, this.sname, this.pc1, this.pc2, this.city);
     }
 
     public void setId(int id) {

@@ -1,0 +1,5 @@
+adress\service\ProductsServiceTest.class
+adress\api\CityDeliveryApiTest.class
+adress\controller\ProductsControllerTest.class
+adress\service\ClientServiceTest.class
+adress\controller\ClientControllerTest.class
