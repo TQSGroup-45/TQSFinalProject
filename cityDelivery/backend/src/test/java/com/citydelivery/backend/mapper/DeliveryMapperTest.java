@@ -1,7 +1,9 @@
 package com.citydelivery.backend.mapper;
 
 import com.citydelivery.backend.dto.DeliveryDTO;
+import com.citydelivery.backend.dto.LocationDTO;
 import com.citydelivery.backend.model.Delivery;
+import com.citydelivery.backend.model.Location;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -17,6 +19,8 @@ class DeliveryMapperTest {
     void whenConvertDeliveryEntityToDeliveryDto_thenCorrect() {
         Delivery delivery = new Delivery();
         delivery.setId(1L);
+        delivery.setPickup(new Location(1D, 2D));
+        delivery.setDropOff(new Location(3D, 4D));
         delivery.setPickupTime(LocalDateTime.now());
         delivery.setDeliveryTime(LocalDateTime.now());
 
@@ -24,6 +28,15 @@ class DeliveryMapperTest {
         assertEquals(delivery.getId(), deliveryDTO.getId());
         assertEquals(delivery.getPickupTime(), deliveryDTO.getPickupTime());
         assertEquals(delivery.getDeliveryTime(), deliveryDTO.getDeliveryTime());
+
+        assertThat(delivery).extracting(Delivery::getDropOff).extracting(Location::getLatitude)
+                .isEqualTo(deliveryDTO.getDropOff().getLatitude());
+        assertThat(delivery).extracting(Delivery::getDropOff).extracting(Location::getLongitude)
+                .isEqualTo(deliveryDTO.getDropOff().getLongitude());
+        assertThat(delivery).extracting(Delivery::getPickup).extracting(Location::getLatitude)
+                .isEqualTo(deliveryDTO.getPickup().getLatitude());
+        assertThat(delivery).extracting(Delivery::getPickup).extracting(Location::getLongitude)
+                .isEqualTo(deliveryDTO.getPickup().getLongitude());
     }
 
 
@@ -31,6 +44,8 @@ class DeliveryMapperTest {
     void whenConvertDeliveryDtoToEntity_thenCorrect() {
         DeliveryDTO deliveryDTO = new DeliveryDTO();
         deliveryDTO.setId(1L);
+        deliveryDTO.setPickup(new LocationDTO(1D, 2D));
+        deliveryDTO.setDropOff(new LocationDTO(3D, 4D));
         deliveryDTO.setPickupTime(LocalDateTime.now());
         deliveryDTO.setDeliveryTime(LocalDateTime.now());
 
@@ -38,6 +53,15 @@ class DeliveryMapperTest {
         assertEquals(deliveryDTO.getId(), delivery.getId());
         assertEquals(deliveryDTO.getPickupTime(), delivery.getPickupTime());
         assertEquals(deliveryDTO.getDeliveryTime(), delivery.getDeliveryTime());
+
+        assertThat(deliveryDTO).extracting(DeliveryDTO::getDropOff).extracting(LocationDTO::getLatitude)
+                .isEqualTo(delivery.getDropOff().getLatitude());
+        assertThat(deliveryDTO).extracting(DeliveryDTO::getDropOff).extracting(LocationDTO::getLongitude)
+                .isEqualTo(delivery.getDropOff().getLongitude());
+        assertThat(deliveryDTO).extracting(DeliveryDTO::getPickup).extracting(LocationDTO::getLatitude)
+                .isEqualTo(delivery.getPickup().getLatitude());
+        assertThat(deliveryDTO).extracting(DeliveryDTO::getPickup).extracting(LocationDTO::getLongitude)
+                .isEqualTo(delivery.getPickup().getLongitude());
     }
 
 

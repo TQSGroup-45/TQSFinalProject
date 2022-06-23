@@ -16,13 +16,11 @@ public class DeliveryDTO {
     private LocalDateTime deliveryTime;
     private CourierDTO courier;
 
-    public DeliveryDTO() {}
+    private LocalDateTime submissionDateTime;
 
-    public DeliveryDTO(LocationDTO dropOff, LocationDTO pickup) {
-        this.dropOff = dropOff;
-        this.pickup = pickup;
+    public DeliveryDTO() {
+        submissionDateTime = LocalDateTime.now();
     }
-
     public Long getId() {
         return id;
     }
@@ -69,5 +67,13 @@ public class DeliveryDTO {
 
     public void setCourier(CourierDTO courier) {
         this.courier = courier;
+    }
+
+    public LocalDateTime getSubmissionDateTime() {
+        return submissionDateTime;
+    }
+
+    public void setSubmissionDateTime(LocalDateTime submissionDateTime) {
+        this.submissionDateTime = submissionDateTime;
     }
 }

@@ -7,7 +7,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(uses = CourierMapper.class)
+@Mapper(uses = { CourierMapper.class, LocationMapper.class })
 public interface DeliveryMapper {
 
     DeliveryMapper INSTANCE = Mappers.getMapper(DeliveryMapper.class);

@@ -12,6 +12,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
@@ -45,6 +47,7 @@ class DeliveryRepositoryTest {
         assignedDelivery.setPickup(new Location());
         assignedDelivery.setDropOff(new Location());
         assignedDelivery.setCourier(john);
+        assignedDelivery.setDeliveryTime(LocalDateTime.now());
 
         entityManager.persistAndFlush(assignedDelivery);
 
@@ -72,6 +75,7 @@ class DeliveryRepositoryTest {
         assignedDelivery.setPickup(new Location());
         assignedDelivery.setDropOff(new Location());
         assignedDelivery.setCourier(john);
+        assignedDelivery.setDeliveryTime(LocalDateTime.now());
 
         entityManager.persistAndFlush(assignedDelivery);
 
@@ -99,6 +103,7 @@ class DeliveryRepositoryTest {
         assignedDelivery.setPickup(new Location());
         assignedDelivery.setDropOff(new Location());
         assignedDelivery.setCourier(john);
+        assignedDelivery.setDeliveryTime(LocalDateTime.now());
 
         entityManager.persistAndFlush(assignedDelivery);
 

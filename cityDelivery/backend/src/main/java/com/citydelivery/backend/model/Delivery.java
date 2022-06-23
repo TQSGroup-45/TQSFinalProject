@@ -25,6 +25,9 @@ public class Delivery {
     @Column
     private LocalDateTime deliveryTime;
 
+    @Column
+    private LocalDateTime submissionDateTime;
+
     @ManyToOne
     private Courier courier;
 
@@ -74,5 +77,13 @@ public class Delivery {
 
     public void setDeliveryTime(LocalDateTime deliveryTime) {
         this.deliveryTime = deliveryTime;
+    }
+
+    public LocalDateTime getSubmissionDateTime() {
+        return submissionDateTime;
+    }
+
+    public void setSubmissionDateTime(LocalDateTime submissionDateTime) {
+        this.submissionDateTime = submissionDateTime;
     }
 }
