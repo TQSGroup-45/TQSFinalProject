@@ -11,6 +11,7 @@ import OSM from 'ol/source/OSM';
 import { Geometry } from 'ol/geom';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-courier-management',
@@ -20,19 +21,23 @@ import { MatTableDataSource } from '@angular/material/table';
 
 export class CourierManagementComponent implements OnInit {
 
-  map: Map;
-  some: Feature;
-  some2: Feature;
-  some3: Feature;
-  some4: Feature;
-  vectorSource: VectorSource;
-  vectorLayer: VectorLayer<VectorSource<Geometry>>;
-
-  displayedColumns: string[] = ['name', 'email', 'contact', 'profile', 'answer'];
+  map: Map | undefined;
+  some: Feature | undefined;
+  some2: Feature | undefined;
+  some3: Feature | undefined;
+  some4: Feature | undefined;
+  vectorSource: VectorSource | undefined;
+  vectorLayer: VectorLayer<VectorSource<Geometry>> | undefined;
+  closeResult: string | undefined;
+  displayedColumns: string[] = ['name', 'contact', 'profile', 'answer'];
 
   couriersList = new MatTableDataSource<object>( [
-    {name: "José António", email:"joseant@amail.com", contact: 900000000},
-    {name: "Manuel Oliveira", email:"moliv@amail.com", contact: 900000001}
+    {id:1,name: "José António", contact: 933917501,rating:4.0},
+    {id:2,name: "Manuel Oliveira", contact: 933569756,rating:3.7},
+    {id:3,name: "Josué Bento", contact: 917484541,rating:3.8},
+    {id:4,name: "Arsenio Oliveira", contact: 918161232,rating:4.3},
+    {id:5,name: "Alexandrina Aguiar", contact: 934277994,rating:3.8}
+
   ]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -40,6 +45,11 @@ export class CourierManagementComponent implements OnInit {
   ngAfterViewInit() {
     this.couriersList.paginator = this.paginator;
   }
+  constructor(
+    public dialog: MatDialog,
+    ) {}
+
+
 
   ngOnInit(): void {
     this.some = new Feature({
@@ -51,7 +61,7 @@ export class CourierManagementComponent implements OnInit {
         color: '#8959A8',
         crossOrigin: 'anonymous',
         src: 'assets/vectorpoint.svg',
-        imgSize: [75,75 ]
+        imgSize: [55,55 ]
       }))
     }))
 
@@ -64,12 +74,12 @@ export class CourierManagementComponent implements OnInit {
         color: '#8959A8',
         crossOrigin: 'anonymous',
         src: 'assets/vectorpoint.svg',
-        imgSize: [75,75 ]
+        imgSize: [55,55 ]
       }))
     }))
 
     this.some3 = new Feature({
-      geometry: new Point(fromLonLat([-8.657577,40.634268]))
+      geometry: new Point(fromLonLat([-8.656577,40.634268]))
     });
 
     this.some3.setStyle(new Style({
@@ -77,7 +87,7 @@ export class CourierManagementComponent implements OnInit {
         color: '#8959A8',
         crossOrigin: 'anonymous',
         src: 'assets/vectorpoint.svg',
-        imgSize: [75,75 ]
+        imgSize: [55,55 ]
       }))
     }))
 
@@ -90,7 +100,7 @@ export class CourierManagementComponent implements OnInit {
         color: '#8959A8',
         crossOrigin: 'anonymous',
         src: 'assets/vectorpoint.svg',
-        imgSize: [75,75 ]
+        imgSize: [55,55 ]
       }))
     }))
 
@@ -114,4 +124,6 @@ export class CourierManagementComponent implements OnInit {
       });
 
   }
+
+
 }

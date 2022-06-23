@@ -1,0 +1,28 @@
+name: Repository Dispatch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Copy repository contents via scp
+        uses: appleboy/scp-action@master
+        with:
+          HOST: ${{ secrets.VM_HOST }}
+          USERNAME: ${{ secrets.VM_USERNAME }}
+          PASSWORD: ${{ secrets.VM_PASSWORD }}
+          source: "."
+          target: "/home/ubuntu/Desktop/target/"
+
+      - name: Executing remote command
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VM_HOST }}
+          USERNAME: ${{ secrets.VM_USERNAME }}
+          PASSWORD: ${{ secrets.VM_PASSWORD }}
+          script: /home/${{ secrets.VM_USERNAME }}/Desktop/run.sh
