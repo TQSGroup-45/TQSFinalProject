@@ -91,61 +91,6 @@ class DeliveryServiceTest {
     }
 
     @Test
-    void whenGetDeliveries_thenReturn2RecordsInPage() {
-        Page<DeliveryDTO> foundDeliveries =
-                deliveryService.getPageOfDeliveries(PageRequest.of(0, 2, Sort.by("id")));
-
-        assertThat(foundDeliveries.getTotalElements()).isEqualTo(2);
-
-        DeliveryDTO found = foundDeliveries.getContent().get(0);
-        DeliveryDTO expected = DeliveryMapper.INSTANCE.toDeliveryDTO(unassignedDelivery);
-
-        assertThat(found).isEqualTo(expected);
-        assertThat(foundDeliveries.getContent().get(1).getId()).isEqualTo(unassignedDelivery.getId());
-
-        Mockito.verify(deliveryRepository, Mockito.times(1)).getDeliveriesBy(any());
-    }
-
-    @Test
-    void whenGetAvailableDeliveries_thenReturn1RecordInPage() {
-        Page<DeliveryDTO> foundDeliveries =
-                deliveryService.getPageOfAvailableDeliveries(PageRequest.of(0, 2, Sort.by("id")));
-
-        assertThat(foundDeliveries.getTotalElements()).isEqualTo(1);
-
-        DeliveryDTO found = foundDeliveries.getContent().get(0);
-        DeliveryDTO expected = DeliveryMapper.INSTANCE.toDeliveryDTO(unassignedDelivery);
-
-        assertThat(found).isEqualTo(expected);
-    }
-
-    @Test
-    void whenGetAssignedDeliveries_thenReturn1RecordInPage() {
-        Page<DeliveryDTO> foundDeliveries =
-                deliveryService.getPageOfAssignedDeliveries(PageRequest.of(0, 2, Sort.by("id")));
-
-        assertThat(foundDeliveries.getTotalElements()).isEqualTo(1);
-
-        DeliveryDTO found = foundDeliveries.getContent().get(0);
-        DeliveryDTO expected = DeliveryMapper.INSTANCE.toDeliveryDTO(assignedDelivery);
-
-        assertThat(found).isEqualTo(expected);
-    }
-
-    @Test
-    void whenGetDeliveriesAssignedToJohn_thenReturn1RecordInPage() {
-        Page<DeliveryDTO> foundDeliveries =
-                deliveryService.getPageOfDeliveriesForCourier(john, PageRequest.of(0, 2, Sort.by("id")));
-
-        assertThat(foundDeliveries.getTotalElements()).isEqualTo(1);
-
-        DeliveryDTO found = foundDeliveries.getContent().get(0);
-        DeliveryDTO expected = DeliveryMapper.INSTANCE.toDeliveryDTO(assignedDelivery);
-
-        assertThat(found).isEqualTo(expected);
-    }
-
-    @Test
     void whenSaveNewDelivery_thenCallRepositorySaveOnceAndReturnSavedEntityAsDTO() {
         DeliveryDTO saved = deliveryService.save(assignedDelivery);
 
