@@ -25,20 +25,12 @@ public class DeliveryDTO {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocationDTO getPickup() {
-        return pickup;
-    }
-
-    public void setPickup(LocationDTO pickup) {
-        this.pickup = pickup;
-    }
-
     public LocalDateTime getPickupTime() {
         return pickupTime;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setPickupTime(LocalDateTime pickupTime) {
@@ -49,24 +41,32 @@ public class DeliveryDTO {
         return dropOff;
     }
 
-    public void setDropOff(LocationDTO dropOff) {
-        this.dropOff = dropOff;
-    }
-
     public LocalDateTime getDeliveryTime() {
         return deliveryTime;
+    }
+
+    public void setDropOff(LocationDTO dropOff) {
+        this.dropOff = dropOff;
     }
 
     public void setDeliveryTime(LocalDateTime deliveryTime) {
         this.deliveryTime = deliveryTime;
     }
 
-    public CourierDTO getCourier() {
-        return courier;
+    public void setPickup(LocationDTO pickup) {
+        this.pickup = pickup;
+    }
+
+    public LocationDTO getPickup() {
+        return pickup;
     }
 
     public void setCourier(CourierDTO courier) {
         this.courier = courier;
+    }
+
+    public CourierDTO getCourier() {
+        return courier;
     }
 
     public LocalDateTime getSubmissionDateTime() {
