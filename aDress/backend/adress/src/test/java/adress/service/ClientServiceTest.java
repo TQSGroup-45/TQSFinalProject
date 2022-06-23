@@ -85,13 +85,6 @@ public class ClientServiceTest {
     }
 
     @Test
-    void testSave() throws UnirestException {
-        // means that every initial product and client were correctly saved
-        service.save();
-        verify(clientRep, VerificationModeFactory.times(1)).save(Mockito.any());
-    }
-
-    @Test
     void givenThereIsAClient_testGetInformationById() {
         Client found = service.getInformation(0);
         verify(clientRep, VerificationModeFactory.times(1)).findById(0);

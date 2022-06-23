@@ -35,7 +35,6 @@ public class ClientController {
 
     public ClientController(ClientService service) throws UnirestException {
         this.service = service;
-        service.save(); // This will enter the initial data into the database (like products)
     }
 
     @GetMapping(path = "/clients/{id}/orders")

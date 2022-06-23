@@ -16,7 +16,7 @@ const routes: Routes = [
   {path:'cart',component:CartComponent},
   {path:'order',component:CompleteOrderComponent},
   {path:'profile/track/:code',component:TrackOrderComponent},
-  {path:'register',component:RegisterComponent},
+  {path:'',component:RegisterComponent},
   {path:'home', component:HomeComponent}
 ];
 

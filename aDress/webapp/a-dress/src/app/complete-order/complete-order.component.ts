@@ -18,13 +18,14 @@ export class CompleteOrderComponent implements OnInit {
   public total=0;
   private dob="";
   private orders=[];
-  private id=2;
+  private id!:number;
   public count:number[]=[];
   private infoChangedFlag:boolean=false;
   private temp!:Map<string, Client>;
   public info!:Client;
   private order!:Order;
   constructor(private http: HttpClient) {
+    this.id= parseInt(localStorage.getItem("id")!);
     this.cartOriginal= JSON.parse(localStorage.getItem("cart")!);
     this.total= JSON.parse(localStorage.getItem("cartTotal")!);
     for(const element of this.cartOriginal){
