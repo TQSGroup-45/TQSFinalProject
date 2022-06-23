@@ -11,6 +11,8 @@ export class DeliveryTimeBarchartComponent implements OnInit {
 
   // options
   legend: boolean = true;
+  legendTitle: string = 'Tempo Espera';
+
   showLabels: boolean = true;
   animations: boolean = true;
   xAxis: boolean = true;
@@ -20,7 +22,7 @@ export class DeliveryTimeBarchartComponent implements OnInit {
   xAxisLabel: string = 'Mês';
   yAxisLabel: string = 'Tempo';
   timeline: boolean = true;
-  legendTitle: string = 'Deliveries';
+
 
 
   colorScheme = {
