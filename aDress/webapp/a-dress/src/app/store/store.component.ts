@@ -38,6 +38,7 @@ color:string="";
 
   addToCart(pd:Product):void{
     this.cart.push(pd);
+    console.log(pd);
     localStorage.setItem("cart", JSON.stringify(this.cart));
   }
 

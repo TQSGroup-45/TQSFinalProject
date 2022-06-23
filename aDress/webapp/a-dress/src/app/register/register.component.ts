@@ -3,6 +3,7 @@ import { Client } from './../profile/client';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import {Router} from '@angular/router'; 
 
 @Component({
   selector: 'app-register',
@@ -25,7 +26,7 @@ export class RegisterComponent implements OnInit {
   info!:ClientRegister;
 
 
-  constructor( private formBuilder: FormBuilder, private http: HttpClient ) {  }
+  constructor( private route:Router,private formBuilder: FormBuilder, private http: HttpClient ) {  }
 
   ngOnInit(): void {
   }
@@ -56,11 +57,15 @@ export class RegisterComponent implements OnInit {
     this.http
       .post<ClientRegister>("http://localhost:8080/api/v1/clients/", this.info, options)
       .subscribe({
-        next: (response) => console.log(response),
+        next: (response) => {var temp = Object.values(response); 
+          localStorage.setItem("id",temp[0]);
+        
+        console.log("res:"+temp)},
         error: (error) => console.log(error),
       });
 
 
     this.checkoutForm.reset();
+    this.route.navigate(['/home']);
   }
 }

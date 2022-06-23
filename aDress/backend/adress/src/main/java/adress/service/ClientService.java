@@ -82,8 +82,9 @@ public class ClientService {
     }
 
     public void save() throws UnirestException {
-        clientRep.save(new Client("andreia", "2001-02-21", "97", "rua doutor mari sacramento", 3810, 106, "Aveiro",
-                "andreia123@gmail.com"));
+        // clientRep.save(new Client("andreia", "2001-02-21", "97", "rua doutor mari
+        // sacramento", 3810, 106, "Aveiro",
+        // "andreia123@gmail.com"));
     }
 
     public ClientDTO createClient(ClientDTO c1) throws UnirestException {

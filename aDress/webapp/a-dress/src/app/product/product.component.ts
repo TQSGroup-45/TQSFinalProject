@@ -35,14 +35,19 @@ export class ProductComponent implements OnInit {
   getProductFromApi():void{
     this.http.get("http://localhost:8080/api/v1/products/"+this.id).subscribe((data) => 
     {
+
       var temp=Object.values(data);
-      this.pd={id: temp[0],price:temp[2],name:temp[1],color:temp[3],class:temp[4],gender:temp[5],src:temp[0]};
-     }
+      console.log(temp);
+      this.pd={id: temp[0],name:temp[1],price:temp[2],color:temp[3],gender:temp[4],type:temp[4],src:temp[0]};
+      console.log(this.pd.gender)
+    }
     )
+    
   }
 
   addToCart(pd:Product):void{
     this.cart.push(pd);
+    console.log(pd);
     localStorage.setItem("cart", JSON.stringify(this.cart));
   }
 
