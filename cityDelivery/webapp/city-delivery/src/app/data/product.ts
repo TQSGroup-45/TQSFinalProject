@@ -20,7 +20,7 @@ export let productSales = [
 
 export let averageTimes = [
   {
-    "name": "Mean",
+    "name": "Média",
     "series": [
       {
         "name": "Jan",
