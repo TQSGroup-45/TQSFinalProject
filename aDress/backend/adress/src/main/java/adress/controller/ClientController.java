@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import adress.dto.ClientDTO;
 import adress.dto.OrderDTO;
 import adress.model.Client;
@@ -31,14 +33,14 @@ public class ClientController {
     @Autowired
     private ClientService service;
 
-    public ClientController(ClientService service) {
+    public ClientController(ClientService service) throws UnirestException {
         this.service = service;
         service.save(); // This will enter the initial data into the database (like products)
     }
 
     @GetMapping(path = "/clients/{id}/orders")
     // It will get all orders from a certain client using their ID
-    public List<Order> getOrders(@PathVariable(value = "id") int clientid) {
+    public List<Order> getOrders(@PathVariable(value = "id") int clientid) throws UnirestException {
         return service.getOrders(clientid);
     }
 
@@ -61,19 +63,20 @@ public class ClientController {
     }
 
     @PutMapping(path = "/clients/{id}")
-    public ResponseEntity<Client> updateInformation(@RequestBody ClientDTO c1) {
+    public ResponseEntity<Client> updateInformation(@RequestBody ClientDTO c1) throws UnirestException {
         HttpStatus status = HttpStatus.ACCEPTED;
         Client o = service.updateInformation(c1);
         return new ResponseEntity<>(o, status);
     }
 
     @GetMapping(path = "/clients/{id}/orders/{orderid}")
-    public Location getOrderLocation(@PathVariable(value = "id") int id, @PathVariable(value = "orderid") int orderid) {
-        return service.trackOrder(id, orderid);
+    public Location getOrderLocation(@PathVariable(value = "id") int id, @PathVariable(value = "orderid") int orderid)
+            throws UnirestException {
+        return service.trackOrder(orderid);
     }
 
-    @PostMapping(path = "/clients", produces="application/json")
-    public ResponseEntity<ClientDTO> createClient(@Valid @RequestBody ClientDTO client ){
+    @PostMapping(path = "/clients", produces = "application/json")
+    public ResponseEntity<ClientDTO> createClient(@Valid @RequestBody ClientDTO client) throws UnirestException {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.createClient(client));
     }
 }

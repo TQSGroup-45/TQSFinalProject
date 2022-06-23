@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   postcode2:string="";
   city:string="";
   orders:OrderReceived[]=[]; 
-  id:number=1;
+  id:number=2;
   info!:Client;
   private temp!:Map<string,OrderReceived>;
   private infoChangedFlag:boolean;
@@ -34,7 +34,8 @@ export class ProfileComponent implements OnInit {
   getClientInfo():void{
     this.http.get("http://localhost:8080/api/v1/clients/"+this.id).subscribe((data) => {
       var temp = Object.values(data);
-      this.info={id:temp[0],name:temp[1],dob:temp[2],sname:temp[4],snum:temp[3],pc1:temp[5],pc2:temp[6],city:temp[7]};
+      console.log(temp);
+      this.info={id:temp[0],name:temp[2],dob:temp[3],sname:temp[5],snum:temp[4],pc1:temp[6],pc2:temp[7],city:temp[8]};
     }) 
   }
 

@@ -40,6 +40,9 @@ public class Order {
     @Column(name = "status")
     private String status = "In route";
 
+    @Column(name = "track")
+    private String track = null;
+
     public Order() {
     }
 
@@ -78,4 +81,11 @@ public class Order {
         this.status = status;
     }
 
+    public void setTrack(String track) {
+        this.track = track;
+    }
+
+    public String getTrack() {
+        return this.track;
+    }
 }

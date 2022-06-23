@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -19,15 +20,11 @@ import org.hibernate.annotations.Parameter;
 public class Client {
     @Id
     @GeneratedValue(generator = "client-sequence-generator")
-    @GenericGenerator(
-        name = "client-sequence-generator",
-        strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-        parameters = {
-                    @Parameter(name = "sequence_name", value = "clientssequence"),
-                    @Parameter(name = "initial_value", value = "2"),
-                    @Parameter(name = "increment_size", value = "1")
-        }
-    )
+    @GenericGenerator(name = "client-sequence-generator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
+            @Parameter(name = "sequence_name", value = "clientssequence"),
+            @Parameter(name = "initial_value", value = "2"),
+            @Parameter(name = "increment_size", value = "1")
+    })
     @Column(name = "id")
     private int id;
     @Column(name = "email", unique = true, nullable = false, length = 50)
@@ -50,12 +47,18 @@ public class Client {
     // @JoinColumn(name = "order")
     private List<Order> orders;
 
+    @Column(name = "lat", nullable = false, length = 50)
+    private double lat;
+    @Column(name = "lng", nullable = false, length = 50)
+    private double lng;
+
     public Client() {
         // empty constructor; only used no create an empty object that will later be
         // filled with the setters
     }
 
-    public Client(String name, String dob, String snum, String sname, int pc1, int pc2, String city, String email) {
+    public Client(String name, String dob, String snum, String sname, int pc1, int pc2, String city, String email)
+            throws UnirestException {
         this.name = name;
         this.dob = dob;
         this.snum = snum;
@@ -63,8 +66,11 @@ public class Client {
         this.pc1 = pc1;
         this.pc2 = pc2;
         this.city = city;
+        this.orders = new ArrayList<>();
+        Location location = new Location(snum, sname, pc1, pc2, city);
+        this.lat = location.getLat();
+        this.lng = location.getLng();
         this.email = email;
-        this.orders = new ArrayList<Order>();
     }
 
     public int getId() {
@@ -97,6 +103,17 @@ public class Client {
 
     public String getCity() {
         return this.city;
+    }
+
+    public Location getLocation() {
+
+        return new Location(this.lat, this.lng);
+    }
+
+    public void updateLocation() throws UnirestException {
+        Location location = new Location(this.snum, this.sname, this.pc1, this.pc2, this.city);
+        this.lat = location.getLat();
+        this.lng = location.getLng();
     }
 
     public void setId(int id) {
@@ -138,7 +155,6 @@ public class Client {
     public void addOrder(Order o) {
         this.orders.add(o);
     }
-
 
     public String getEmail() {
         return this.email;

@@ -15,6 +15,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import adress.api.ClientRepository;
 import adress.model.Client;
 
@@ -24,7 +26,7 @@ import java.io.IOException;
 
 @AutoConfigureTestDatabase
 class ClientControllerIT {
-    
+
     @LocalServerPort
     int randomServerPort;
 
@@ -34,45 +36,44 @@ class ClientControllerIT {
     @Autowired
     private ClientRepository clientRepository;
 
-
     @BeforeEach
-    public void resetBeforeDb(){
+    public void resetBeforeDb() {
         clientRepository.deleteAll();
     }
 
     @AfterEach
-    public void resetAfterDb(){
+    public void resetAfterDb() {
         clientRepository.deleteAll();
     }
 
     @Test
-    void whenValidInput_thenCreateClient(){
-        Client manuel = new Client( "Manuel",  "1-1-2021", "123", "manuel", 1, 1, "Aveiro", "manuel@gmail.com");
+    void whenValidInput_thenCreateClient() throws UnirestException {
+        Client manuel = new Client("Manuel", "1-1-2021", "123", "manuel", 1, 1, "Aveiro", "manuel@gmail.com");
         restTemplate.postForEntity("/api/v1/clients", manuel, Client.class);
 
         System.out.println(clientRepository.findAll());
         List<Client> clientsFound = clientRepository.findAll();
-        assertThat( clientsFound).hasSize(1);
+        assertThat(clientsFound).hasSize(1);
     }
 
     @Test
-    public void whenInvalidInput_thenNotCreateClient(){
-        Client manuel = new Client( "Manuel",  "1-1-2021", "123", "manuel", 0, 1, "Aveiro", "manuel@gmail.com");
-        
+    public void whenInvalidInput_thenNotCreateClient() throws UnirestException {
+        Client manuel = new Client("Manuel", "1-1-2021", "123", "manuel", 0, 1, "Aveiro", "manuel@gmail.com");
+
         ResponseEntity<Client> entity = restTemplate.postForEntity("/api/v1/clients", manuel, Client.class);
         System.out.println(entity);
-        assertThat( entity.getStatusCode() ).isEqualTo(org.springframework.http.HttpStatus.BAD_REQUEST);
+        assertThat(entity.getStatusCode()).isEqualTo(org.springframework.http.HttpStatus.BAD_REQUEST);
     }
 
     @Test
-    void whenPostClientWithRepeatedEmail_thenClienNotCreated() throws IOException, Exception{
-        Client manuel = new Client( "Manuel",  "1-1-2021", "123", "manuel", 1, 1, "Aveiro", "manuel@gmail.com");
-        Client manuel2 = new Client( "Manuel Gaspar",  "1-1-2021", "123", "manuel", 0, 1, "Aveiro", "manuel@gmail.com");
+    void whenPostClientWithRepeatedEmail_thenClienNotCreated() throws IOException, Exception {
+        Client manuel = new Client("Manuel", "1-1-2021", "123", "manuel", 1, 1, "Aveiro", "manuel@gmail.com");
+        Client manuel2 = new Client("Manuel Gaspar", "1-1-2021", "123", "manuel", 0, 1, "Aveiro", "manuel@gmail.com");
 
         clientRepository.save(manuel);
 
         ResponseEntity<Client> entity = restTemplate.postForEntity("/api/v1/clients", manuel2, Client.class);
-        
+
         assertThat(entity.getStatusCode()).isEqualTo(org.springframework.http.HttpStatus.BAD_REQUEST);
     }
 }

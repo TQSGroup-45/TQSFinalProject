@@ -1,0 +1,16 @@
+adress\model\Client.class
+adress\App.class
+adress\service\ClientService.class
+adress\dto\OrderDTO.class
+adress\model\Gender.class
+adress\model\Order.class
+adress\model\Location.class
+adress\api\ClientRepository.class
+adress\api\CityDeliveryAPI.class
+adress\api\OrderRepository.class
+adress\controller\ClientController.class
+adress\dto\ClientDTO.class
+adress\api\ProductRepository.class
+adress\controller\ProductsController.class
+adress\model\Product.class
+adress\service\ProductsService.class
