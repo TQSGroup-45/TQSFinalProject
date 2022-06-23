@@ -1,6 +1,7 @@
 package com.citydelivery.backend.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "location")
@@ -50,5 +51,18 @@ public class Location {
         return Math.sqrt(
                 Math.pow(latitude - otherLocation.getLatitude(), 2)
                         + Math.pow(longitude - otherLocation.getLongitude(), 2));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Location that = (Location) o;
+        return latitude.equals(that.latitude) && longitude.equals(that.longitude);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(latitude, longitude);
     }
 }
