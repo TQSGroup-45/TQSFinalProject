@@ -1,6 +1,7 @@
 package com.citydelivery.backend.service;
 
 import com.citydelivery.backend.dto.DeliveryDTO;
+import com.citydelivery.backend.dto.LocationDTO;
 import com.citydelivery.backend.mapper.DeliveryMapper;
 import com.citydelivery.backend.model.Courier;
 import com.citydelivery.backend.model.Delivery;
@@ -24,6 +25,7 @@ import java.util.Collections;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.lenient;
 
 @ExtendWith(MockitoExtension.class)
 class DeliveryServiceTest {
@@ -35,6 +37,8 @@ class DeliveryServiceTest {
     private DeliveryService deliveryService;
 
     private Delivery assignedDelivery;
+
+    private DeliveryDTO assignedDeliveryDTO;
     private Delivery unassignedDelivery;
     private Courier john;
 
@@ -61,26 +65,29 @@ class DeliveryServiceTest {
         assignedDelivery.setDropOff(dropOff);
         assignedDelivery.setCourier(john);
 
+        assignedDeliveryDTO = DeliveryMapper.INSTANCE.toDeliveryDTO(assignedDelivery);
+
+
         unassignedDelivery = new Delivery();
         unassignedDelivery.setId(2L);
         unassignedDelivery.setPickup(pickUp);
         unassignedDelivery.setDropOff(dropOff);
 
-        Mockito.when(deliveryRepository.getById(1L)).thenReturn(assignedDelivery);
+        lenient().when(deliveryRepository.getById(1L)).thenReturn(assignedDelivery);
 
-        Mockito.when(deliveryRepository.getDeliveriesBy(any(PageRequest.class)))
+        lenient().when(deliveryRepository.getDeliveriesBy(any(PageRequest.class)))
                 .thenReturn(new PageImpl<>(Arrays.asList(assignedDelivery, unassignedDelivery)));
 
-        Mockito.when(deliveryRepository.getAllByCourierIsNull(any(PageRequest.class)))
+        lenient().when(deliveryRepository.getAllByCourierIsNull(any(PageRequest.class)))
                 .thenReturn(new PageImpl<>(Collections.singletonList(unassignedDelivery)));
 
-        Mockito.when(deliveryRepository.getAllByCourierIsNotNull(any(PageRequest.class)))
+        lenient().when(deliveryRepository.getAllByCourierIsNotNull(any(PageRequest.class)))
                 .thenReturn(new PageImpl<>(Collections.singletonList(assignedDelivery)));
 
-        Mockito.when(deliveryRepository.getAllByCourier(eq(john), any(PageRequest.class)))
+        lenient().when(deliveryRepository.getAllByCourier(eq(john), any(PageRequest.class)))
                 .thenReturn(new PageImpl<>(Collections.singletonList(assignedDelivery)));
 
-        Mockito.when(deliveryRepository.save(any())).thenReturn(new Delivery());
+        lenient().when(deliveryRepository.save(assignedDelivery)).thenReturn(assignedDelivery);
     }
 
     @Test
@@ -144,7 +151,14 @@ class DeliveryServiceTest {
 
         DeliveryDTO expected = DeliveryMapper.INSTANCE.toDeliveryDTO(assignedDelivery);
 
-        assertThat(saved).isEqualTo(expected);
+        assertThat(saved).extracting(DeliveryDTO::getDropOff).extracting(LocationDTO::getLatitude)
+                .isEqualTo(expected.getDropOff().getLatitude());
+        assertThat(saved).extracting(DeliveryDTO::getDropOff).extracting(LocationDTO::getLongitude)
+                .isEqualTo(expected.getDropOff().getLongitude());
+        assertThat(saved).extracting(DeliveryDTO::getPickup).extracting(LocationDTO::getLatitude)
+                .isEqualTo(expected.getPickup().getLatitude());
+        assertThat(saved).extracting(DeliveryDTO::getPickup).extracting(LocationDTO::getLongitude)
+                .isEqualTo(expected.getPickup().getLongitude());
 
         Mockito.verify(deliveryRepository, Mockito.times(1)).save(assignedDelivery);
     }
